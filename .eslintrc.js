@@ -4,4 +4,9 @@ module.exports = {
   rules: {
     'prettier/prettier': 0,
   },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
 };

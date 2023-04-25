@@ -1,13 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, FlatList, Image, TouchableOpacity} from 'react-native';
+import {View, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Heading from '../../components/atom/Heading';
 import styles from './Home.style';
 import Avatar from '../../components/atom/Avatar';
 import {ProfileImage} from '../../../public/images';
-import {SIZES} from '../../constants/theme';
-import {trendingMusic} from '../../constants';
+import {COLORS, SIZES} from '../../constants/theme';
+import {popularArtists, recentlyPlayed, trendingMusic} from '../../constants';
 import {ChevronRight, PlayIcon} from '../../../public/icons';
+import Figure from '../../components/atom/Figure';
+import Icon from '../../components/atom/Icon';
 
 const Home = () => {
   const [getTime, setGetTime] = useState('');
@@ -26,7 +28,7 @@ const Home = () => {
   }, [getTime]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <View>
           <Heading isMuted={false} style={{fontSize: SIZES.lg}}>
@@ -39,6 +41,7 @@ const Home = () => {
         <Avatar style={{width: 60, height: 60}}>{ProfileImage}</Avatar>
       </View>
 
+      {/* trending music */}
       <View>
         <View style={styles.trendingHeader}>
           <Heading
@@ -50,6 +53,7 @@ const Home = () => {
             style={{
               flexDirection: 'row',
               marginTop: 10,
+              alignItems: 'center',
             }}>
             <Heading
               isMuted={true}
@@ -65,22 +69,25 @@ const Home = () => {
         <FlatList
           data={trendingMusic}
           horizontal={true}
-          contentContainerStyle={styles.trendingMusicContainer}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: SIZES.lg}}
           renderItem={({item}) => (
             <View key={item.id}>
               <View style={styles.trendingMusicImageContainer}>
-                <Image
-                  source={item.image}
-                  alt={item.title}
-                  style={{height: '100%', width: '100%', resizeMode: 'cover'}}
-                />
+                <Figure alt={item.title}>{item.image}</Figure>
               </View>
               <View style={styles.trendingMusicDescriptionContainer}>
                 <View style={{flex: 1}}>
                   <Heading
                     isMuted={false}
-                    style={{fontSize: SIZES.base, fontWeight: 'bold'}}>
-                    {item.title}
+                    style={{
+                      fontSize: SIZES.base,
+                      fontWeight: 'bold',
+                      marginBottom: 5,
+                    }}>
+                    {item.title.length > 15
+                      ? item.title.substring(0, 15) + '...'
+                      : item.title}
                   </Heading>
                   <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
                     {item.performedBy.length > 20
@@ -93,9 +100,14 @@ const Home = () => {
                     display: 'flex',
                     alignItems: 'flex-end',
                   }}>
-                  <TouchableOpacity style={styles.playIcon}>
+                  <Icon
+                    style={{
+                      height: 45,
+                      width: 45,
+                      backgroundColor: COLORS.white,
+                    }}>
                     <PlayIcon />
-                  </TouchableOpacity>
+                  </Icon>
                 </View>
               </View>
             </View>
@@ -103,17 +115,19 @@ const Home = () => {
         />
       </View>
 
+      {/* popular artist */}
       <View>
-        <View style={styles.recentlyPlayedHeader}>
+        <View style={styles.popularArtistHeader}>
           <Heading
             isMuted={false}
             style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
-            Recently played
+            Popular artists
           </Heading>
           <TouchableOpacity
             style={{
               flexDirection: 'row',
               marginTop: 10,
+              alignItems: 'center',
             }}>
             <Heading
               isMuted={true}
@@ -125,8 +139,92 @@ const Home = () => {
             <ChevronRight />
           </TouchableOpacity>
         </View>
+
+        <FlatList
+          data={popularArtists}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={({item}) => (
+            <TouchableOpacity key={item.id} style={{alignItems: 'center'}}>
+              <View style={styles.popularArtistImageContainer}>
+                <Figure alt={item.name}>{item.image}</Figure>
+              </View>
+
+              <Heading
+                isMuted={true}
+                style={{
+                  fontSize: SIZES.base,
+                  fontWeight: 'bold',
+                  marginTop: 5,
+                }}>
+                {item.name?.length > 11
+                  ? item.name.substring(0, 11) + '...'
+                  : item.name}
+              </Heading>
+            </TouchableOpacity>
+          )}
+        />
       </View>
-    </View>
+
+      {/* recently played */}
+      <View>
+        <View style={styles.recentlyPlayedHeader}>
+          <Heading
+            isMuted={false}
+            style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
+            Recently played
+          </Heading>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              marginTop: 10,
+              alignItems: 'center',
+            }}>
+            <Heading
+              isMuted={true}
+              style={{
+                fontSize: SIZES.sm,
+              }}>
+              View all
+            </Heading>
+            <ChevronRight />
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          data={recentlyPlayed}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={({item}) => (
+            <TouchableOpacity key={item.id}>
+              <View style={styles.recentlyPlayedImageContainer}>
+                <Figure alt={item.title}>{item.image}</Figure>
+              </View>
+              <View style={styles.recentlyPlayedDescriptionContainer}>
+                <Heading
+                  isMuted={false}
+                  style={{
+                    fontSize: SIZES.base,
+                    fontWeight: 'bold',
+                    marginBottom: 5,
+                  }}>
+                  {item.title.length > 15
+                    ? item.title.substring(0, 15) + '...'
+                    : item.title}
+                </Heading>
+                <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
+                  {item.performedBy.length > 20
+                    ? item.performedBy.substring(0, 20) + '...'
+                    : item.performedBy}
+                </Heading>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </ScrollView>
   );
 };
 

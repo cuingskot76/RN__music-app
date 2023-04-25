@@ -19,12 +19,6 @@ const styles = StyleSheet.create({
     marginTop: SIZES.xl,
     marginBottom: SIZES.lg,
   },
-  trendingMusicContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: SIZES.lg,
-  },
   trendingMusicImageContainer: {
     height: 200,
     width: 250,
@@ -46,14 +40,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  playIcon: {
-    width: 45,
-    height: 45,
-    borderRadius: 50,
-    backgroundColor: COLORS.white,
-    display: 'flex',
-    justifyContent: 'center',
+  popularArtistHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: SIZES.xl,
+    marginBottom: SIZES.lg,
+  },
+  popularArtistImageContainer: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    overflow: 'hidden',
   },
   recentlyPlayedHeader: {
     flexDirection: 'row',
@@ -61,6 +59,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: SIZES.xl,
     marginBottom: SIZES.lg,
+  },
+  recentlyPlayedImageContainer: {
+    height: 150,
+    width: 150,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  recentlyPlayedDescriptionContainer: {
+    marginTop: SIZES.sm,
   },
 });
 

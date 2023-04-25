@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 50,
     overflow: 'hidden',
-    alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
 });
 

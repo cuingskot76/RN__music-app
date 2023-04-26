@@ -69,6 +69,33 @@ const styles = StyleSheet.create({
   recentlyPlayedDescriptionContainer: {
     marginTop: SIZES.sm,
   },
+  allMusicHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: SIZES.xl,
+    marginBottom: SIZES.lg,
+  },
+  allMusicContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  allMusicImageContainer: {
+    height: 80,
+    width: 80,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  allMusicDescriptionContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: SIZES.sm,
+    marginLeft: SIZES.sm,
+  },
 });
 
 export default styles;

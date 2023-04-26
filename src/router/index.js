@@ -16,11 +16,6 @@ const BottomNavigator = () => {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
         name="Discover"
         component={Discover}
         options={{headerShown: false}}
@@ -28,6 +23,11 @@ const BottomNavigator = () => {
       <Tab.Screen
         name="Favorite"
         component={Favorite}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
         options={{headerShown: false}}
       />
     </Tab.Navigator>

@@ -6,7 +6,12 @@ import styles from './Home.style';
 import Avatar from '../../components/atom/Avatar';
 import {ProfileImage} from '../../../public/images';
 import {COLORS, SIZES} from '../../constants/theme';
-import {popularArtists, recentlyPlayed, trendingMusic} from '../../constants';
+import {
+  allMusic,
+  popularArtists,
+  recentlyPlayed,
+  trendingMusic,
+} from '../../constants';
 import {ChevronRight, PlayIcon} from '../../../public/icons';
 import Figure from '../../components/atom/Figure';
 import Icon from '../../components/atom/Icon';
@@ -155,7 +160,7 @@ const Home = () => {
                 isMuted={true}
                 style={{
                   fontSize: SIZES.base,
-                  fontWeight: 'bold',
+                  fontWeight: '600',
                   marginTop: 5,
                 }}>
                 {item.name?.length > 11
@@ -219,6 +224,78 @@ const Home = () => {
                     ? item.performedBy.substring(0, 20) + '...'
                     : item.performedBy}
                 </Heading>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+
+      {/* all mucis */}
+      <View>
+        <View style={styles.allMusicHeader}>
+          <Heading
+            isMuted={false}
+            style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
+            All music
+          </Heading>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              marginTop: 10,
+              alignItems: 'center',
+            }}>
+            <Heading
+              isMuted={true}
+              style={{
+                fontSize: SIZES.sm,
+              }}>
+              View all
+            </Heading>
+            <ChevronRight />
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          scrollEnabled={false}
+          data={allMusic}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={({item}) => (
+            <TouchableOpacity key={item.id}>
+              <View style={styles.allMusicContainer}>
+                <View style={styles.allMusicImageContainer}>
+                  <Figure alt={item.title}>{item.image}</Figure>
+                </View>
+
+                <View style={styles.allMusicDescriptionContainer}>
+                  <View>
+                    <Heading
+                      isMuted={false}
+                      style={{
+                        fontSize: SIZES.base,
+                        fontWeight: 'bold',
+                        marginBottom: 5,
+                      }}>
+                      {item.title.length > 15
+                        ? item.title.substring(0, 15) + '...'
+                        : item.title}
+                    </Heading>
+                    <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
+                      {item.performedBy.length > 25
+                        ? item.performedBy.substring(0, 25) + '...'
+                        : item.performedBy}
+                    </Heading>
+                  </View>
+                  <View>
+                    <Icon
+                      style={{
+                        height: 30,
+                        width: 30,
+                        backgroundColor: COLORS.white,
+                      }}>
+                      <PlayIcon />
+                    </Icon>
+                  </View>
+                </View>
               </View>
             </TouchableOpacity>
           )}

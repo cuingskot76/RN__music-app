@@ -115,3 +115,40 @@ export const recentlyPlayed = [
     image: RecentlyMusicBanner5,
   },
 ];
+
+export const allMusic = [
+  {
+    id: 1,
+    title: 'Psycho',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner4,
+    playIcon: PlayIcon,
+  },
+  {
+    id: 2,
+    title: 'Milkshake',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner5,
+    playIcon: PlayIcon,
+  },
+  {
+    id: 3,
+    title: 'Not You',
+    performedBy: 'Alan Walker, Emma Steinbakken',
+    image: TrendingMusicBanner,
+    playIcon: PlayIcon,
+  },
+  {
+    id: 4,
+    title: 'Alone, Pt. II',
+    performedBy: 'Alan Walker, Ava Max',
+    image: TrendingMusicBanner4,
+    playIcon: PlayIcon,
+  },
+  {
+    id: 5,
+    title: 'What is Love',
+    performedBy: 'TWICE',
+    image: RecentlyMusicBanner,
+  },
+];

@@ -152,3 +152,131 @@ export const allMusic = [
     image: RecentlyMusicBanner,
   },
 ];
+
+export const genresMusic = [
+  {
+    id: 1,
+    title: 'Pop',
+  },
+  {
+    id: 2,
+    title: 'Rock',
+  },
+  {
+    id: 3,
+    title: 'Jazz',
+  },
+  {
+    id: 4,
+    title: 'Hip Hop',
+  },
+  {
+    id: 5,
+    title: 'R&B',
+  },
+  {
+    id: 6,
+    title: 'Country',
+  },
+  {
+    id: 7,
+    title: 'Electronic',
+  },
+];
+
+export const vibesMusic = [
+  {
+    id: 1,
+    title: 'Happy',
+  },
+  {
+    id: 2,
+    title: 'Sad',
+  },
+  {
+    id: 3,
+    title: 'Chill',
+  },
+  {
+    id: 4,
+    title: 'Party',
+  },
+  {
+    id: 5,
+    title: 'Romantic',
+  },
+  {
+    id: 6,
+    title: 'Workout',
+  },
+  {
+    id: 7,
+    title: 'Focus',
+  },
+];
+
+export const recentlySearchMusic = [
+  {
+    id: 1,
+    title: 'Psycho',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner4,
+  },
+  {
+    id: 2,
+    title: 'Milkshake',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner5,
+  },
+  {
+    id: 3,
+    title: 'Not You',
+    performedBy: 'Alan Walker, Emma Steinbakken',
+    image: TrendingMusicBanner,
+  },
+  {
+    id: 4,
+    title: 'Alone, Pt. II',
+    performedBy: 'Alan Walker, Ava Max',
+    image: TrendingMusicBanner4,
+  },
+  {
+    id: 5,
+    title: 'What is Love',
+    performedBy: 'TWICE',
+    image: RecentlyMusicBanner,
+  },
+];
+
+export const favoriteMusic = [
+  {
+    id: 1,
+    title: 'Psycho',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner4,
+  },
+  {
+    id: 2,
+    title: 'Milkshake',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner5,
+  },
+  {
+    id: 3,
+    title: 'Not You',
+    performedBy: 'Alan Walker, Emma Steinbakken',
+    image: TrendingMusicBanner,
+  },
+  {
+    id: 4,
+    title: 'Alone, Pt. II',
+    performedBy: 'Alan Walker, Ava Max',
+    image: TrendingMusicBanner4,
+  },
+  {
+    id: 5,
+    title: 'What is Love',
+    performedBy: 'TWICE',
+    image: RecentlyMusicBanner,
+  },
+];

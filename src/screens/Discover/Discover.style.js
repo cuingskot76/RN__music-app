@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     paddingBottom: SIZES.xxl,
   },
   searchContainer: {
-    // backgroundColor: 'salmon',
     alignItems: 'center',
     flexDirection: 'row',
     marginTop: SIZES.lg,

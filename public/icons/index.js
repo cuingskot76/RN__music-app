@@ -1,26 +1,34 @@
 import PlayIcon from './play.svg';
 import ChevronRight from './chevron-right.svg';
 import CloseIcon from './close.svg';
+import VibesIcon from './vibes.svg';
+import ClockIcon from './clock.svg';
 
 import HomeIcon from './home.svg';
 import HomeIconActive from './homeActive.svg';
 import SearchIcon from './search.svg';
 import SearchIconActive from './searchActive.svg';
-import PlayListIcon from './playlist.svg';
-import PlayListIconActive from './playlistActive.svg';
+import FavoriteIcon from './favorite.svg';
+import FavoriteActive from './favoriteActive.svg';
 import ProfileIcon from './profile.svg';
 import ProfileIconActive from './profileActive.svg';
+import MusicIcon from './music.svg';
+import MusicIconActive from './musicActive.svg';
 
 export {
   PlayIcon,
   ChevronRight,
   CloseIcon,
+  MusicIcon,
   SearchIcon,
+  ClockIcon,
+  VibesIcon,
   SearchIconActive,
   HomeIcon,
   HomeIconActive,
-  PlayListIcon,
-  PlayListIconActive,
+  FavoriteIcon,
+  FavoriteActive,
   ProfileIcon,
   ProfileIconActive,
+  MusicIconActive,
 };

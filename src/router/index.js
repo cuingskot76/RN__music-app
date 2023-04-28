@@ -6,7 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Profile from '../screens/Profile/Profile';
 import Discover from '../screens/Discover/Discover';
 import ButtonTab from '../components/ButtonTab';
-import Playlist from '../screens/Playlist/Playlist';
+import Favorite from '../screens/Favorite/Favorite';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,8 +25,8 @@ const BottomNavigator = () => {
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="Playlist"
-        component={Playlist}
+        name="Favorite"
+        component={Favorite}
         options={{headerShown: false}}
       />
       <Tab.Screen

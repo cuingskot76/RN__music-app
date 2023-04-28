@@ -8,11 +8,12 @@ interface IconProps {
     height: number;
     backgroundColor: string;
   };
+  handlePress?: () => void;
 }
 
-const Icon = ({children, style}: IconProps) => {
+const Icon = ({children, style, handlePress}: IconProps) => {
   return (
-    <TouchableOpacity style={[styles.container, style]}>
+    <TouchableOpacity style={[styles.container, style]} onPress={handlePress}>
       {children}
     </TouchableOpacity>
   );

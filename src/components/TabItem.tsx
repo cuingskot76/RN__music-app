@@ -5,10 +5,10 @@ import {
   SearchIconActive,
   HomeIcon,
   HomeIconActive,
-  PlayListIcon,
-  PlayListIconActive,
   ProfileIcon,
   ProfileIconActive,
+  FavoriteActive,
+  FavoriteIcon,
 } from '../../public/icons';
 import {COLORS} from '../constants/theme';
 
@@ -27,8 +27,8 @@ const Search = ({isFocused}: {isFocused: boolean}) => {
   return isFocused ? <SearchIconActive /> : <SearchIcon />;
 };
 
-const Playlist = ({isFocused}: {isFocused: boolean}) => {
-  return isFocused ? <PlayListIconActive /> : <PlayListIcon />;
+const Favorite = ({isFocused}: {isFocused: boolean}) => {
+  return isFocused ? <FavoriteActive /> : <FavoriteIcon />;
 };
 
 const Profile = ({isFocused}: {isFocused: boolean}) => {
@@ -41,8 +41,8 @@ const getIcon = (label: string, isFocused: boolean) => {
       return <Home isFocused={isFocused} />;
     case 'Discover':
       return <Search isFocused={isFocused} />;
-    case 'Playlist':
-      return <Playlist isFocused={isFocused} />;
+    case 'Favorite':
+      return <Favorite isFocused={isFocused} />;
     case 'Profile':
       return <Profile isFocused={isFocused} />;
     default:

@@ -1,11 +1,122 @@
-import {View, Text} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {View, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import React from 'react';
+import Heading from '../../components/atom/Heading';
+import {favoriteMusic} from '../../constants';
+import {COLORS, SIZES} from '../../constants/theme';
+import Figure from '../../components/atom/Figure';
 
 const Favorite = () => {
   return (
-    <View>
-      <Text>Favorite</Text>
-    </View>
+    <ScrollView
+      style={{
+        backgroundColor: COLORS.dark,
+        paddingHorizontal: SIZES.lg,
+        paddingTop: SIZES.lg,
+        paddingBottom: SIZES.xxl,
+      }}>
+      <Heading
+        isMuted={false}
+        style={{
+          fontSize: SIZES.xl,
+          fontWeight: 'bold',
+        }}>
+        Favorite
+      </Heading>
+
+      <View>
+        <FlatList
+          data={favoriteMusic}
+          scrollEnabled={false}
+          contentContainerStyle={{
+            marginTop: 50,
+          }}
+          numColumns={2}
+          renderItem={({item, index}) => {
+            if (index === 0 || index === 1) {
+              return (
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    flex: 1,
+                  }}>
+                  <View
+                    style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 10,
+                      overflow: 'hidden',
+                    }}>
+                    <Figure alt={item.title}>{item.image}</Figure>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: SIZES.sm,
+                    }}>
+                    <Heading
+                      isMuted={false}
+                      style={{
+                        fontSize: SIZES.base,
+                        fontWeight: 'bold',
+                        marginBottom: 5,
+                      }}>
+                      {item.title.length > 15
+                        ? item.title.substring(0, 15) + '...'
+                        : item.title}
+                    </Heading>
+                    <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
+                      {item.performedBy.length > 20
+                        ? item.performedBy.substring(0, 20) + '...'
+                        : item.performedBy}
+                    </Heading>
+                  </View>
+                </TouchableOpacity>
+              );
+            } else {
+              return (
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    flex: 1,
+                    marginTop: SIZES.lg,
+                  }}>
+                  <View
+                    style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 10,
+                      overflow: 'hidden',
+                    }}>
+                    <Figure alt={item.title}>{item.image}</Figure>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: SIZES.sm,
+                    }}>
+                    <Heading
+                      isMuted={false}
+                      style={{
+                        fontSize: SIZES.base,
+                        fontWeight: 'bold',
+                        marginBottom: 5,
+                      }}>
+                      {item.title.length > 15
+                        ? item.title.substring(0, 15) + '...'
+                        : item.title}
+                    </Heading>
+                    <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
+                      {item.performedBy.length > 20
+                        ? item.performedBy.substring(0, 20) + '...'
+                        : item.performedBy}
+                    </Heading>
+                  </View>
+                </TouchableOpacity>
+              );
+            }
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 };
 

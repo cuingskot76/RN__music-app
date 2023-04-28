@@ -279,4 +279,28 @@ export const favoriteMusic = [
     performedBy: 'TWICE',
     image: RecentlyMusicBanner,
   },
+  {
+    id: 1,
+    title: 'Psycho',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner4,
+  },
+  {
+    id: 2,
+    title: 'Milkshake',
+    performedBy: 'Red Velvet',
+    image: ArtistMusicBanner5,
+  },
+  {
+    id: 3,
+    title: 'Not You',
+    performedBy: 'Alan Walker, Emma Steinbakken',
+    image: TrendingMusicBanner,
+  },
+  {
+    id: 4,
+    title: 'Alone, Pt. II',
+    performedBy: 'Alan Walker, Ava Max',
+    image: TrendingMusicBanner4,
+  },
 ];

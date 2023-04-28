@@ -16,7 +16,7 @@ import {ChevronRight, PlayIcon} from '../../../public/icons';
 import Figure from '../../components/atom/Figure';
 import Icon from '../../components/atom/Icon';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
 
   useEffect(() => {
@@ -35,15 +35,17 @@ const Home = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <View>
-          <Heading isMuted={false} style={{fontSize: SIZES.lg}}>
+        <Avatar style={{width: 60, height: 60}}>{ProfileImage}</Avatar>
+        <View style={styles.headerUserInfo}>
+          <Heading
+            isMuted={false}
+            style={{fontSize: SIZES.lg, fontWeight: '600'}}>
             Hi, Afrizal Setya
           </Heading>
-          <Heading isMuted={false} style={{fontSize: SIZES.lg}}>
+          <Heading isMuted={true} style={{fontSize: SIZES.base, marginTop: 3}}>
             {getTime}
           </Heading>
         </View>
-        <Avatar style={{width: 60, height: 60}}>{ProfileImage}</Avatar>
       </View>
 
       {/* trending music */}
@@ -101,6 +103,7 @@ const Home = () => {
                   </Heading>
                 </View>
                 <View
+                  onPress={() => navigation.navigate('Player')}
                   style={{
                     display: 'flex',
                     alignItems: 'flex-end',

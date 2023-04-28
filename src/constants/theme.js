@@ -2,6 +2,9 @@ const COLORS = {
   white: '#fcfcff',
   darkWhite: '#c4c4c4',
   dark: '#2d2e37',
+  darkGray: '#3b3c4f',
+
+  darkBlur: 'rgba(53,54,76, 0.9)',
 };
 
 const SIZES = {

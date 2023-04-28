@@ -1,4 +1,3 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Splash from '../components/Splash';
@@ -6,14 +5,19 @@ import Home from '../screens/Home/Home';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Profile from '../screens/Profile/Profile';
 import Discover from '../screens/Discover/Discover';
-import Favorite from '../screens/Favorite/Favorite';
+import ButtonTab from '../components/ButtonTab';
+import Playlist from '../screens/Playlist/Playlist';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const BottomTabBar = item => {
+  return <ButtonTab {...item} />;
+};
+
 const BottomNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator tabBar={props => BottomTabBar(props)}>
       <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
       <Tab.Screen
         name="Discover"
@@ -21,8 +25,8 @@ const BottomNavigator = () => {
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="Favorite"
-        component={Favorite}
+        name="Playlist"
+        component={Playlist}
         options={{headerShown: false}}
       />
       <Tab.Screen

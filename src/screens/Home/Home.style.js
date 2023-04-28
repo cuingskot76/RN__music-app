@@ -6,11 +6,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.dark,
     paddingHorizontal: SIZES.lg,
+    paddingTop: SIZES.lg,
+    paddingBottom: SIZES.xxl,
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  headerUserInfo: {
+    marginLeft: SIZES.lg,
   },
   trendingHeader: {
     flexDirection: 'row',

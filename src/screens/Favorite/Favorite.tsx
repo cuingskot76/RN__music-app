@@ -11,8 +11,9 @@ const Favorite = () => {
     <ScrollView
       style={{
         backgroundColor: COLORS.dark,
+        // backgroundColor: 'salmon',
         paddingHorizontal: SIZES.lg,
-        paddingTop: SIZES.lg,
+        paddingTop: SIZES.xxl,
         paddingBottom: SIZES.xxl,
       }}>
       <Heading
@@ -20,8 +21,9 @@ const Favorite = () => {
         style={{
           fontSize: SIZES.xl,
           fontWeight: 'bold',
+          paddingHorizontal: SIZES.lg,
         }}>
-        Favorite
+        Favorites
       </Heading>
 
       <View>
@@ -29,7 +31,7 @@ const Favorite = () => {
           data={favoriteMusic}
           scrollEnabled={false}
           contentContainerStyle={{
-            marginTop: 50,
+            marginTop: SIZES.lg,
           }}
           numColumns={2}
           renderItem={({item, index}) => {
@@ -39,6 +41,8 @@ const Favorite = () => {
                   style={{
                     display: 'flex',
                     flex: 1,
+                    alignContent: 'center',
+                    paddingHorizontal: SIZES.lg,
                   }}>
                   <View
                     style={{
@@ -79,6 +83,7 @@ const Favorite = () => {
                     display: 'flex',
                     flex: 1,
                     marginTop: SIZES.lg,
+                    alignItems: 'center',
                   }}>
                   <View
                     style={{

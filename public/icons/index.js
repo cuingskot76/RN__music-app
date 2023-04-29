@@ -1,5 +1,6 @@
 import PlayIcon from './play.svg';
 import ChevronRight from './chevron-right.svg';
+import ChevronLeft from './chevron-left.svg';
 import CloseIcon from './close.svg';
 import VibesIcon from './vibes.svg';
 import ClockIcon from './clock.svg';
@@ -18,6 +19,7 @@ import MusicIconActive from './musicActive.svg';
 export {
   PlayIcon,
   ChevronRight,
+  ChevronLeft,
   CloseIcon,
   MusicIcon,
   SearchIcon,

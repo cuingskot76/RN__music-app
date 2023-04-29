@@ -103,7 +103,6 @@ const Home = ({navigation}: any) => {
                   </Heading>
                 </View>
                 <View
-                  onPress={() => navigation.navigate('Player')}
                   style={{
                     display: 'flex',
                     alignItems: 'flex-end',
@@ -206,7 +205,11 @@ const Home = ({navigation}: any) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{gap: SIZES.lg}}
           renderItem={({item}) => (
-            <TouchableOpacity key={item.id}>
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => {
+                navigation.navigate('DetailPlayer', {...item});
+              }}>
               <View style={styles.recentlyPlayedImageContainer}>
                 <Figure alt={item.title}>{item.image}</Figure>
               </View>

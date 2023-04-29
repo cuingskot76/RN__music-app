@@ -3,10 +3,10 @@ import React from 'react';
 
 interface IconProps {
   children: any;
-  style: {
-    width: number;
-    height: number;
-    backgroundColor: string;
+  style?: {
+    width?: number;
+    height?: number;
+    backgroundColor?: string;
   };
   handlePress?: () => void;
 }

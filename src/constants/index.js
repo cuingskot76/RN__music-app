@@ -1,3 +1,10 @@
+import {
+  IcanStopAudio,
+  SunriseAudio,
+  TalkThatAudio,
+  TheFeelsAudio,
+  WhatIsAudio,
+} from '../../public/audios';
 import {PlayIcon} from '../../public/icons';
 import {
   ArtistMusicBanner,
@@ -89,30 +96,35 @@ export const recentlyPlayed = [
     title: 'What is Love',
     performedBy: 'TWICE',
     image: RecentlyMusicBanner,
+    audio: WhatIsAudio,
   },
   {
     id: 2,
     title: 'MOONLIGHT SUNRISE',
     performedBy: 'TWICE',
     image: RecentlyMusicBanner2,
+    audio: SunriseAudio,
   },
   {
     id: 3,
     title: "I CAN'T STOP ME",
     performedBy: 'TWICE',
     image: RecentlyMusicBanner3,
+    audio: IcanStopAudio,
   },
   {
     id: 4,
     title: 'Talk that Talk',
     performedBy: 'TWICE',
     image: RecentlyMusicBanner4,
+    audio: TalkThatAudio,
   },
   {
     id: 5,
     title: 'The Feels',
     performedBy: 'TWICE',
     image: RecentlyMusicBanner5,
+    audio: TheFeelsAudio,
   },
 ];
 

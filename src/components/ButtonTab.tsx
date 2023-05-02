@@ -3,15 +3,8 @@ import {StyleSheet, View} from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import TabItem from './TabItem';
 import {COLORS} from '../constants/theme';
-// import {COLORS} from '../constants/theme';
 
 const ButtonTab = ({state, descriptors, navigation}: BottomTabBarProps) => {
-  // const focusedOptions = descriptors[state.routes[state.index].key].options;
-
-  // if (focusedOptions.tabBarVisible === false) {
-  //   return null
-  // }
-
   return (
     <View style={styles.container}>
       {state.routes.map((route, index) => {

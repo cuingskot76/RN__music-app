@@ -1,15 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {
-  SearchIcon,
-  SearchIconActive,
-  HomeIcon,
-  HomeIconActive,
-  ProfileIcon,
-  ProfileIconActive,
-  FavoriteActive,
-  FavoriteIcon,
-} from '../../public/icons';
 import {COLORS} from '../constants/theme';
 
 interface TabItemProps {
@@ -19,20 +9,38 @@ interface TabItemProps {
   label: any;
 }
 
+import Icon from 'react-native-vector-icons/AntDesign';
+
 const Home = ({isFocused}: {isFocused: boolean}) => {
-  return isFocused ? <HomeIconActive /> : <HomeIcon />;
+  return isFocused ? (
+    <Icon name="home" size={25} color={'#c4c4c4'} />
+  ) : (
+    <Icon name="home" size={25} color={'#828388'} />
+  );
 };
 
 const Search = ({isFocused}: {isFocused: boolean}) => {
-  return isFocused ? <SearchIconActive /> : <SearchIcon />;
+  return isFocused ? (
+    <Icon name="search1" size={25} color={'#c4c4c4'} />
+  ) : (
+    <Icon name="search1" size={25} color={'#828388'} />
+  );
 };
 
 const Favorite = ({isFocused}: {isFocused: boolean}) => {
-  return isFocused ? <FavoriteActive /> : <FavoriteIcon />;
+  return isFocused ? (
+    <Icon name="hearto" size={25} color={'#c4c4c4'} />
+  ) : (
+    <Icon name="hearto" size={25} color={'#828388'} />
+  );
 };
 
 const Profile = ({isFocused}: {isFocused: boolean}) => {
-  return isFocused ? <ProfileIconActive /> : <ProfileIcon />;
+  return isFocused ? (
+    <Icon name="user" size={25} color={'#c4c4c4'} />
+  ) : (
+    <Icon name="user" size={25} color={'#828388'} />
+  );
 };
 
 const getIcon = (label: string, isFocused: boolean) => {
@@ -73,11 +81,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textFocused: {
-    color: COLORS.white,
+    color: '#c4c4c4',
     fontWeight: 'bold',
   },
   textUnfocused: {
-    color: COLORS.darkWhite,
+    color: '#828388',
     fontWeight: 'normal',
   },
 });

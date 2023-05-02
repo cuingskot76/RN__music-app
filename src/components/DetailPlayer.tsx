@@ -6,12 +6,12 @@ import {
   Text,
   FlatList,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import Heading from './atom/Heading';
 import {COLORS, SIZES} from '../constants/theme';
 import {ChevronLeft, FavoriteIcon} from '../../public/icons';
-import Icon from './atom/Icon';
 import Figure from './atom/Figure';
 import {recentlyPlayed} from '../constants';
 
@@ -25,6 +25,7 @@ import TrackPlayer, {
   useTrackPlayerEvents,
 } from 'react-native-track-player';
 import Slider from '@react-native-community/slider';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const DetailPlayer = ({navigation, route}: any) => {
   const {title, performedBy, image} = route?.params;
@@ -181,17 +182,22 @@ const DetailPlayer = ({navigation, route}: any) => {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <Icon handlePress={() => navigation.goBack()}>
-          <ChevronLeft />
-        </Icon>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrowleft" size={30} color={COLORS.white} />
+        </TouchableOpacity>
         <Heading
           isMuted={false}
           style={{fontSize: SIZES.lg, fontWeight: '600'}}>
           Now Playing
         </Heading>
-        <Icon style={{backgroundColor: COLORS.dark, height: 40, width: 40}}>
+        {/* <Icon
+        // style={{backgroundColor: COLORS.dark, height: 40, width: 40}}
+        >
           <FavoriteIcon />
-        </Icon>
+        </Icon> */}
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="hearto" size={30} color={COLORS.white} />
+        </TouchableOpacity>
       </View>
 
       <View>

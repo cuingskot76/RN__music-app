@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
-import Icon from '../../components/atom/Icon';
+import Icon from 'react-native-vector-icons/AntDesign';
+
 import {
   ChevronRight,
   ClockIcon,
@@ -40,14 +41,9 @@ const Discover = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.searchContainer}>
-        <Icon
-          style={{
-            backgroundColor: 'transparent',
-            height: 50,
-            width: 50,
-          }}>
-          <SearchIcon />
-        </Icon>
+        <TouchableOpacity>
+          <Icon name="search1" size={30} color={COLORS.dark} />
+        </TouchableOpacity>
         <TextInput
           placeholderTextColor={COLORS.darkWhite}
           placeholder="What do you want to listen to?"
@@ -56,14 +52,13 @@ const Discover = () => {
           onChangeText={onHandleChangeInput}
         />
         {isInputChanges && (
-          <Icon
-            handlePress={() => {
+          <TouchableOpacity
+            onPress={() => {
               setHandleChangeInput('');
               setIsInputChanges(false);
-            }}
-            style={{backgroundColor: 'transparent', height: 50, width: 50}}>
-            <CloseIcon />
-          </Icon>
+            }}>
+            <Icon name="closesquareo" size={30} color={COLORS.dark} />
+          </TouchableOpacity>
         )}
       </View>
 

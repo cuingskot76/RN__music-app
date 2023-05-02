@@ -12,9 +12,10 @@ import {
   recentlyPlayed,
   trendingMusic,
 } from '../../constants';
-import {ChevronRight, PlayIcon} from '../../../public/icons';
+import {ChevronRight} from '../../../public/icons';
 import Figure from '../../components/atom/Figure';
-import Icon from '../../components/atom/Icon';
+
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -107,14 +108,10 @@ const Home = ({navigation}: any) => {
                     display: 'flex',
                     alignItems: 'flex-end',
                   }}>
-                  <Icon
-                    style={{
-                      height: 45,
-                      width: 45,
-                      backgroundColor: COLORS.white,
-                    }}>
-                    <PlayIcon />
-                  </Icon>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Player')}>
+                    <Icon name="play" size={45} color={COLORS.white} />
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -292,14 +289,9 @@ const Home = ({navigation}: any) => {
                     </Heading>
                   </View>
                   <View>
-                    <Icon
-                      style={{
-                        height: 30,
-                        width: 30,
-                        backgroundColor: COLORS.white,
-                      }}>
-                      <PlayIcon />
-                    </Icon>
+                    <TouchableOpacity>
+                      <Icon name="play" size={45} color={COLORS.white} />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>

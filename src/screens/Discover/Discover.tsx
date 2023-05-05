@@ -8,16 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Iconicons from 'react-native-vector-icons/Ionicons';
 
-import {
-  ChevronRight,
-  ClockIcon,
-  CloseIcon,
-  MusicIconActive,
-  SearchIcon,
-  VibesIcon,
-} from '../../../public/icons';
 import styles from './Discover.style';
 import {COLORS, SIZES} from '../../constants/theme';
 import Heading from '../../components/atom/Heading';
@@ -42,7 +35,12 @@ const Discover = () => {
     <ScrollView style={styles.container}>
       <View style={styles.searchContainer}>
         <TouchableOpacity>
-          <Icon name="search1" size={30} color={COLORS.dark} />
+          <AntDesign
+            name="search1"
+            size={20}
+            style={{marginRight: 5}}
+            color={COLORS.darkWhite}
+          />
         </TouchableOpacity>
         <TextInput
           placeholderTextColor={COLORS.darkWhite}
@@ -57,7 +55,7 @@ const Discover = () => {
               setHandleChangeInput('');
               setIsInputChanges(false);
             }}>
-            <Icon name="closesquareo" size={30} color={COLORS.dark} />
+            <AntDesign name="close" size={30} color={COLORS.darkWhite} />
           </TouchableOpacity>
         )}
       </View>
@@ -76,7 +74,7 @@ const Discover = () => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <ClockIcon />
+            <AntDesign name="clockcircleo" size={20} color={COLORS.darkWhite} />
             <Heading
               isMuted={false}
               style={{
@@ -148,7 +146,11 @@ const Discover = () => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <MusicIconActive />
+            <Iconicons
+              name="musical-notes-outline"
+              size={20}
+              color={COLORS.darkWhite}
+            />
             <Heading
               isMuted={false}
               style={{
@@ -170,10 +172,11 @@ const Discover = () => {
               isMuted={true}
               style={{
                 fontSize: SIZES.sm,
+                marginRight: 5,
               }}>
               View all
             </Heading>
-            <ChevronRight />
+            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
           </TouchableOpacity>
         </View>
 
@@ -218,7 +221,11 @@ const Discover = () => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <VibesIcon />
+            <Iconicons
+              name="headset-outline"
+              size={20}
+              color={COLORS.darkWhite}
+            />
             <Heading
               isMuted={false}
               style={{
@@ -240,10 +247,11 @@ const Discover = () => {
               isMuted={true}
               style={{
                 fontSize: SIZES.sm,
+                marginRight: 5,
               }}>
               View all
             </Heading>
-            <ChevronRight />
+            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
           </TouchableOpacity>
         </View>
 

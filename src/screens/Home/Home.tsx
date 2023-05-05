@@ -12,10 +12,9 @@ import {
   recentlyPlayed,
   trendingMusic,
 } from '../../constants';
-import {ChevronRight} from '../../../public/icons';
 import Figure from '../../components/atom/Figure';
 
-import Icon from 'react-native-vector-icons/AntDesign';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -67,10 +66,11 @@ const Home = ({navigation}: any) => {
               isMuted={true}
               style={{
                 fontSize: SIZES.sm,
+                marginRight: 5,
               }}>
               View all
             </Heading>
-            <ChevronRight />
+            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
           </TouchableOpacity>
         </View>
 
@@ -110,7 +110,7 @@ const Home = ({navigation}: any) => {
                   }}>
                   <TouchableOpacity
                     onPress={() => navigation.navigate('Player')}>
-                    <Icon name="play" size={45} color={COLORS.white} />
+                    <AntDesign name="play" size={45} color={COLORS.white} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -137,10 +137,11 @@ const Home = ({navigation}: any) => {
               isMuted={true}
               style={{
                 fontSize: SIZES.sm,
+                marginRight: 5,
               }}>
               View all
             </Heading>
-            <ChevronRight />
+            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
           </TouchableOpacity>
         </View>
 
@@ -189,10 +190,11 @@ const Home = ({navigation}: any) => {
               isMuted={true}
               style={{
                 fontSize: SIZES.sm,
+                marginRight: 5,
               }}>
               View all
             </Heading>
-            <ChevronRight />
+            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
           </TouchableOpacity>
         </View>
 
@@ -251,10 +253,11 @@ const Home = ({navigation}: any) => {
               isMuted={true}
               style={{
                 fontSize: SIZES.sm,
+                marginRight: 5,
               }}>
               View all
             </Heading>
-            <ChevronRight />
+            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
           </TouchableOpacity>
         </View>
 
@@ -290,7 +293,7 @@ const Home = ({navigation}: any) => {
                   </View>
                   <View>
                     <TouchableOpacity>
-                      <Icon name="play" size={45} color={COLORS.white} />
+                      <AntDesign name="play" size={45} color={COLORS.white} />
                     </TouchableOpacity>
                   </View>
                 </View>

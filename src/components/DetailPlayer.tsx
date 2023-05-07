@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, ScrollView, Text, TouchableOpacity} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Heading from './atom/Heading';
 import {COLORS, SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
@@ -17,43 +17,53 @@ import TrackPlayer, {
   State,
 } from 'react-native-track-player';
 const DetailPlayer = ({navigation, route}: any) => {
+  const RAPID_API_KEY = '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21';
+  const RAPID_API_HOST = 'shazam-core.p.rapidapi.com';
+
+  const [data, setData] = useState([]);
+
   const {title, performedBy, image} = route?.params;
 
-  // const playbackState = usePlaybackState();
+  const playbackState = usePlaybackState();
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        'https://shazam-core.p.rapidapi.com/v1/charts/world',
+        {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key':
+              '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
+            'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
+          },
+        },
+      );
+      const res = await response.json();
+      setData(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const setUpPlayer = async () => {
     try {
+      // const track = {
+      //   id: 'trackId',
+      //   url: data.map(item => item?.url)[0],
+      // };
       await TrackPlayer.setupPlayer();
-      await TrackPlayer.add({
-        id: '1',
-        url: require('../../public/audios/sunrise.mp3'),
-        title: 'Sunrise',
-        artist: 'Norah Jones',
-      });
+
+      await TrackPlayer.add({url: data?.map(item => item?.url)[0]});
       await TrackPlayer.play();
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const togglePlayback = async playbackState => {
-  //   const currentTrack = await TrackPlayer.getCurrentTrack();
-  //   if (currentTrack == null) {
-  //     await TrackPlayer.reset();
-  //     await TrackPlayer.add(recentlyPlayed);
-  //     await TrackPlayer.play();
-  //   } else {
-  //     if (playbackState === State.Paused) {
-  //       await TrackPlayer.play();
-  //     } else {
-  //       await TrackPlayer.pause();
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   setUpPlayer();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <ScrollView
@@ -104,7 +114,7 @@ const DetailPlayer = ({navigation, route}: any) => {
           <Heading
             isMuted={false}
             style={{fontSize: SIZES.lg, fontWeight: '600'}}>
-            {title}
+            {/* {title} */}
           </Heading>
           <Heading isMuted={true} style={{fontWeight: '600', marginTop: 5}}>
             {performedBy}

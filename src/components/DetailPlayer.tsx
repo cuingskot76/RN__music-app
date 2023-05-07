@@ -10,8 +10,50 @@ import Slider from '@react-native-community/slider';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import TrackPlayer, {
+  usePlaybackState,
+  useProgress,
+  useTrackPlayerEvents,
+  State,
+} from 'react-native-track-player';
 const DetailPlayer = ({navigation, route}: any) => {
   const {title, performedBy, image} = route?.params;
+
+  // const playbackState = usePlaybackState();
+
+  const setUpPlayer = async () => {
+    try {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.add({
+        id: '1',
+        url: require('../../public/audios/sunrise.mp3'),
+        title: 'Sunrise',
+        artist: 'Norah Jones',
+      });
+      await TrackPlayer.play();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const togglePlayback = async playbackState => {
+  //   const currentTrack = await TrackPlayer.getCurrentTrack();
+  //   if (currentTrack == null) {
+  //     await TrackPlayer.reset();
+  //     await TrackPlayer.add(recentlyPlayed);
+  //     await TrackPlayer.play();
+  //   } else {
+  //     if (playbackState === State.Paused) {
+  //       await TrackPlayer.play();
+  //     } else {
+  //       await TrackPlayer.pause();
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   setUpPlayer();
+  // }, []);
 
   return (
     <ScrollView
@@ -120,7 +162,9 @@ const DetailPlayer = ({navigation, route}: any) => {
         <TouchableOpacity>
           <AntDesign name="stepbackward" size={30} color={COLORS.white} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          // onPress={() => togglePlayback(playbackState)}
+          onPress={() => setUpPlayer()}>
           <Ionicons name="play-circle" size={70} color={COLORS.white} />
         </TouchableOpacity>
         <TouchableOpacity>

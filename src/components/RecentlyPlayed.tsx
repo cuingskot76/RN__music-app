@@ -9,7 +9,7 @@ import {recentlyPlayed} from '../constants';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const RecentlyPlayed = ({onNavigation}: any) => {
+const RecentlyPlayed = (navigation: any) => {
   return (
     <View>
       <View style={styles.recentlyPlayedHeader}>
@@ -45,7 +45,7 @@ const RecentlyPlayed = ({onNavigation}: any) => {
           <TouchableOpacity
             key={item.id}
             onPress={() => {
-              onNavigation.navigate('DetailPlayer', {...item});
+              navigation.navigate('DetailPlayer', {...item});
             }}>
             <View style={styles.recentlyPlayedImageContainer}>
               <Figure alt={item.title}>{item.image}</Figure>

@@ -174,7 +174,7 @@ const Home = ({navigation}: any) => {
       </View>
 
       {/* recently played */}
-      <RecentlyPlayed onNavigation={navigation} />
+      <RecentlyPlayed {...navigation} />
 
       {/* all mucis */}
       <View>

@@ -16,54 +16,77 @@ import TrackPlayer, {
   useTrackPlayerEvents,
   State,
 } from 'react-native-track-player';
+import Snackbar from 'react-native-snackbar';
+
 const DetailPlayer = ({navigation, route}: any) => {
-  const RAPID_API_KEY = '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21';
-  const RAPID_API_HOST = 'shazam-core.p.rapidapi.com';
+  // const RAPID_API_KEY = '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21';
+  // const RAPID_API_HOST = 'shazam-core.p.rapidapi.com';
 
   const [data, setData] = useState([]);
+  const [likeSong, setLikeSong] = useState(false);
 
   const {title, performedBy, image} = route?.params;
 
-  const playbackState = usePlaybackState();
+  // const playbackState = usePlaybackState();
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        'https://shazam-core.p.rapidapi.com/v1/charts/world',
-        {
-          method: 'GET',
-          headers: {
-            'X-RapidAPI-Key':
-              '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
-            'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-          },
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       'https://shazam-core.p.rapidapi.com/v1/charts/world',
+  //       {
+  //         method: 'GET',
+  //         headers: {
+  //           'X-RapidAPI-Key':
+  //             '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
+  //           'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
+  //         },
+  //       },
+  //     );
+  //     const res = await response.json();
+  //     setData(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const setUpPlayer = async () => {
+  //   try {
+  //     // const track = {
+  //     //   id: 'trackId',
+  //     //   url: data.map(item => item?.url)[0],
+  //     // };
+  //     await TrackPlayer.setupPlayer();
+
+  //     await TrackPlayer.add({url: data?.map(item => item?.url)[0]});
+  //     await TrackPlayer.play();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  const handleLike = () => {
+    setLikeSong(prev => !prev);
+
+    Snackbar.show({
+      text: `${title} added to your liked songs`,
+      duration: Snackbar.LENGTH_SHORT,
+      action: {
+        text: 'Undo',
+        textColor: COLORS.white,
+        onPress: () => {
+          setLikeSong(prev => !prev);
         },
-      );
-      const res = await response.json();
-      setData(res);
-    } catch (error) {
-      console.log(error);
-    }
+      },
+    });
   };
 
-  const setUpPlayer = async () => {
-    try {
-      // const track = {
-      //   id: 'trackId',
-      //   url: data.map(item => item?.url)[0],
-      // };
-      await TrackPlayer.setupPlayer();
-
-      await TrackPlayer.add({url: data?.map(item => item?.url)[0]});
-      await TrackPlayer.play();
-    } catch (error) {
-      console.log(error);
-    }
+  const handleRemoveLike = () => {
+    setLikeSong(!likeSong);
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <ScrollView
@@ -82,9 +105,17 @@ const DetailPlayer = ({navigation, route}: any) => {
           style={{fontSize: SIZES.lg, fontWeight: '600'}}>
           Now Playing
         </Heading>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign name="hearto" size={30} color={COLORS.white} />
-        </TouchableOpacity>
+        {likeSong ? (
+          <TouchableOpacity onPress={() => handleRemoveLike()}>
+            <AntDesign name="heart" size={30} color={COLORS.danger} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            // onPress={() => navigation.goBack()}
+            onPress={() => handleLike()}>
+            <AntDesign name="hearto" size={30} color={COLORS.white} />
+          </TouchableOpacity>
+        )}
       </View>
 
       <View>
@@ -114,7 +145,7 @@ const DetailPlayer = ({navigation, route}: any) => {
           <Heading
             isMuted={false}
             style={{fontSize: SIZES.lg, fontWeight: '600'}}>
-            {/* {title} */}
+            {title}
           </Heading>
           <Heading isMuted={true} style={{fontWeight: '600', marginTop: 5}}>
             {performedBy}

@@ -5,6 +5,7 @@ const COLORS = {
   darkGray: '#3b3c4f',
 
   darkBlur: 'rgba(53,54,76, 0.9)',
+  danger: '#ff5252',
 };
 
 const SIZES = {

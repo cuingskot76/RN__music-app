@@ -6,12 +6,7 @@ import styles from './Home.style';
 import Avatar from '../../components/atom/Avatar';
 import {ProfileImage} from '../../../public/images';
 import {COLORS, SIZES} from '../../constants/theme';
-import {
-  allMusic,
-  popularArtists,
-  recentlyPlayed,
-  trendingMusic,
-} from '../../constants';
+import {allMusic, popularArtists, trendingMusic} from '../../constants';
 import Figure from '../../components/atom/Figure';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -48,7 +43,6 @@ const Home = ({navigation}: any) => {
           </Heading>
         </View>
       </View>
-
       {/* trending music */}
       <View>
         <View style={styles.trendingHeader}>

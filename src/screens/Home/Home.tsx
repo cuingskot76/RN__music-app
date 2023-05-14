@@ -1,16 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Heading from '../../components/atom/Heading';
 import styles from './Home.style';
 import Avatar from '../../components/atom/Avatar';
 import {ProfileImage} from '../../../public/images';
-import {COLORS, SIZES} from '../../constants/theme';
-import {allMusic, popularArtists, trendingMusic} from '../../constants';
-import Figure from '../../components/atom/Figure';
+import {SIZES} from '../../constants/theme';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import RecentlyPlayed from '../../components/RecentlyPlayed';
+import TrendingMusic from '../../components/TrendingMusic';
+import PopularArtist from '../../components/PopularArtist';
+import AllMusic from '../../components/AllMusic';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -43,200 +43,11 @@ const Home = ({navigation}: any) => {
           </Heading>
         </View>
       </View>
-      {/* trending music */}
-      <View>
-        <View style={styles.trendingHeader}>
-          <Heading
-            isMuted={false}
-            style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
-            Trending right now
-          </Heading>
-          <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              marginTop: 10,
-              alignItems: 'center',
-            }}>
-            <Heading
-              isMuted={true}
-              style={{
-                fontSize: SIZES.sm,
-                marginRight: 5,
-              }}>
-              View all
-            </Heading>
-            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
-          </TouchableOpacity>
-        </View>
 
-        <FlatList
-          data={trendingMusic}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: SIZES.lg}}
-          renderItem={({item}) => (
-            <View key={item.id}>
-              <View style={styles.trendingMusicImageContainer}>
-                <Figure alt={item.title}>{item.image}</Figure>
-              </View>
-              <View style={styles.trendingMusicDescriptionContainer}>
-                <View style={{flex: 1}}>
-                  <Heading
-                    isMuted={false}
-                    style={{
-                      fontSize: SIZES.base,
-                      fontWeight: 'bold',
-                      marginBottom: 5,
-                    }}>
-                    {item.title.length > 15
-                      ? item.title.substring(0, 15) + '...'
-                      : item.title}
-                  </Heading>
-                  <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                    {item.performedBy.length > 20
-                      ? item.performedBy.substring(0, 20) + '...'
-                      : item.performedBy}
-                  </Heading>
-                </View>
-                <View
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-end',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Player')}>
-                    <AntDesign name="play" size={45} color={COLORS.white} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          )}
-        />
-      </View>
-
-      {/* popular artist */}
-      <View>
-        <View style={styles.popularArtistHeader}>
-          <Heading
-            isMuted={false}
-            style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
-            Popular artists
-          </Heading>
-          <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              marginTop: 10,
-              alignItems: 'center',
-            }}>
-            <Heading
-              isMuted={true}
-              style={{
-                fontSize: SIZES.sm,
-                marginRight: 5,
-              }}>
-              View all
-            </Heading>
-            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
-          </TouchableOpacity>
-        </View>
-
-        <FlatList
-          data={popularArtists}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: SIZES.lg}}
-          renderItem={({item}) => (
-            <TouchableOpacity key={item.id} style={{alignItems: 'center'}}>
-              <View style={styles.popularArtistImageContainer}>
-                <Figure alt={item.name}>{item.image}</Figure>
-              </View>
-
-              <Heading
-                isMuted={true}
-                style={{
-                  fontSize: SIZES.base,
-                  fontWeight: '600',
-                  marginTop: 5,
-                }}>
-                {item.name?.length > 11
-                  ? item.name.substring(0, 11) + '...'
-                  : item.name}
-              </Heading>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-
-      {/* recently played */}
+      <TrendingMusic {...navigation} />
+      <PopularArtist {...navigation} />
       <RecentlyPlayed {...navigation} />
-
-      {/* all mucis */}
-      <View>
-        <View style={styles.allMusicHeader}>
-          <Heading
-            isMuted={false}
-            style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
-            All music
-          </Heading>
-          <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              marginTop: 10,
-              alignItems: 'center',
-            }}>
-            <Heading
-              isMuted={true}
-              style={{
-                fontSize: SIZES.sm,
-                marginRight: 5,
-              }}>
-              View all
-            </Heading>
-            <AntDesign name="right" size={13} color={COLORS.darkWhite} />
-          </TouchableOpacity>
-        </View>
-
-        <FlatList
-          scrollEnabled={false}
-          data={allMusic}
-          contentContainerStyle={{gap: SIZES.lg}}
-          renderItem={({item}) => (
-            <TouchableOpacity key={item.id}>
-              <View style={styles.allMusicContainer}>
-                <View style={styles.allMusicImageContainer}>
-                  <Figure alt={item.title}>{item.image}</Figure>
-                </View>
-
-                <View style={styles.allMusicDescriptionContainer}>
-                  <View>
-                    <Heading
-                      isMuted={false}
-                      style={{
-                        fontSize: SIZES.base,
-                        fontWeight: 'bold',
-                        marginBottom: 5,
-                      }}>
-                      {item.title.length > 15
-                        ? item.title.substring(0, 15) + '...'
-                        : item.title}
-                    </Heading>
-                    <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                      {item.performedBy.length > 25
-                        ? item.performedBy.substring(0, 25) + '...'
-                        : item.performedBy}
-                    </Heading>
-                  </View>
-                  <View>
-                    <TouchableOpacity>
-                      <AntDesign name="play" size={45} color={COLORS.white} />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
+      <AllMusic {...navigation} />
     </ScrollView>
   );
 };

@@ -48,7 +48,7 @@ const RecentlyPlayed = (navigation: any) => {
               navigation.navigate('DetailPlayer', {...item});
             }}>
             <View style={styles.recentlyPlayedImageContainer}>
-              <Figure alt={item.title}>{item.image}</Figure>
+              {/* <Figure alt={item.title}>{item.image}</Figure> */}
             </View>
             <View style={styles.recentlyPlayedDescriptionContainer}>
               <Heading

@@ -2,14 +2,18 @@ import {Image, StyleSheet, ImageSourcePropType, ImageStyle} from 'react-native';
 import React from 'react';
 
 interface FigureProps {
-  children: ImageSourcePropType;
+  children: string;
   style?: ImageStyle | ImageStyle[];
   alt: string;
 }
 
 const Figure = ({children, style, alt}: FigureProps) => {
   return (
-    <Image source={children} alt={alt} style={[styles.container, style]} />
+    <Image
+      source={{uri: children}}
+      alt={alt}
+      style={[styles.container, style]}
+    />
   );
 };
 

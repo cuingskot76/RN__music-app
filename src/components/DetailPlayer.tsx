@@ -132,9 +132,9 @@ const DetailPlayer = ({navigation, route}: any) => {
               overflow: 'hidden',
             }}>
             {/* image */}
-            <Figure alt="test-1">
+            {/* <Figure alt="test-1">
               {recentlyPlayed.map(item => item.image)[0]}
-            </Figure>
+            </Figure> */}
           </View>
         </View>
         <View

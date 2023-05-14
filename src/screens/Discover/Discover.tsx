@@ -104,7 +104,7 @@ const Discover = () => {
                   borderRadius: 10,
                   overflow: 'hidden',
                 }}>
-                <Figure alt={item.title}>{item.image}</Figure>
+                {/* <Figure alt={item.title}>{item.image}</Figure> */}
               </View>
               <View
                 style={{

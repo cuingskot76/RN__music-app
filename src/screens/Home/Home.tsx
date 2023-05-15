@@ -11,6 +11,7 @@ import RecentlyPlayed from '../../components/RecentlyPlayed';
 import TrendingMusic from '../../components/TrendingMusic';
 import PopularArtist from '../../components/PopularArtist';
 import AllMusic from '../../components/AllMusic';
+import Section from '../../components/atom/Section';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -44,10 +45,25 @@ const Home = ({navigation}: any) => {
         </View>
       </View>
 
-      <TrendingMusic {...navigation} />
-      <PopularArtist {...navigation} />
-      <RecentlyPlayed {...navigation} />
-      <AllMusic {...navigation} />
+      <View>
+        <Section headingName="Trending right now" headingViewAll="View all" />
+        <TrendingMusic {...navigation} />
+      </View>
+
+      <View>
+        <Section headingName="Popular artist" headingViewAll="View all" />
+        <PopularArtist {...navigation} />
+      </View>
+
+      <View>
+        <Section headingName="Recently played" headingViewAll="View all" />
+        <RecentlyPlayed {...navigation} />
+      </View>
+
+      <View>
+        <Section headingName="All music" headingViewAll="View all" />
+        <AllMusic {...navigation} />
+      </View>
     </ScrollView>
   );
 };

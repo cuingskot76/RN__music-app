@@ -1,12 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity, FlatList, Text} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {View, FlatList, Text} from 'react-native';
+import React from 'react';
 import styles from '../screens/Home/Home.style';
 import Heading from './atom/Heading';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {trendingMusic} from '../constants';
-import {COLORS, SIZES} from '../constants/theme';
+import {SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
 import UseFetch from '../hooks/UseFetch';
 
@@ -18,91 +16,46 @@ const TrendingMusic = (navigation: any) => {
       'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
     },
   });
-  // console.log(data === undefined ? 'loading' : 'loaded');
+
+  const maxData = data?.slice(0, 7);
 
   if (data === undefined) {
     return (
-      <View>
-        <Text style={{color: 'red', fontSize: 35}}>Loading...</Text>
-      </View>
-    );
-  }
-  return (
-    <View>
-      <View style={styles.trendingHeader}>
-        <Heading
-          isMuted={false}
-          style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
-          Trending right now
-        </Heading>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            marginTop: 10,
-            alignItems: 'center',
-          }}>
-          <Heading
-            isMuted={true}
-            style={{
-              fontSize: SIZES.sm,
-              marginRight: 5,
-            }}>
-            View all
-          </Heading>
-          <AntDesign name="right" size={13} color={COLORS.darkWhite} />
-        </TouchableOpacity>
-      </View>
-
-      {/* <FlatList
-        data={trendingMusic}
+      <FlatList
+        data={[1, 2, 3, 4, 5, 6, 7]}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{gap: SIZES.lg}}
         renderItem={({item}) => (
-          <View key={item.id}>
-            <View style={styles.trendingMusicImageContainer}>
-              <Figure alt={item.title}>{item.image}</Figure>
-            </View>
-            <View style={styles.trendingMusicDescriptionContainer}>
-              <View style={{flex: 1}}>
-                <Heading
-                  isMuted={false}
-                  style={{
-                    fontSize: SIZES.base,
-                    fontWeight: 'bold',
-                    marginBottom: 5,
-                  }}>
-                  {item.title.length > 15
-                    ? item.title.substring(0, 15) + '...'
-                    : item.title}
-                </Heading>
-                <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                  {item.performedBy.length > 20
-                    ? item.performedBy.substring(0, 20) + '...'
-                    : item.performedBy}
-                </Heading>
-              </View>
-              <View
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Player')}>
-                  <AntDesign name="play" size={45} color={COLORS.white} />
-                </TouchableOpacity>
-              </View>
-            </View>
+          <View
+            style={{
+              height: 200,
+              width: 250,
+              borderRadius: 30,
+              backgroundColor: 'salmon',
+            }}>
+            <Text style={{color: 'white', fontSize: 35}}>Loading...</Text>
           </View>
         )}
-      /> */}
+      />
+    );
+  }
 
+  if (error) {
+    return (
+      <View>
+        <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View>
       <FlatList
-        data={data}
+        data={maxData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{gap: SIZES.lg}}
-        // initialNumToRender={5}
-        // maxToRenderPerBatch={5}
         renderItem={({item}) => (
           <View key={item?.id}>
             <View style={styles.trendingMusicImageContainer}>

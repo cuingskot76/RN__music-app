@@ -8,6 +8,8 @@ import {SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
 import UseFetch from '../hooks/UseFetch';
 
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
 const TrendingMusic = (navigation: any) => {
   const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
   const {data, error} = UseFetch(url, {
@@ -27,14 +29,17 @@ const TrendingMusic = (navigation: any) => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{gap: SIZES.lg}}
         renderItem={({item}) => (
-          <View
-            style={{
-              height: 200,
-              width: 250,
-              borderRadius: 30,
-              backgroundColor: 'salmon',
-            }}>
-            <Text style={{color: 'white', fontSize: 35}}>Loading...</Text>
+          <View>
+            <SkeletonPlaceholder
+              borderRadius={4}
+              backgroundColor="#41444B"
+              highlightColor="#52575D">
+              <SkeletonPlaceholder.Item
+                width={250}
+                height={200}
+                borderRadius={30}
+              />
+            </SkeletonPlaceholder>
           </View>
         )}
       />

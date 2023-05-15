@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     overflow: 'hidden',
     position: 'relative',
-    backgroundColor: 'salmon',
   },
   trendingMusicDescriptionContainer: {
     position: 'absolute',

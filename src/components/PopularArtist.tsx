@@ -1,51 +1,68 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity, FlatList} from 'react-native';
+import {View, TouchableOpacity, Text, FlatList} from 'react-native';
 import React from 'react';
 import styles from '../screens/Home/Home.style';
 import Heading from './atom/Heading';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-
-import {COLORS, SIZES} from '../constants/theme';
-import {popularArtists} from '../constants';
+import {SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
+import UseFetch from '../hooks/UseFetch';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const PopularArtist = () => {
+  const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
+  const {data, error} = UseFetch(url, {
+    headers: {
+      'X-RapidAPI-Key': '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
+      'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
+    },
+  });
+
+  const maxData = data?.slice(0, 7);
+
+  if (data === undefined) {
+    return (
+      <FlatList
+        data={[1, 2, 3, 4, 5, 6, 7]}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{gap: SIZES.lg}}
+        renderItem={({item}) => (
+          <View>
+            <SkeletonPlaceholder
+              borderRadius={4}
+              backgroundColor="#41444B"
+              highlightColor="#52575D">
+              <SkeletonPlaceholder.Item
+                height={'100%'}
+                width={'100%'}
+                borderRadius={50}
+              />
+            </SkeletonPlaceholder>
+          </View>
+        )}
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <View>
+        <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
+      </View>
+    );
+  }
   return (
     <View>
-      <View style={styles.popularArtistHeader}>
-        <Heading
-          isMuted={false}
-          style={{fontSize: SIZES.xl, fontWeight: 'bold'}}>
-          Popular artists
-        </Heading>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            marginTop: 10,
-            alignItems: 'center',
-          }}>
-          <Heading
-            isMuted={true}
-            style={{
-              fontSize: SIZES.sm,
-              marginRight: 5,
-            }}>
-            View all
-          </Heading>
-          <AntDesign name="right" size={13} color={COLORS.darkWhite} />
-        </TouchableOpacity>
-      </View>
-
       <FlatList
-        data={popularArtists}
+        data={maxData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{gap: SIZES.lg}}
         renderItem={({item}) => (
           <TouchableOpacity key={item.id} style={{alignItems: 'center'}}>
             <View style={styles.popularArtistImageContainer}>
-              {/* <Figure alt={item.name}>{item.image}</Figure> */}
+              <Figure alt={item.key}>{item?.images?.background}</Figure>
             </View>
 
             <Heading
@@ -55,9 +72,11 @@ const PopularArtist = () => {
                 fontWeight: '600',
                 marginTop: 5,
               }}>
-              {item.name?.length > 11
-                ? item.name.substring(0, 11) + '...'
-                : item.name}
+              {item?.artists?.map(artist =>
+                artist?.alias?.length > 11
+                  ? artist?.alias?.substring(0, 11) + '...'
+                  : artist?.alias,
+              )}
             </Heading>
           </TouchableOpacity>
         )}

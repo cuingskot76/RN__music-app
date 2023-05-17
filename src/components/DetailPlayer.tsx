@@ -1,78 +1,30 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, ScrollView, Text, TouchableOpacity} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import Heading from './atom/Heading';
 import {COLORS, SIZES} from '../constants/theme';
-import Figure from './atom/Figure';
-import {recentlyPlayed} from '../constants';
 
 import Slider from '@react-native-community/slider';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import TrackPlayer, {
-  usePlaybackState,
-  useProgress,
-  useTrackPlayerEvents,
-  State,
-} from 'react-native-track-player';
 import Snackbar from 'react-native-snackbar';
+import Figure from './atom/Figure';
 
 const DetailPlayer = ({navigation, route}: any) => {
-  // const RAPID_API_KEY = '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21';
-  // const RAPID_API_HOST = 'shazam-core.p.rapidapi.com';
-
-  const [data, setData] = useState([]);
   const [likeSong, setLikeSong] = useState(false);
 
-  const {title, performedBy, image} = route?.params;
-
-  // const playbackState = usePlaybackState();
-
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       'https://shazam-core.p.rapidapi.com/v1/charts/world',
-  //       {
-  //         method: 'GET',
-  //         headers: {
-  //           'X-RapidAPI-Key':
-  //             '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
-  //           'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-  //         },
-  //       },
-  //     );
-  //     const res = await response.json();
-  //     setData(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const setUpPlayer = async () => {
-  //   try {
-  //     // const track = {
-  //     //   id: 'trackId',
-  //     //   url: data.map(item => item?.url)[0],
-  //     // };
-  //     await TrackPlayer.setupPlayer();
-
-  //     await TrackPlayer.add({url: data?.map(item => item?.url)[0]});
-  //     await TrackPlayer.play();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  const {
+    title,
+    subtitle,
+    images: {coverart},
+  } = route?.params;
 
   const handleLike = () => {
     setLikeSong(prev => !prev);
 
     Snackbar.show({
-      text: `${title} added to your liked songs`,
+      text: `added to your liked songs`,
       duration: Snackbar.LENGTH_SHORT,
       action: {
         text: 'Undo',
@@ -131,10 +83,7 @@ const DetailPlayer = ({navigation, route}: any) => {
               borderRadius: SIZES.lg,
               overflow: 'hidden',
             }}>
-            {/* image */}
-            {/* <Figure alt="test-1">
-              {recentlyPlayed.map(item => item.image)[0]}
-            </Figure> */}
+            <Figure alt="test-1">{coverart}</Figure>
           </View>
         </View>
         <View
@@ -148,7 +97,7 @@ const DetailPlayer = ({navigation, route}: any) => {
             {title}
           </Heading>
           <Heading isMuted={true} style={{fontWeight: '600', marginTop: 5}}>
-            {performedBy}
+            {subtitle}
           </Heading>
         </View>
       </View>
@@ -204,8 +153,9 @@ const DetailPlayer = ({navigation, route}: any) => {
           <AntDesign name="stepbackward" size={30} color={COLORS.white} />
         </TouchableOpacity>
         <TouchableOpacity
-          // onPress={() => togglePlayback(playbackState)}
-          onPress={() => setUpPlayer()}>
+        // onPress={() => togglePlayback(playbackState)}
+        // onPress={() => setUpPlayer()}
+        >
           <Ionicons name="play-circle" size={70} color={COLORS.white} />
         </TouchableOpacity>
         <TouchableOpacity>

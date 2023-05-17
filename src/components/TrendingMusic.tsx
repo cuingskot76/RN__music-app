@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, FlatList, Text} from 'react-native';
+import {View, FlatList, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from '../screens/Home/Home.style';
 import Heading from './atom/Heading';
@@ -62,7 +62,9 @@ const TrendingMusic = (navigation: any) => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{gap: SIZES.lg}}
         renderItem={({item}) => (
-          <View key={item?.id}>
+          <TouchableOpacity
+            key={item?.id}
+            onPress={() => navigation.navigate('DetailPlayer', {...item})}>
             <View style={styles.trendingMusicImageContainer}>
               <Figure alt="test">{item?.share?.image}</Figure>
 
@@ -79,15 +81,10 @@ const TrendingMusic = (navigation: any) => {
                       ? item?.title.substring(0, 15) + '...'
                       : item?.title}
                   </Heading>
-                  <Heading isMuted={true} style={{fontSize: SIZES.base}}>
-                    {item?.subtitle.length > 20
-                      ? item?.subtitle.substring(0, 20) + '...'
-                      : item?.subtitle}
-                  </Heading>
                 </View>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

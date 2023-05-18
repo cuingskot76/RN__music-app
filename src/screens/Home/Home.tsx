@@ -14,6 +14,7 @@ import AllMusic from '../../components/AllMusic';
 import Section from '../../components/atom/Section';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import RecentlyPopular from '../../components/RecentlyPopular';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -64,6 +65,10 @@ const Home = ({navigation}: any) => {
             <Ionicons name="notifications-outline" size={30} color="white" />
           </TouchableOpacity>
         </View>
+      </View>
+
+      <View>
+        <RecentlyPopular />
       </View>
 
       <View>

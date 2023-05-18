@@ -10,7 +10,7 @@ import UseFetch from '../hooks/UseFetch';
 
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-const TrendingMusic = (navigation: any) => {
+const TrendingMusic = navigation => {
   const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
   const {data, error} = UseFetch(url, {
     headers: {

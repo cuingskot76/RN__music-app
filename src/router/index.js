@@ -8,6 +8,7 @@ import Discover from '../screens/Discover/Discover';
 import ButtonTab from '../components/ButtonTab';
 import Favorite from '../screens/Favorite/Favorite';
 import DetailPlayer from '../components/DetailPlayer';
+import ArtistDetail from '../components/ArtistDetail';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,6 +59,13 @@ const Router = () => {
           headerShown: false,
         }}
         component={DetailPlayer}
+      />
+      <Stack.Screen
+        name="DetailArtist"
+        options={{
+          headerShown: false,
+        }}
+        component={ArtistDetail}
       />
     </Stack.Navigator>
   );

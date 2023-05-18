@@ -9,7 +9,7 @@ import Figure from './atom/Figure';
 import UseFetch from '../hooks/UseFetch';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-const PopularArtist = () => {
+const PopularArtist = navigation => {
   const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
   const {data, error} = UseFetch(url, {
     headers: {
@@ -34,8 +34,8 @@ const PopularArtist = () => {
               backgroundColor="#41444B"
               highlightColor="#52575D">
               <SkeletonPlaceholder.Item
-                height={'100%'}
-                width={'100%'}
+                height={100}
+                width={100}
                 borderRadius={50}
               />
             </SkeletonPlaceholder>
@@ -60,7 +60,10 @@ const PopularArtist = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{gap: SIZES.lg}}
         renderItem={({item}) => (
-          <TouchableOpacity key={item.id} style={{alignItems: 'center'}}>
+          <TouchableOpacity
+            key={item.id}
+            style={{alignItems: 'center'}}
+            onPress={() => navigation.navigate('DetailArtist', {...item})}>
             <View style={styles.popularArtistImageContainer}>
               <Figure alt={item.key}>{item?.images?.background}</Figure>
             </View>

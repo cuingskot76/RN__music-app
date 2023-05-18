@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Heading from '../../components/atom/Heading';
 import styles from './Home.style';
@@ -12,6 +12,8 @@ import TrendingMusic from '../../components/TrendingMusic';
 import PopularArtist from '../../components/PopularArtist';
 import AllMusic from '../../components/AllMusic';
 import Section from '../../components/atom/Section';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -31,17 +33,36 @@ const Home = ({navigation}: any) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: SIZES.lg,
+        }}>
         <Avatar style={{width: 60, height: 60}}>{ProfileImage}</Avatar>
-        <View style={styles.headerUserInfo}>
-          <Heading
-            isMuted={false}
-            style={{fontSize: SIZES.lg, fontWeight: '600'}}>
-            Hi, Afrizal Setya
-          </Heading>
-          <Heading isMuted={true} style={{fontSize: SIZES.base, marginTop: 3}}>
-            {getTime}
-          </Heading>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flex: 1,
+            paddingHorizontal: SIZES.lg,
+          }}>
+          <View>
+            <Heading
+              isMuted={false}
+              style={{fontSize: SIZES.lg, fontWeight: '600'}}>
+              Hi, Afrizal Setya
+            </Heading>
+            <Heading
+              isMuted={true}
+              style={{fontSize: SIZES.base, marginTop: 3}}>
+              {getTime}
+            </Heading>
+          </View>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+            <Ionicons name="notifications-outline" size={30} color="white" />
+          </TouchableOpacity>
         </View>
       </View>
 

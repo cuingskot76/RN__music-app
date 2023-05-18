@@ -12,12 +12,15 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const TrendingMusic = navigation => {
   const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
-  const {data, error} = UseFetch(url, {
-    headers: {
-      'X-RapidAPI-Key': '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
-      'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-    },
-  });
+  // const {data, error} = UseFetch(url, {
+  //   headers: {
+  //     'X-RapidAPI-Key': '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
+  //     'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
+  //   },
+  // });
+
+  const data = undefined;
+  const error = false;
 
   const maxData = data?.slice(0, 7);
 

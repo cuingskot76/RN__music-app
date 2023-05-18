@@ -11,7 +11,6 @@ const ArtistDetail = ({navigation, route}) => {
   const {artists} = route?.params;
 
   const artist = artists[0];
-  console.log(artist);
   return (
     <View
       style={{

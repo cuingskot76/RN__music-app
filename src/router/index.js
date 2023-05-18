@@ -9,6 +9,7 @@ import ButtonTab from '../components/ButtonTab';
 import Favorite from '../screens/Favorite/Favorite';
 import DetailPlayer from '../components/DetailPlayer';
 import ArtistDetail from '../components/ArtistDetail';
+import Notification from '../components/Notification';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,6 +67,13 @@ const Router = () => {
           headerShown: false,
         }}
         component={ArtistDetail}
+      />
+      <Stack.Screen
+        name="Notification"
+        options={{
+          headerShown: false,
+        }}
+        component={Notification}
       />
     </Stack.Navigator>
   );

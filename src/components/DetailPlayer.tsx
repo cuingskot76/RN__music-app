@@ -14,11 +14,7 @@ import Figure from './atom/Figure';
 const DetailPlayer = ({navigation, route}: any) => {
   const [likeSong, setLikeSong] = useState(false);
 
-  const {
-    title,
-    subtitle,
-    images: {coverart},
-  } = route?.params;
+  const {title, subtitle, images} = route?.params;
 
   const handleLike = () => {
     setLikeSong(prev => !prev);
@@ -83,7 +79,7 @@ const DetailPlayer = ({navigation, route}: any) => {
               borderRadius: SIZES.lg,
               overflow: 'hidden',
             }}>
-            <Figure alt="test-1">{coverart}</Figure>
+            <Figure alt="test-1">{images?.coverart}</Figure>
           </View>
         </View>
         <View

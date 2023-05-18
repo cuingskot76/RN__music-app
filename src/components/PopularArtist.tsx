@@ -54,6 +54,7 @@ const PopularArtist = navigation => {
       </View>
     );
   }
+
   return (
     <View>
       <FlatList

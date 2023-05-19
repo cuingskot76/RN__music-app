@@ -18,64 +18,82 @@ const BottomTabBar = item => {
   return <ButtonTab {...item} />;
 };
 
-const BottomNavigator = () => {
-  return (
-    <Tab.Navigator tabBar={props => BottomTabBar(props)}>
-      <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
-      <Tab.Screen
-        name="Discover"
-        component={Discover}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name="Favorite"
-        component={Favorite}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{headerShown: false}}
-      />
-    </Tab.Navigator>
-  );
-};
-
-const Router = () => {
+export const HomeStack = () => {
   return (
     <Stack.Navigator initialRouteName="Main">
       <Stack.Screen
-        name="Splash"
-        options={{headerShown: false}}
-        component={Splash}
-      />
-      <Stack.Screen
         name="Main"
+        component={Home}
         options={{headerShown: false}}
-        component={BottomNavigator}
-      />
-      <Stack.Screen
-        name="DetailPlayer"
-        options={{
-          headerShown: false,
-        }}
-        component={DetailPlayer}
-      />
-      <Stack.Screen
-        name="DetailArtist"
-        options={{
-          headerShown: false,
-        }}
-        component={ArtistDetail}
       />
       <Stack.Screen
         name="Notification"
-        options={{
-          headerShown: false,
-        }}
         component={Notification}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
+  );
+};
+
+// const BottomNavigator = () => {
+//   return (
+//     <Tab.Navigator tabBar={props => BottomTabBar(props)}>
+//       <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
+//       <Tab.Screen
+//         name="Discover"
+//         component={Discover}
+//         options={{headerShown: false}}
+//       />
+//       <Tab.Screen
+//         name="Favorite"
+//         component={Favorite}
+//         options={{headerShown: false}}
+//       />
+//       <Tab.Screen
+//         name="Profile"
+//         component={Profile}
+//         options={{headerShown: false}}
+//       />
+//     </Tab.Navigator>
+//   );
+// };
+
+const Router = () => {
+  return (
+    // <Stack.Navigator initialRouteName="Main">
+    //   <Stack.Screen
+    //     name="Splash"
+    //     options={{headerShown: false}}
+    //     component={Splash}
+    //   />
+    //   <Stack.Screen
+    //     name="Main"
+    //     options={{headerShown: false}}
+    //     component={BottomNavigator}
+    //   />
+    //   <Stack.Screen
+    //     name="DetailPlayer"
+    //     options={{
+    //       headerShown: false,
+    //     }}
+    //     component={DetailPlayer}
+    //   />
+    //   <Stack.Screen
+    //     name="DetailArtist"
+    //     options={{
+    //       headerShown: false,
+    //     }}
+    //     component={ArtistDetail}
+    //   />
+    //   <Stack.Screen
+    //     name="Notification"
+    //     options={{
+    //       headerShown: false,
+    //     }}
+    //     component={Notification}
+    //   />
+    // </Stack.Navigator>
+    <View></View>
   );
 };
 

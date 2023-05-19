@@ -14,9 +14,9 @@ import Notification from '../components/Notification';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const BottomTabBar = item => {
-  return <ButtonTab {...item} />;
-};
+// const BottomTabBar = item => {
+//   return <ButtonTab {...item} />;
+// };
 
 export const HomeStack = () => {
   return (

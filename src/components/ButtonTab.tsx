@@ -56,7 +56,7 @@ export default ButtonTab;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: COLORS.darkBlur,
+    // backgroundColor: COLORS.darkBlur,
     justifyContent: 'space-between',
     height: 70,
     paddingHorizontal: 20,

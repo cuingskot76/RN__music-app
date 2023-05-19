@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -8,11 +9,26 @@ import Discover from './screens/Discover/Discover';
 import Favorite from './screens/Favorite/Favorite';
 import Profile from './screens/Profile/Profile';
 import ButtonTab from './components/ButtonTab';
+import {BlurView} from '@react-native-community/blur';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabBar = item => {
-  return <ButtonTab {...item} />;
+  return (
+    <BlurView
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}
+      blurType="dark"
+      blurAmount={10}
+      blurRadius={25}
+      overlayColor="transparent">
+      <ButtonTab {...item} />
+    </BlurView>
+  );
 };
 
 const App = () => {
@@ -20,7 +36,7 @@ const App = () => {
     <NavigationContainer>
       <StatusBar translucent={true} />
 
-      <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+      <Tab.Navigator tabBar={props => BottomTabBar(props)}>
         <Tab.Screen
           name="Home"
           component={HomeStack}

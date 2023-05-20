@@ -15,6 +15,7 @@ import Section from '../../components/atom/Section';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RecentlyPopular from '../../components/RecentlyPopular';
+import PlayingMusic from '../../components/PlayingMusic';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');

@@ -5,7 +5,11 @@ interface State<T> {
   error?: Error;
 }
 
-type Cache<T> = {[url: string]: T};
+type Cache<T> = {[endpoint: string]: T};
+
+const API_URL = 'https://shazam-core7.p.rapidapi.com';
+const API_KEY = 'f69a77c58amsh3e82ea6b89ea77ap15dd27jsndf06105a4a90';
+const API_HOST = 'shazam-core7.p.rapidapi.com';
 
 // discriminated union type
 type Action<T> =
@@ -13,7 +17,10 @@ type Action<T> =
   | {type: 'fetched'; payload: T}
   | {type: 'error'; payload: Error};
 
-function UseFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
+function UseFetch<T = unknown>(
+  endpoint?: string,
+  query?: RequestInit,
+): State<T> {
   const cache = useRef<Cache<T>>({});
 
   // Used to prevent state update if the component is unmounted
@@ -40,28 +47,39 @@ function UseFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
 
   const [state, dispatch] = useReducer(fetchReducer, initialState);
   useEffect(() => {
-    // Do nothing if the url is not given
-    if (!url) return;
+    // Do nothing if the endpoint is not given
+    if (!endpoint) return;
 
     cancelRequest.current = false;
 
     const fetchData = async () => {
       dispatch({type: 'loading'});
 
-      // If a cache exists for this url, return it
-      if (cache.current[url]) {
-        dispatch({type: 'fetched', payload: cache.current[url]});
+      // If a cache exists for this endpoint, return it
+      if (cache.current[endpoint]) {
+        dispatch({type: 'fetched', payload: cache.current[endpoint]});
         return;
       }
 
       try {
-        const response = await fetch(url, options);
+        // const response = await fetch(endpoint, options);
+        const options = {
+          method: 'GET',
+          url: `${API_URL}/${endpoint}`,
+          headers: {
+            'X-RapidAPI-Key': API_KEY,
+            'X-RapidAPI-Host': API_HOST,
+          },
+          params: {...query},
+        };
+        const response = await fetch(options.url, options);
+
         if (!response.ok) {
           throw new Error(response.statusText);
         }
 
         const data = (await response.json()) as T;
-        cache.current[url] = data;
+        cache.current[endpoint] = data;
         if (cancelRequest.current) return;
 
         dispatch({type: 'fetched', payload: data});
@@ -80,7 +98,7 @@ function UseFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
       cancelRequest.current = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [endpoint]);
 
   return state;
 }

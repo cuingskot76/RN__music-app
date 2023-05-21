@@ -36,9 +36,7 @@ const RecentlyPopular = () => {
 
   const maxData = data?.tracks?.slice(0, 6);
 
-  console.log(data);
-
-  if (data === undefined) {
+  if (data === undefined || data.length === 0) {
     return (
       <View
         style={{

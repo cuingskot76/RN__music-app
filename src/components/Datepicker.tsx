@@ -7,7 +7,7 @@ const Datepicker = () => {
   const [open, setOpen] = useState(false);
   return (
     <View>
-      <Button title="Open" onPress={() => setOpen(true)} />
+      <Button title="Date picker" onPress={() => setOpen(true)} />
       <DatePicker
         modal
         open={open}

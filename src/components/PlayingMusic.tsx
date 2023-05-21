@@ -7,12 +7,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {COLORS, SIZES} from '../constants/theme';
 import Heading from './atom/Heading';
+import UseFetch from '../hooks/UseFetch';
+import Figure from './atom/Figure';
 
 const PlayingMusic = () => {
+  const {data, error} = UseFetch('/charts/track');
+
+  const maxData = data?.tracks?.[6];
+  console.log(maxData);
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <View style={styles.image}></View>
+        <Figure alt="test" style={styles.image}>
+          {maxData?.images?.background}
+        </Figure>
         <View style={styles.rightContainer}>
           <View>
             <Heading
@@ -20,10 +28,11 @@ const PlayingMusic = () => {
               style={{
                 fontWeight: '500',
               }}>
-              Title
+              {maxData?.title}
             </Heading>
             <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-              Lorem ipsum dolor sit amet.
+              {maxData?.subtitle}
+              {/* {maxData?.subtitle?.split(' ').slice(0, 2).join(' ')} */}
             </Heading>
           </View>
 

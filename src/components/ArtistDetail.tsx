@@ -10,6 +10,8 @@ import {COLORS, SIZES} from '../constants/theme';
 const ArtistDetail = ({navigation, route}) => {
   const {artists} = route?.params;
 
+  console.log(route?.params);
+
   const artist = artists[0];
   return (
     <View

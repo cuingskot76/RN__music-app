@@ -38,6 +38,13 @@ export const HomeStack = () => {
         }}
         component={DetailPlayer}
       />
+      <Stack.Screen
+        name="DetailArtist"
+        options={{
+          headerShown: false,
+        }}
+        component={ArtistDetail}
+      />
     </Stack.Navigator>
   );
 };

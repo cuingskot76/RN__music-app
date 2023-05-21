@@ -159,7 +159,10 @@ const AllMusic = () => {
   // }
 
   return (
-    <View>
+    <View
+      style={{
+        marginBottom: 200,
+      }}>
       <FlatList
         scrollEnabled={false}
         data={maxData}

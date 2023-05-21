@@ -3,25 +3,16 @@ import {View, TouchableOpacity, Text, FlatList} from 'react-native';
 import React from 'react';
 import styles from '../screens/Home/Home.style';
 import Heading from './atom/Heading';
-import {COLORS, SIZES} from '../constants/theme';
+import {SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
-import {recentlyPlayed} from '../constants';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import UseFetch from '../hooks/UseFetch';
 
 const RecentlyPlayed = (navigation: any) => {
-  const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
-  // const {data, error} = UseFetch(url, {
-  //   headers: {
-  //     'X-RapidAPI-Key': '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
-  //     'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-  //   },
-  // });
-  const data = undefined;
-  const error = false;
+  const {data, error} = UseFetch('/charts/track');
 
-  const maxData = data?.slice(0, 7);
+  const maxData = data?.tracks?.slice(6, 17);
 
   if (data === undefined) {
     return (
@@ -67,7 +58,7 @@ const RecentlyPlayed = (navigation: any) => {
   return (
     <View>
       <FlatList
-        data={recentlyPlayed}
+        data={maxData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{gap: SIZES.lg}}
@@ -78,7 +69,7 @@ const RecentlyPlayed = (navigation: any) => {
               navigation.navigate('DetailPlayer', {...item});
             }}>
             <View style={styles.recentlyPlayedImageContainer}>
-              {/* <Figure alt={item.title}>{item.image}</Figure> */}
+              <Figure alt="test">{item?.images?.coverart}</Figure>
             </View>
             <View style={styles.recentlyPlayedDescriptionContainer}>
               <Heading
@@ -88,14 +79,14 @@ const RecentlyPlayed = (navigation: any) => {
                   fontWeight: 'bold',
                   marginBottom: 5,
                 }}>
-                {item.title.length > 15
-                  ? item.title.substring(0, 15) + '...'
-                  : item.title}
+                {item?.title?.length > 15
+                  ? item?.title?.substring(0, 15) + '...'
+                  : item?.title}
               </Heading>
               <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                {item.performedBy.length > 20
-                  ? item.performedBy.substring(0, 20) + '...'
-                  : item.performedBy}
+                {item?.subtitle?.length > 20
+                  ? item?.subtitle?.substring(0, 20) + '...'
+                  : item?.subtitle}
               </Heading>
             </View>
           </TouchableOpacity>

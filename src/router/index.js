@@ -31,6 +31,13 @@ export const HomeStack = () => {
         component={Notification}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="DetailPlayer"
+        options={{
+          headerShown: false,
+        }}
+        component={DetailPlayer}
+      />
     </Stack.Navigator>
   );
 };

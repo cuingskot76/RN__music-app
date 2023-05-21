@@ -14,7 +14,9 @@ import Figure from './atom/Figure';
 const DetailPlayer = ({navigation, route}: any) => {
   const [likeSong, setLikeSong] = useState(false);
 
-  const {title, subtitle, images} = route?.params;
+  const {title, subtitle, images, key} = route?.params;
+
+  console.log(title);
 
   const handleLike = () => {
     setLikeSong(prev => !prev);

@@ -7,9 +7,9 @@ interface State<T> {
 
 type Cache<T> = {[endpoint: string]: T};
 
-const API_URL = 'https://shazam-core7.p.rapidapi.com';
+const API_URL = 'https://shazam.p.rapidapi.com';
 const API_KEY = 'f69a77c58amsh3e82ea6b89ea77ap15dd27jsndf06105a4a90';
-const API_HOST = 'shazam-core7.p.rapidapi.com';
+const API_HOST = 'shazam.p.rapidapi.com';
 
 // discriminated union type
 type Action<T> =
@@ -65,14 +65,14 @@ function UseFetch<T = unknown>(
         // const response = await fetch(endpoint, options);
         const options = {
           method: 'GET',
-          url: `${API_URL}/${endpoint}`,
+          url: `${API_URL}${endpoint}`,
           headers: {
             'X-RapidAPI-Key': API_KEY,
             'X-RapidAPI-Host': API_HOST,
           },
           params: {...query},
         };
-        const response = await fetch(options.url, options);
+        const response = await fetch(options.url, options.params);
 
         if (!response.ok) {
           throw new Error(response.statusText);

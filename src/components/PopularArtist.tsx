@@ -10,17 +10,9 @@ import UseFetch from '../hooks/UseFetch';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const PopularArtist = navigation => {
-  const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
-  // const {data, error} = UseFetch(url, {
-  //   headers: {
-  //     'X-RapidAPI-Key': '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
-  //     'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-  //   },
-  // });
-  const data = undefined;
-  const error = false;
+  const {data, error} = UseFetch('/charts/track');
 
-  const maxData = data?.slice(0, 7);
+  const maxData = data?.tracks?.slice(6, 17);
 
   if (data === undefined) {
     return (
@@ -78,11 +70,9 @@ const PopularArtist = navigation => {
                 fontWeight: '600',
                 marginTop: 5,
               }}>
-              {item?.artists?.map(artist =>
-                artist?.alias?.length > 11
-                  ? artist?.alias?.substring(0, 11) + '...'
-                  : artist?.alias,
-              )}
+              {item?.artists?.[0]?.alias?.length > 10
+                ? `${item?.artists?.[0]?.alias?.slice(0, 10) + '...'}`
+                : item?.artists?.[0]?.alias}
             </Heading>
           </TouchableOpacity>
         )}

@@ -8,21 +8,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {COLORS, SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
-import {allMusic} from '../constants';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import UseFetch from '../hooks/UseFetch';
 
 const AllMusic = () => {
-  const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
-  // const {data, error} = UseFetch(url, {
-  //   headers: {
-  //     'X-RapidAPI-Key': '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
-  //     'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-  //   },
-  // });
-  const data = undefined;
-  const error = false;
-
-  const maxData = data?.slice(0, 7);
+  const {data, error} = UseFetch('/charts/track', {
+    locale: 'ID',
+    listId: 'ip-country-chart-ID',
+  });
 
   if (data === undefined) {
     return (
@@ -132,7 +125,7 @@ const AllMusic = () => {
       </ScrollView>
     );
   }
-
+  console.log(data);
   if (error) {
     return (
       <View>
@@ -145,13 +138,13 @@ const AllMusic = () => {
     <View>
       <FlatList
         scrollEnabled={false}
-        data={allMusic}
+        data={data?.tracks}
         contentContainerStyle={{gap: SIZES.lg}}
         renderItem={({item}) => (
           <TouchableOpacity key={item.id}>
             <View style={styles.allMusicContainer}>
               <View style={styles.allMusicImageContainer}>
-                {/* <Figure alt={item.title}>{item.image}</Figure> */}
+                <Figure alt={item.title}>{item?.images?.coverart}</Figure>
               </View>
 
               <View style={styles.allMusicDescriptionContainer}>
@@ -163,14 +156,14 @@ const AllMusic = () => {
                       fontWeight: 'bold',
                       marginBottom: 5,
                     }}>
-                    {item.title.length > 15
-                      ? item.title.substring(0, 15) + '...'
-                      : item.title}
+                    {item?.title?.length > 15
+                      ? item?.title?.substring(0, 15) + '...'
+                      : item?.title}
                   </Heading>
                   <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                    {item.performedBy.length > 25
-                      ? item.performedBy.substring(0, 25) + '...'
-                      : item.performedBy}
+                    {item?.subtitle?.length > 25
+                      ? item?.subtitle?.substring(0, 25) + '...'
+                      : item?.subtitle}
                   </Heading>
                 </View>
                 <View>

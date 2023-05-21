@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity, ScrollView, FlatList, Text} from 'react-native';
-import React from 'react';
+import {View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import styles from '../screens/Home/Home.style';
 import Heading from './atom/Heading';
 
@@ -9,13 +9,37 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import UseFetch from '../hooks/UseFetch';
+import axios from 'axios';
 
 const AllMusic = () => {
-  const {data, error} = UseFetch('/charts/track', {
-    locale: 'ID',
-    listId: 'ip-country-chart-ID',
-  });
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'https://shazam.p.rapidapi.com/charts/track',
+      params: {
+        locale: 'ID',
+        listId: 'ip-country-chart-ID',
+        pageSize: '20',
+        startFrom: '0',
+      },
+      headers: {
+        'X-RapidAPI-Key': 'f69a77c58amsh3e82ea6b89ea77ap15dd27jsndf06105a4a90',
+        'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
+      },
+    };
+
+    const fetchAllMusic = async () => {
+      const res = await axios.request(options);
+      const datas = await res.data;
+
+      setData(datas);
+    };
+    fetchAllMusic();
+  }, []);
+
+  const maxData = data?.tracks;
 
   if (data === undefined) {
     return (
@@ -125,20 +149,20 @@ const AllMusic = () => {
       </ScrollView>
     );
   }
-  console.log(data);
-  if (error) {
-    return (
-      <View>
-        <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
-      </View>
-    );
-  }
+  // console.log(data);
+  // if (error) {
+  //   return (
+  //     <View>
+  //       <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
+  //     </View>
+  //   );
+  // }
 
   return (
     <View>
       <FlatList
         scrollEnabled={false}
-        data={data?.tracks}
+        data={maxData}
         contentContainerStyle={{gap: SIZES.lg}}
         renderItem={({item}) => (
           <TouchableOpacity key={item.id}>

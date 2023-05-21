@@ -72,7 +72,8 @@ function UseFetch<T = unknown>(
           },
           params: {...query},
         };
-        const response = await fetch(options.url, options.params);
+
+        const response = await fetch(options.url, options);
 
         if (!response.ok) {
           throw new Error(response.statusText);

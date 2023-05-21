@@ -1,21 +1,42 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, Image, ScrollView} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES} from '../constants/theme';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import axios from 'axios';
+import Figure from './atom/Figure';
 
 const RecentlyPopular = () => {
-  const url = 'https://shazam-core.p.rapidapi.com/v1/charts/world';
-  // const {data, error} = UseFetch(url, {
-  //   headers: {
-  //     'X-RapidAPI-Key': '2a8b87c9e6msheba982000f2edccp1aa9bbjsn0ef24e840e21',
-  //     'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-  //   },
-  // });
-  const data = undefined;
-  const error = false;
+  const [data, setData] = useState([]);
 
-  const maxData = data?.slice(0, 7);
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'https://shazam.p.rapidapi.com/charts/track',
+      params: {
+        locale: 'ID',
+        listId: 'ip-country-chart-ID',
+        pageSize: '20',
+        startFrom: '0',
+      },
+      headers: {
+        'X-RapidAPI-Key': 'f69a77c58amsh3e82ea6b89ea77ap15dd27jsndf06105a4a90',
+        'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
+      },
+    };
+
+    const fetchAllMusic = async () => {
+      const res = await axios.request(options);
+      const datas = await res.data;
+
+      setData(datas);
+    };
+    fetchAllMusic();
+  }, []);
+
+  const maxData = data?.tracks?.slice(0, 6);
+
+  console.log(data);
 
   if (data === undefined) {
     return (
@@ -55,46 +76,13 @@ const RecentlyPopular = () => {
     );
   }
 
-  if (error) {
-    return (
-      <View>
-        <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
-      </View>
-    );
-  }
-
-  const datas = [
-    {
-      id: 1,
-      name: 'The Weeknd',
-      image: require('../../public/images/recently-images/recently-1.jpg'),
-    },
-    {
-      id: 2,
-      name: 'Twice',
-      image: require('../../public/images/recently-images/recently-2.jpg'),
-    },
-    {
-      id: 3,
-      name: 'BTS',
-      image: require('../../public/images/recently-images/recently-3.jpg'),
-    },
-    {
-      id: 4,
-      name: 'Ariana Grande',
-      image: require('../../public/images/recently-images/recently-4.jpg'),
-    },
-    {
-      id: 5,
-      name: 'Justin Bieber',
-      image: require('../../public/images/recently-images/recently-5.jpg'),
-    },
-    {
-      id: 6,
-      name: 'Dua Lipa',
-      image: require('../../public/images/recently-images/recently-3.jpg'),
-    },
-  ];
+  // if (error) {
+  //   return (
+  //     <View>
+  //       <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
+  //     </View>
+  //   );
+  // }
 
   return (
     <View
@@ -107,7 +95,7 @@ const RecentlyPopular = () => {
           flexWrap: 'wrap',
           gap: SIZES.sm,
         }}>
-        {datas.map(item => (
+        {maxData?.map(item => (
           <View
             style={{
               flex: 1,
@@ -122,20 +110,21 @@ const RecentlyPopular = () => {
               overflow: 'hidden',
               gap: SIZES.base,
             }}>
-            <Image
-              source={item.image}
+            <Figure
+              alt="test"
               style={{
                 width: 60,
                 height: 60,
-              }}
-            />
+              }}>
+              {item?.images?.coverart}
+            </Figure>
             <Text
               style={{
                 color: COLORS.white,
                 fontSize: SIZES.sm,
                 fontWeight: '500',
               }}>
-              {item.name}
+              {item?.title}
             </Text>
           </View>
         ))}

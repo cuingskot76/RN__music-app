@@ -49,7 +49,7 @@ const PlayingMusic = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 70,
+    bottom: 75,
     backgroundColor: COLORS.darkBlur,
     width: '100%',
     height: 70,
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    margin: 0,
   },
   row: {
     flexDirection: 'row',

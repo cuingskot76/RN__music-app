@@ -56,9 +56,11 @@ export default ButtonTab;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    // backgroundColor: COLORS.darkBlur,
+    backgroundColor: COLORS.dark,
     justifyContent: 'space-between',
     height: 70,
     paddingHorizontal: 20,
+    borderTopColor: COLORS.darkGray,
+    borderTopWidth: 1,
   },
 });

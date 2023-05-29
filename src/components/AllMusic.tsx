@@ -11,13 +11,15 @@ import Figure from './atom/Figure';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
 
+import {API_URL, API_KEY, API_HOST} from '@env';
+
 const AllMusic = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const options = {
       method: 'GET',
-      url: 'https://shazam.p.rapidapi.com/charts/track',
+      url: `${API_URL}/charts/track`,
       params: {
         locale: 'ID',
         listId: 'ip-country-chart-ID',
@@ -25,8 +27,8 @@ const AllMusic = () => {
         startFrom: '0',
       },
       headers: {
-        'X-RapidAPI-Key': 'f69a77c58amsh3e82ea6b89ea77ap15dd27jsndf06105a4a90',
-        'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
+        'X-RapidAPI-Key': API_KEY,
+        'X-RapidAPI-Host': API_HOST,
       },
     };
 

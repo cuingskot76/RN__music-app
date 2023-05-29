@@ -91,7 +91,7 @@ const Profile = () => {
           onPress={() =>
             Alert.alert('This is an alert', 'Hello World!', [
               {
-                onPress: () => console.log('OK Pressed'),
+                // onPress: () => console.log('OK Pressed'),
               },
             ])
           }

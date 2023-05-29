@@ -1,4 +1,5 @@
 import {useEffect, useReducer, useRef} from 'react';
+import {API_URL, API_KEY, API_HOST} from '@env';
 
 interface State<T> {
   data?: T;
@@ -7,9 +8,9 @@ interface State<T> {
 
 type Cache<T> = {[endpoint: string]: T};
 
-const API_URL = 'https://shazam.p.rapidapi.com';
-const API_KEY = 'f69a77c58amsh3e82ea6b89ea77ap15dd27jsndf06105a4a90';
-const API_HOST = 'shazam.p.rapidapi.com';
+// const API_URL = 'https://shazam.p.rapidapi.com';
+// const API_KEY = 'f69a77c58amsh3e82ea6b89ea77ap15dd27jsndf06105a4a90';
+// const API_HOST = 'shazam.p.rapidapi.com';
 
 // discriminated union type
 type Action<T> =

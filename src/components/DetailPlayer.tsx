@@ -16,7 +16,7 @@ const DetailPlayer = ({navigation, route}: any) => {
 
   const {title, subtitle, images, key} = route?.params;
 
-  console.log(title);
+  // console.log(title);
 
   const handleLike = () => {
     setLikeSong(prev => !prev);

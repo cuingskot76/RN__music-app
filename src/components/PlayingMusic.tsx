@@ -14,7 +14,7 @@ const PlayingMusic = () => {
   const {data, error} = UseFetch('/charts/track');
 
   const maxData = data?.tracks?.[6];
-  console.log(maxData);
+  // console.log(maxData);
   return (
     <View style={styles.container}>
       <View style={styles.row}>

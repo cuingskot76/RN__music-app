@@ -63,7 +63,4 @@ yarn-error.log
 .metro-health-check*
 
 # hidden .env file 
-/.env
-```
-
 .env

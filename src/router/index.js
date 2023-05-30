@@ -6,6 +6,7 @@ import DetailPlayer from '../components/DetailPlayer';
 import ArtistDetail from '../components/ArtistDetail';
 import Notification from '../components/Notification';
 import Splash from '../components/Splash';
+import PlayingMusic from '../components/PlayingMusic';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,13 @@ export const HomeStack = () => {
         }}
         component={ArtistDetail}
       />
+      {/* <Stack.Screen
+        name="PlayingMusic"
+        options={{
+          headerShown: false,
+        }}
+        component={PlayingMusic}
+      /> */}
     </Stack.Navigator>
   );
 };

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -10,13 +10,24 @@ import Heading from './atom/Heading';
 import UseFetch from '../hooks/UseFetch';
 import Figure from './atom/Figure';
 
+import {useNavigation, useRoute} from '@react-navigation/native';
+
 const PlayingMusic = () => {
   const {data, error} = UseFetch('/charts/track');
 
+  // const navigation = useNavigation();
+
+  // const route = useRoute();
+
+  // console.log(route);
+
   const maxData = data?.tracks?.[6];
-  // console.log(maxData);
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      // onPress={() => navigation.navigate('DetailPlayer')}
+    >
       <View style={styles.row}>
         <Figure alt="test" style={styles.image}>
           {maxData?.images?.background}
@@ -32,7 +43,6 @@ const PlayingMusic = () => {
             </Heading>
             <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
               {maxData?.subtitle}
-              {/* {maxData?.subtitle?.split(' ').slice(0, 2).join(' ')} */}
             </Heading>
           </View>
 
@@ -42,7 +52,7 @@ const PlayingMusic = () => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

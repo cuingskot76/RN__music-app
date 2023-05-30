@@ -10,11 +10,17 @@ import {COLORS, SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 
 import {API_URL, API_KEY, API_HOST} from '@env';
+import PlayingMusic from './PlayingMusic';
+
+// console.log(API_URL, API_KEY, API_HOST);
 
 const AllMusic = () => {
   const [data, setData] = useState([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     const options = {
@@ -196,7 +202,9 @@ const AllMusic = () => {
                   </Heading>
                 </View>
                 <View>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                  // onPress={() => <PlayingMusic item={item} />}
+                  >
                     <AntDesign name="play" size={45} color={COLORS.white} />
                   </TouchableOpacity>
                 </View>

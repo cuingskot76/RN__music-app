@@ -9,7 +9,7 @@ const COLORS = {
 };
 
 const SIZES = {
-  xs: 10,
+  xs: 11,
   sm: 12,
   base: 16,
   lg: 20,

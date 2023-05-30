@@ -11,8 +11,10 @@ import Profile from './screens/Profile/Profile';
 import ButtonTab from './components/ButtonTab';
 import {BlurView} from '@react-native-community/blur';
 import PlayingMusic from './components/PlayingMusic';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const BottomTabBar = item => {
   return <ButtonTab {...item} />;
@@ -55,6 +57,14 @@ const App = () => {
         }}>
         <PlayingMusic />
       </View>
+
+      {/* <Stack.Navigator>
+        <Stack.Screen
+          name="PlayingMusic"
+          component={PlayingMusic}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 };

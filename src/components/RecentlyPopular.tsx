@@ -6,7 +6,6 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
 import Figure from './atom/Figure';
 
-// import {API_URL, API_KEY, API_HOST} from 'react-native-dotenv';
 import {API_URL, API_KEY, API_HOST} from '@env';
 
 const RecentlyPopular = () => {
@@ -98,6 +97,7 @@ const RecentlyPopular = () => {
         }}>
         {maxData?.map(item => (
           <View
+            key={item?.tracks?.map(item => item?.key)}
             style={{
               flex: 1,
               flexDirection: 'row',
@@ -105,10 +105,9 @@ const RecentlyPopular = () => {
               alignItems: 'center',
               width: 200,
               height: 60,
-              minWidth: 170,
+              minWidth: 150,
               maxHeight: 60,
               borderRadius: 5,
-              overflow: 'hidden',
               gap: SIZES.base,
             }}>
             <Figure
@@ -122,8 +121,9 @@ const RecentlyPopular = () => {
             <Text
               style={{
                 color: COLORS.white,
-                fontSize: SIZES.sm,
+                fontSize: SIZES.xs,
                 fontWeight: '500',
+                flex: 1,
               }}>
               {item?.title}
             </Text>

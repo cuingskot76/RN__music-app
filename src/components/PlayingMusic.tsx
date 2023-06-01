@@ -1,20 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useContext} from 'react';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import React from 'react';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {COLORS, SIZES} from '../constants/theme';
 import Heading from './atom/Heading';
-import UseFetch from '../hooks/UseFetch';
 import Figure from './atom/Figure';
 
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {UseMusic} from './AllMusic';
 
 const PlayingMusic = () => {
-  const {data, error} = UseFetch('/charts/track');
+  // const {data, error} = UseFetch('/charts/track');
 
   const singleMusic = UseMusic(state => state.music);
   const isPlaying = UseMusic(state => state.isPlaying);
@@ -22,8 +21,6 @@ const PlayingMusic = () => {
   const {title, subtitle, images} = singleMusic;
 
   const navigation = useNavigation();
-
-  const maxData = data?.tracks?.[6];
 
   return (
     <TouchableOpacity
@@ -37,7 +34,6 @@ const PlayingMusic = () => {
       }>
       <View style={styles.row}>
         <Figure alt="test" style={styles.image}>
-          {/* {maxData?.images?.background} */}
           {images?.coverart}
         </Figure>
         <View style={styles.rightContainer}>
@@ -47,22 +43,23 @@ const PlayingMusic = () => {
               style={{
                 fontWeight: '500',
               }}>
-              {/* {maxData?.title} */}
               {title?.length > 20 ? title.slice(0, 20) + '...' : title}
             </Heading>
             <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-              {/* {maxData?.subtitle} */}
               {subtitle}
             </Heading>
           </View>
 
           <TouchableOpacity style={styles.iconsContainer}>
             <AntDesign name="hearto" size={30} color={'white'} />
-            {isPlaying ? (
-              <Ionicons name="pause" size={30} color={COLORS.white} />
-            ) : (
-              <Ionicons name="play" size={30} color={COLORS.white} />
-            )}
+            <TouchableOpacity
+              onPress={() => UseMusic.setState({isPlaying: !isPlaying})}>
+              {isPlaying ? (
+                <Ionicons name="pause" size={30} color={COLORS.white} />
+              ) : (
+                <Ionicons name="play" size={30} color={COLORS.white} />
+              )}
+            </TouchableOpacity>
           </TouchableOpacity>
         </View>
       </View>

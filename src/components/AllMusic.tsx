@@ -177,6 +177,9 @@ const AllMusic = () => {
     }
   };
 
+  // is playing music state from PlayingMusic component
+  const isPlayingMusic = UseMusic(state => state.isPlaying);
+
   const onRenderItem = ({item}) => {
     const adamId = item?.artists?.[0]?.adamid;
 
@@ -210,7 +213,7 @@ const AllMusic = () => {
             </View>
             <View>
               <TouchableOpacity onPress={() => onHandlePress(item)}>
-                {isPlaying ? (
+                {isPlaying && isPlayingMusic ? (
                   <Ionicons
                     name="pause-circle"
                     size={45}

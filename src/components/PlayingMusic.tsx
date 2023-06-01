@@ -11,26 +11,34 @@ import UseFetch from '../hooks/UseFetch';
 import Figure from './atom/Figure';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {UseMusic} from './AllMusic';
 
 const PlayingMusic = () => {
   const {data, error} = UseFetch('/charts/track');
 
-  // const navigation = useNavigation();
+  const singleMusic = UseMusic(state => state.music);
+  const isPlaying = UseMusic(state => state.isPlaying);
 
-  // const route = useRoute();
+  const {title, subtitle, images} = singleMusic;
 
-  // console.log(route);
+  const navigation = useNavigation();
 
   const maxData = data?.tracks?.[6];
 
   return (
     <TouchableOpacity
       style={styles.container}
-      // onPress={() => navigation.navigate('DetailPlayer')}
-    >
+      onPress={() =>
+        navigation.navigate('DetailPlayer', {
+          title: title,
+          subtitle: subtitle,
+          images: images,
+        })
+      }>
       <View style={styles.row}>
         <Figure alt="test" style={styles.image}>
-          {maxData?.images?.background}
+          {/* {maxData?.images?.background} */}
+          {images?.coverart}
         </Figure>
         <View style={styles.rightContainer}>
           <View>
@@ -39,17 +47,23 @@ const PlayingMusic = () => {
               style={{
                 fontWeight: '500',
               }}>
-              {maxData?.title}
+              {/* {maxData?.title} */}
+              {title?.length > 20 ? title.slice(0, 20) + '...' : title}
             </Heading>
             <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-              {maxData?.subtitle}
+              {/* {maxData?.subtitle} */}
+              {subtitle}
             </Heading>
           </View>
 
-          <View style={styles.iconsContainer}>
+          <TouchableOpacity style={styles.iconsContainer}>
             <AntDesign name="hearto" size={30} color={'white'} />
-            <Ionicons name="play" size={30} color={COLORS.white} />
-          </View>
+            {isPlaying ? (
+              <Ionicons name="pause" size={30} color={COLORS.white} />
+            ) : (
+              <Ionicons name="play" size={30} color={COLORS.white} />
+            )}
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>

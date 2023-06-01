@@ -5,6 +5,7 @@ import styles from '../screens/Home/Home.style';
 import Heading from './atom/Heading';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {COLORS, SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
@@ -14,13 +15,20 @@ import {useNavigation} from '@react-navigation/native';
 
 import {API_URL, API_KEY, API_HOST} from '@env';
 import PlayingMusic from './PlayingMusic';
+import {create} from 'zustand';
 
 // console.log(API_URL, API_KEY, API_HOST);
 
+export const UseMusic = create(set => ({
+  music: [],
+  isPlaying: false,
+  setMusic: music => set(state => ({music})),
+  setIsPlaying: isPlaying => set(state => ({isPlaying})),
+}));
+
 const AllMusic = () => {
   const [data, setData] = useState([]);
-
-  const navigation = useNavigation();
+  const [currentMusic, setCurrentMusic] = useState(null);
 
   useEffect(() => {
     const options = {
@@ -157,14 +165,67 @@ const AllMusic = () => {
       </ScrollView>
     );
   }
-  // console.log(data);
-  // if (error) {
-  //   return (
-  //     <View>
-  //       <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
-  //     </View>
-  //   );
-  // }
+
+  const onHandlePress = item => {
+    if (currentMusic === item) {
+      setCurrentMusic(null);
+      UseMusic.setState({isPlaying: false});
+    } else {
+      setCurrentMusic(item);
+      UseMusic.setState({music: item});
+      UseMusic.setState({isPlaying: true});
+    }
+  };
+
+  const onRenderItem = ({item}) => {
+    const adamId = item?.artists?.[0]?.adamid;
+
+    const isPlaying = currentMusic?.artists?.[0]?.adamid === adamId;
+
+    return (
+      <TouchableOpacity key={item.id}>
+        <View style={styles.allMusicContainer}>
+          <View style={styles.allMusicImageContainer}>
+            <Figure alt={item.title}>{item?.images?.coverart}</Figure>
+          </View>
+
+          <View style={styles.allMusicDescriptionContainer}>
+            <View>
+              <Heading
+                isMuted={false}
+                style={{
+                  fontSize: SIZES.base,
+                  fontWeight: 'bold',
+                  marginBottom: 5,
+                }}>
+                {item?.title?.length > 15
+                  ? item?.title?.substring(0, 15) + '...'
+                  : item?.title}
+              </Heading>
+              <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
+                {item?.subtitle?.length > 25
+                  ? item?.subtitle?.substring(0, 25) + '...'
+                  : item?.subtitle}
+              </Heading>
+            </View>
+            <View>
+              <TouchableOpacity onPress={() => onHandlePress(item)}>
+                {isPlaying ? (
+                  <Ionicons
+                    name="pause-circle"
+                    size={45}
+                    color={COLORS.white}
+                  />
+                ) : (
+                  <AntDesign name="play" size={45} color={COLORS.white} />
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View
@@ -175,43 +236,7 @@ const AllMusic = () => {
         scrollEnabled={false}
         data={maxData}
         contentContainerStyle={{gap: SIZES.lg}}
-        renderItem={({item}) => (
-          <TouchableOpacity key={item.id}>
-            <View style={styles.allMusicContainer}>
-              <View style={styles.allMusicImageContainer}>
-                <Figure alt={item.title}>{item?.images?.coverart}</Figure>
-              </View>
-
-              <View style={styles.allMusicDescriptionContainer}>
-                <View>
-                  <Heading
-                    isMuted={false}
-                    style={{
-                      fontSize: SIZES.base,
-                      fontWeight: 'bold',
-                      marginBottom: 5,
-                    }}>
-                    {item?.title?.length > 15
-                      ? item?.title?.substring(0, 15) + '...'
-                      : item?.title}
-                  </Heading>
-                  <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                    {item?.subtitle?.length > 25
-                      ? item?.subtitle?.substring(0, 25) + '...'
-                      : item?.subtitle}
-                  </Heading>
-                </View>
-                <View>
-                  <TouchableOpacity
-                  // onPress={() => <PlayingMusic item={item} />}
-                  >
-                    <AntDesign name="play" size={45} color={COLORS.white} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={onRenderItem}
       />
     </View>
   );

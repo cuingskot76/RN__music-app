@@ -91,6 +91,16 @@ const Home = ({navigation}: any) => {
         <Section headingName="All music" headingViewAll="View all" />
         <AllMusic {...navigation} />
       </View>
+
+      {/* <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          backgroundColor: 'salmon',
+        }}>
+        <PlayingMusic />
+      </View> */}
     </ScrollView>
   );
 };

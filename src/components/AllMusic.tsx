@@ -11,13 +11,11 @@ import {COLORS, SIZES} from '../constants/theme';
 import Figure from './atom/Figure';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
-import {useNavigation} from '@react-navigation/native';
 
 import {API_URL, API_KEY, API_HOST} from '@env';
-import PlayingMusic from './PlayingMusic';
 import {create} from 'zustand';
 
-// console.log(API_URL, API_KEY, API_HOST);
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UseMusic = create(set => ({
   music: [],
@@ -166,7 +164,7 @@ const AllMusic = () => {
     );
   }
 
-  const onHandlePress = item => {
+  const onHandlePress = async item => {
     if (currentMusic === item) {
       setCurrentMusic(null);
       UseMusic.setState({isPlaying: false});
@@ -174,6 +172,8 @@ const AllMusic = () => {
       setCurrentMusic(item);
       UseMusic.setState({music: item});
       UseMusic.setState({isPlaying: true});
+
+      await AsyncStorage.setItem('currentMusic', JSON.stringify(item));
     }
   };
 

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -12,29 +12,47 @@ import Figure from './atom/Figure';
 import {useNavigation} from '@react-navigation/native';
 import {UseMusic} from './AllMusic';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const PlayingMusic = () => {
   // const {data, error} = UseFetch('/charts/track');
 
   const singleMusic = UseMusic(state => state.music);
   const isPlaying = UseMusic(state => state.isPlaying);
 
-  const {title, subtitle, images} = singleMusic;
+  // const {title, subtitle, images} = singleMusic;
 
   const navigation = useNavigation();
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('currentMusic');
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
+  useEffect(() => {
+    getData().then(res => {
+      console.log(res);
+      UseMusic.setState({music: res});
+    });
+  }, []);
 
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
         navigation.navigate('DetailPlayer', {
-          title: title,
-          subtitle: subtitle,
-          images: images,
+          title: singleMusic?.title,
+          subtitle: singleMusic?.subtitle,
+          images: singleMusic?.images,
         })
       }>
       <View style={styles.row}>
         <Figure alt="test" style={styles.image}>
-          {images?.coverart}
+          {singleMusic?.images?.coverart}
         </Figure>
         <View style={styles.rightContainer}>
           <View>
@@ -43,10 +61,12 @@ const PlayingMusic = () => {
               style={{
                 fontWeight: '500',
               }}>
-              {title?.length > 20 ? title.slice(0, 20) + '...' : title}
+              {singleMusic?.title?.length > 20
+                ? singleMusic?.title.slice(0, 20) + '...'
+                : singleMusic?.title}
             </Heading>
             <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-              {subtitle}
+              {singleMusic?.subtitle}
             </Heading>
           </View>
 

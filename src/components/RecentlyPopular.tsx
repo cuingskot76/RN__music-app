@@ -29,7 +29,7 @@ const RecentlyPopular = () => {
 
     const fetchAllMusic = async () => {
       const res = await axios.request(options);
-      const datas = await res.data;
+      const datas = await res?.data;
 
       setData(datas);
     };

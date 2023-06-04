@@ -1,6 +1,5 @@
 import {useEffect, useReducer, useRef} from 'react';
 import {API_URL, API_KEY, API_HOST} from '@env';
-console.log(API_URL, API_KEY, API_HOST);
 
 // console.log(API_URL, API_KEY, API_HOST);
 

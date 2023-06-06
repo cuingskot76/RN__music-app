@@ -7,12 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {COLORS, SIZES} from '../constants/theme';
 
-const ArtistDetail = ({navigation, route}) => {
-  const {artists} = route?.params;
-
-  // console.log(route?.params);
-
-  const artist = artists[0];
+const ArtistDetail = ({navigation}) => {
   return (
     <View
       style={{
@@ -138,7 +133,6 @@ const ArtistDetail = ({navigation, route}) => {
               color: COLORS.white,
               fontSize: SIZES.lg,
               marginTop: SIZES.xl,
-              // fontWeight: '500',
               marginBottom: SIZES.base,
             }}>
             Popular

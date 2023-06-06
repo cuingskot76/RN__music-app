@@ -55,114 +55,114 @@ const AllMusic = () => {
 
   const maxData = data?.tracks;
 
-  if (data === undefined) {
-    return (
-      // <FlatList
-      //   data={[1, 2, 3, 4, 5, 6, 7]}
-      //   contentContainerStyle={{gap: SIZES.lg}}
-      //   renderItem={({item}) => (
-      //     <View>
-      //       <SkeletonPlaceholder
-      //         borderRadius={4}
-      //         backgroundColor="#41444B"
-      //         highlightColor="#52575D">
-      //         <View
-      //           style={{
-      //             flexDirection: 'row',
-      //             alignItems: 'center',
-      //             gap: SIZES.base,
-      //             justifyContent: 'space-between',
-      //           }}>
-      //           <View
-      //             style={{
-      //               flexDirection: 'row',
-      //               alignItems: 'center',
-      //               gap: SIZES.base,
-      //             }}>
-      //             <SkeletonPlaceholder.Item
-      //               width={100}
-      //               height={100}
-      //               borderRadius={10}
-      //             />
-      //             <View>
-      //               <SkeletonPlaceholder.Item
-      //                 width={150}
-      //                 height={20}
-      //                 borderRadius={4}
-      //                 marginTop={10}
-      //               />
-      //               <SkeletonPlaceholder.Item
-      //                 width={100}
-      //                 height={20}
-      //                 borderRadius={4}
-      //                 marginTop={10}
-      //               />
-      //             </View>
-      //           </View>
-      //           <SkeletonPlaceholder.Item
-      //             width={50}
-      //             height={50}
-      //             borderRadius={50}
-      //           />
-      //         </View>
-      //       </SkeletonPlaceholder>
-      //     </View>
-      //   )}
-      // />
+  // if (data === undefined) {
+  //   return (
+  //     // <FlatList
+  //     //   data={[1, 2, 3, 4, 5, 6, 7]}
+  //     //   contentContainerStyle={{gap: SIZES.lg}}
+  //     //   renderItem={({item}) => (
+  //     //     <View>
+  //     //       <SkeletonPlaceholder
+  //     //         borderRadius={4}
+  //     //         backgroundColor="#41444B"
+  //     //         highlightColor="#52575D">
+  //     //         <View
+  //     //           style={{
+  //     //             flexDirection: 'row',
+  //     //             alignItems: 'center',
+  //     //             gap: SIZES.base,
+  //     //             justifyContent: 'space-between',
+  //     //           }}>
+  //     //           <View
+  //     //             style={{
+  //     //               flexDirection: 'row',
+  //     //               alignItems: 'center',
+  //     //               gap: SIZES.base,
+  //     //             }}>
+  //     //             <SkeletonPlaceholder.Item
+  //     //               width={100}
+  //     //               height={100}
+  //     //               borderRadius={10}
+  //     //             />
+  //     //             <View>
+  //     //               <SkeletonPlaceholder.Item
+  //     //                 width={150}
+  //     //                 height={20}
+  //     //                 borderRadius={4}
+  //     //                 marginTop={10}
+  //     //               />
+  //     //               <SkeletonPlaceholder.Item
+  //     //                 width={100}
+  //     //                 height={20}
+  //     //                 borderRadius={4}
+  //     //                 marginTop={10}
+  //     //               />
+  //     //             </View>
+  //     //           </View>
+  //     //           <SkeletonPlaceholder.Item
+  //     //             width={50}
+  //     //             height={50}
+  //     //             borderRadius={50}
+  //     //           />
+  //     //         </View>
+  //     //       </SkeletonPlaceholder>
+  //     //     </View>
+  //     //   )}
+  //     // />
 
-      <ScrollView>
-        {Array.from(Array(7).keys()).map((item, index) => (
-          <View key={index}>
-            <SkeletonPlaceholder
-              borderRadius={4}
-              backgroundColor="#41444B"
-              highlightColor="#52575D">
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: SIZES.base,
-                  justifyContent: 'space-between',
-                  marginBottom: SIZES.lg,
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: SIZES.base,
-                  }}>
-                  <SkeletonPlaceholder.Item
-                    width={100}
-                    height={100}
-                    borderRadius={10}
-                  />
-                  <View>
-                    <SkeletonPlaceholder.Item
-                      width={150}
-                      height={20}
-                      borderRadius={4}
-                      marginTop={10}
-                    />
-                    <SkeletonPlaceholder.Item
-                      width={100}
-                      height={20}
-                      borderRadius={4}
-                      marginTop={10}
-                    />
-                  </View>
-                </View>
-                <SkeletonPlaceholder.Item
-                  width={50}
-                  height={50}
-                  borderRadius={50}
-                />
-              </View>
-            </SkeletonPlaceholder>
-          </View>
-        ))}
-      </ScrollView>
-    );
-  }
+  //     // <ScrollView>
+  //     //   {Array.from(Array(7).keys()).map((item, index) => (
+  //     //     <View key={index}>
+  //     //       <SkeletonPlaceholder
+  //     //         borderRadius={4}
+  //     //         backgroundColor="#41444B"
+  //     //         highlightColor="#52575D">
+  //     //         <View
+  //     //           style={{
+  //     //             flexDirection: 'row',
+  //     //             alignItems: 'center',
+  //     //             gap: SIZES.base,
+  //     //             justifyContent: 'space-between',
+  //     //             marginBottom: SIZES.lg,
+  //     //           }}>
+  //     //           <View
+  //     //             style={{
+  //     //               flexDirection: 'row',
+  //     //               alignItems: 'center',
+  //     //               gap: SIZES.base,
+  //     //             }}>
+  //     //             <SkeletonPlaceholder.Item
+  //     //               width={100}
+  //     //               height={100}
+  //     //               borderRadius={10}
+  //     //             />
+  //     //             <View>
+  //     //               <SkeletonPlaceholder.Item
+  //     //                 width={150}
+  //     //                 height={20}
+  //     //                 borderRadius={4}
+  //     //                 marginTop={10}
+  //     //               />
+  //     //               <SkeletonPlaceholder.Item
+  //     //                 width={100}
+  //     //                 height={20}
+  //     //                 borderRadius={4}
+  //     //                 marginTop={10}
+  //     //               />
+  //     //             </View>
+  //     //           </View>
+  //     //           <SkeletonPlaceholder.Item
+  //     //             width={50}
+  //     //             height={50}
+  //     //             borderRadius={50}
+  //     //           />
+  //     //         </View>
+  //     //       </SkeletonPlaceholder>
+  //     //     </View>
+  //     //   ))}
+  //     // </ScrollView>
+  //   );
+  // }
 
   const onHandlePress = async item => {
     if (currentMusic === item) {
@@ -235,12 +235,66 @@ const AllMusic = () => {
       style={{
         marginBottom: 200,
       }}>
-      <FlatList
-        scrollEnabled={false}
-        data={maxData}
-        contentContainerStyle={{gap: SIZES.lg}}
-        renderItem={onRenderItem}
-      />
+      {maxData ? (
+        <FlatList
+          scrollEnabled={false}
+          data={maxData}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={onRenderItem}
+        />
+      ) : (
+        <ScrollView>
+          {Array.from(Array(7).keys()).map((item, index) => (
+            <View key={index}>
+              <SkeletonPlaceholder
+                borderRadius={4}
+                backgroundColor="#41444B"
+                highlightColor="#52575D">
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: SIZES.base,
+                    justifyContent: 'space-between',
+                    marginBottom: SIZES.lg,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: SIZES.base,
+                    }}>
+                    <SkeletonPlaceholder.Item
+                      width={100}
+                      height={100}
+                      borderRadius={10}
+                    />
+                    <View>
+                      <SkeletonPlaceholder.Item
+                        width={150}
+                        height={20}
+                        borderRadius={4}
+                        marginTop={10}
+                      />
+                      <SkeletonPlaceholder.Item
+                        width={100}
+                        height={20}
+                        borderRadius={4}
+                        marginTop={10}
+                      />
+                    </View>
+                  </View>
+                  <SkeletonPlaceholder.Item
+                    width={50}
+                    height={50}
+                    borderRadius={50}
+                  />
+                </View>
+              </SkeletonPlaceholder>
+            </View>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };

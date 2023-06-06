@@ -15,12 +15,8 @@ import {UseMusic} from './AllMusic';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PlayingMusic = () => {
-  // const {data, error} = UseFetch('/charts/track');
-
   const singleMusic = UseMusic(state => state.music);
   const isPlaying = UseMusic(state => state.isPlaying);
-
-  // const {title, subtitle, images} = singleMusic;
 
   const navigation = useNavigation();
 

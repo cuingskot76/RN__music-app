@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import Heading from '../../components/atom/Heading';
 import styles from './Home.style';
 import Avatar from '../../components/atom/Avatar';
-import {ProfileImage} from '../../../public/images';
+// import {ProfileImage} from '../../../public/images';
 import {SIZES} from '../../constants/theme';
 
 import RecentlyPlayed from '../../components/RecentlyPlayed';
@@ -15,7 +15,6 @@ import Section from '../../components/atom/Section';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RecentlyPopular from '../../components/RecentlyPopular';
-import PlayingMusic from '../../components/PlayingMusic';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -91,16 +90,6 @@ const Home = ({navigation}: any) => {
         <Section headingName="All music" headingViewAll="View all" />
         <AllMusic {...navigation} />
       </View>
-
-      {/* <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          backgroundColor: 'salmon',
-        }}>
-        <PlayingMusic />
-      </View> */}
     </ScrollView>
   );
 };

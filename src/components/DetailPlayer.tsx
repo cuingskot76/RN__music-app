@@ -14,7 +14,7 @@ import Figure from './atom/Figure';
 const DetailPlayer = ({navigation, route}: any) => {
   const [likeSong, setLikeSong] = useState(false);
 
-  const {title, subtitle, images, key} = route?.params;
+  const {title, subtitle, images} = route?.params;
 
   const handleLike = () => {
     setLikeSong(prev => !prev);
@@ -58,9 +58,7 @@ const DetailPlayer = ({navigation, route}: any) => {
             <AntDesign name="heart" size={30} color={COLORS.danger} />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity
-            // onPress={() => navigation.goBack()}
-            onPress={() => handleLike()}>
+          <TouchableOpacity onPress={() => handleLike()}>
             <AntDesign name="hearto" size={30} color={COLORS.white} />
           </TouchableOpacity>
         )}
@@ -148,10 +146,7 @@ const DetailPlayer = ({navigation, route}: any) => {
         <TouchableOpacity>
           <AntDesign name="stepbackward" size={30} color={COLORS.white} />
         </TouchableOpacity>
-        <TouchableOpacity
-        // onPress={() => togglePlayback(playbackState)}
-        // onPress={() => setUpPlayer()}
-        >
+        <TouchableOpacity>
           <Ionicons name="play-circle" size={70} color={COLORS.white} />
         </TouchableOpacity>
         <TouchableOpacity>

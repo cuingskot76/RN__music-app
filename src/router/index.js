@@ -1,23 +1,21 @@
 import React from 'react';
-import {View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/Home/Home';
 import DetailPlayer from '../components/DetailPlayer';
 import ArtistDetail from '../components/ArtistDetail';
 import Notification from '../components/Notification';
-import Splash from '../components/Splash';
-import PlayingMusic from '../components/PlayingMusic';
+import Connect from '../components/connect/Connect';
 
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
   return (
     <Stack.Navigator initialRouteName="Main">
-      {/* <Stack.Screen
-        name="Splash"
-        component={Splash}
+      <Stack.Screen
+        name="Connect"
+        component={Connect}
         options={{headerShown: false}}
-      /> */}
+      />
       <Stack.Screen
         name="Main"
         component={Home}
@@ -42,19 +40,6 @@ export const HomeStack = () => {
         }}
         component={ArtistDetail}
       />
-      {/* <Stack.Screen
-        name="PlayingMusic"
-        options={{
-          headerShown: false,
-        }}
-        component={PlayingMusic}
-      /> */}
     </Stack.Navigator>
   );
 };
-
-const Router = () => {
-  return <View />;
-};
-
-export default Router;

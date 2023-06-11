@@ -2,7 +2,7 @@
 import {View, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Heading from '../../components/atom/Heading';
-import {favoriteMusic} from '../../constants';
+// import {favoriteMusic} from '../../constants';
 import {COLORS, SIZES} from '../../constants/theme';
 import Figure from '../../components/atom/Figure';
 

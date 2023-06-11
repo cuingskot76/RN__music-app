@@ -12,11 +12,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Iconicons from 'react-native-vector-icons/Ionicons';
 
 import styles from './Discover.style';
-import {COLORS, SIZES} from '../../constants/theme';
 import Heading from '../../components/atom/Heading';
-import {genresMusic, recentlySearchMusic, vibesMusic} from '../../constants';
+// import {genresMusic, recentlySearchMusic, vibesMusic} from '../../constants';
 import Button from '../../components/atom/Button';
-import Figure from '../../components/atom/Figure';
+import {COLORS, SIZES} from '../../constants/theme';
 
 const Discover = () => {
   const [handleChangeInput, setHandleChangeInput] = useState('');

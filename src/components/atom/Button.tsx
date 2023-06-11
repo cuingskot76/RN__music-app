@@ -1,13 +1,21 @@
-import {ViewStyle, TouchableOpacity} from 'react-native';
+import {ViewStyle, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import {Text} from 'react-native';
 
 interface ButtonProps {
-  children: React.ReactNode;
+  title: string;
   style?: ViewStyle | ViewStyle[];
+  icon?: React.ReactNode;
+  colorText?: 'black' | 'white';
 }
 
-const Button = ({children, style}: ButtonProps) => {
-  return <TouchableOpacity style={style}>{children}</TouchableOpacity>;
+const Button = ({style, icon, title, colorText}: ButtonProps) => {
+  return (
+    <TouchableOpacity style={style}>
+      <Text style={{color: colorText, fontWeight: 'bold'}}>{title}</Text>
+      {icon && <View style={{position: 'absolute', right: 20}}>{icon}</View>}
+    </TouchableOpacity>
+  );
 };
 
 export default Button;

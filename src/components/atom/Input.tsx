@@ -4,7 +4,6 @@ import React from 'react';
 
 interface InputProps {
   label: string;
-  placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean;
@@ -15,7 +14,6 @@ const Input = ({
   label,
   secureTextEntry,
   onChangeText,
-  placeholder,
   value,
   icon,
 }: InputProps) => {
@@ -26,8 +24,6 @@ const Input = ({
       </Text>
       <View>
         <TextInput
-          // placeholder={placeholder}
-          // placeholderTextColor={'#fff'}
           cursorColor={'#fff'}
           value={value}
           onChangeText={onChangeText}

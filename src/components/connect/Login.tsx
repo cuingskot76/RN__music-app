@@ -23,13 +23,11 @@ const Login = ({navigation}) => {
 
       <Input
         label="Email or username"
-        placeholder="Enter your email or username"
         value={username}
         onChangeText={text => setUsername(text)}
       />
       <Input
         label="Password"
-        placeholder="Enter your password"
         value={password}
         secureTextEntry={showPass ? false : true}
         onChangeText={text => setPassword(text)}
@@ -46,12 +44,26 @@ const Login = ({navigation}) => {
           />
         }
       />
-      <Button
-        title="Log in"
-        handlePress={() => navigation.navigate('Home')}
-        style={{marginTop: 20, alignItems: 'center'}}
-        colorText="white"
-      />
+      <View
+        style={{
+          alignItems: 'center',
+        }}>
+        <Button
+          title="Login"
+          colorText="black"
+          sizeText={16}
+          style={{
+            marginTop: 20,
+            alignItems: 'center',
+            backgroundColor: '#fff',
+            borderRadius: 20,
+            maxWidth: 150,
+            paddingVertical: 10,
+            paddingHorizontal: 30,
+          }}
+          handlePress={() => navigation.navigate('PasswordSignUp')}
+        />
+      </View>
     </View>
   );
 };

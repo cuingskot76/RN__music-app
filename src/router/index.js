@@ -5,15 +5,21 @@ import DetailPlayer from '../components/DetailPlayer';
 import ArtistDetail from '../components/ArtistDetail';
 import Notification from '../components/Notification';
 import Connect from '../components/connect/Connect';
+import Login from '../components/connect/Login';
 
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Main">
+    <Stack.Navigator initialRouteName="Connect">
       <Stack.Screen
         name="Connect"
         component={Connect}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
         options={{headerShown: false}}
       />
       <Stack.Screen

@@ -1,19 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import {
-  View,
-  ScrollView,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '../atom/Button';
+import {useNavigation} from '@react-navigation/native';
 
-const Connect = () => {
+const Connect = ({navigation}) => {
   return (
     <View
     // style={styles.container}
@@ -81,7 +75,7 @@ const Connect = () => {
               }}>
               Already have an account?
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={{color: '#1db954', fontWeight: 'bold'}}>Log in</Text>
             </TouchableOpacity>
           </View>

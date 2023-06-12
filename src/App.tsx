@@ -10,8 +10,11 @@ import Profile from './screens/Profile/Profile';
 import ButtonTab from './components/ButtonTab';
 import PlayingMusic from './components/PlayingMusic';
 import Connect from './components/connect/Connect';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Login from './components/connect/Login';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const BottomTabBar = item => {
   return <ButtonTab {...item} />;
@@ -59,9 +62,18 @@ const App = () => {
           </View>
         </View>
       ) : (
-        <View>
-          <Connect />
-        </View>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Connect"
+            component={Connect}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
       )}
     </NavigationContainer>
   );

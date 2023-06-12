@@ -12,6 +12,8 @@ import PlayingMusic from './components/PlayingMusic';
 import Connect from './components/connect/Connect';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './components/connect/Login';
+import EmailSignUp from './components/connect/signup/Email';
+import PasswordSignUp from './components/connect/signup/Password';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -73,6 +75,22 @@ const App = () => {
             component={Login}
             options={{headerShown: false}}
           />
+          {/* signup-screen__start */}
+          <Stack.Screen
+            name="Signup"
+            component={EmailSignUp}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Password"
+            component={PasswordSignUp}
+            options={{
+              headerShown: false,
+            }}
+          />
+          {/* signup-screen__end */}
         </Stack.Navigator>
       )}
     </NavigationContainer>

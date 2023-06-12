@@ -37,9 +37,9 @@ const Login = ({navigation}) => {
           <Button
             icon={
               showPass ? (
-                <Ionicons name="eye-outline" size={30} color="#000" />
+                <Ionicons name="eye-outline" size={30} color="#fff" />
               ) : (
-                <Ionicons name="eye-off-outline" size={30} color="#000" />
+                <Ionicons name="eye-off-outline" size={30} color="#fff" />
               )
             }
             handlePress={() => setShowPass(!showPass)}

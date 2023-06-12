@@ -26,16 +26,19 @@ const Input = ({
       </Text>
       <View>
         <TextInput
-          placeholder={placeholder}
+          // placeholder={placeholder}
+          // placeholderTextColor={'#fff'}
+          cursorColor={'#fff'}
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
           style={{
-            backgroundColor: '#fff',
+            backgroundColor: 'gray',
             paddingVertical: 10,
             paddingHorizontal: 15,
             borderRadius: 5,
             marginBottom: 10,
+            color: '#fff',
           }}
         />
         {icon && (

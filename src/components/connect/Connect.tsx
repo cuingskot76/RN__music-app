@@ -40,6 +40,7 @@ const Connect = ({navigation}) => {
                 color="#fff"
               />
             }
+            iconStyle={{position: 'absolute', right: 20}}
           />
           <Button
             title="Continue with Google"
@@ -50,6 +51,7 @@ const Connect = ({navigation}) => {
                 source={require('../../../public/images/googleLogo.png')}
               />
             }
+            iconStyle={{position: 'absolute', right: 20}}
           />
           <Button
             title="Continue with Facebook"
@@ -60,6 +62,7 @@ const Connect = ({navigation}) => {
                 source={require('../../../public/images/facebookLogo.png')}
               />
             }
+            iconStyle={{position: 'absolute', right: 20}}
           />
           <View
             style={{

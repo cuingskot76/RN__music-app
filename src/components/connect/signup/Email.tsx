@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '../../atom/Button';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,6 +8,22 @@ import Input from '../../atom/Input';
 
 const EmailSignUp = ({navigation}) => {
   const [email, setEmail] = useState('');
+  const [validateEmail, setValidateEmail] = useState(false);
+
+  const checkValidateEmail = (input: string) => {
+    const re = /\S+@\S+\.\S+/;
+    if (re.test(input)) {
+      setValidateEmail(false);
+    } else {
+      setValidateEmail(true);
+    }
+  };
+
+  useEffect(() => {
+    checkValidateEmail(email);
+  }, [email]);
+
+  console.log(validateEmail);
 
   return (
     <View
@@ -24,7 +40,6 @@ const EmailSignUp = ({navigation}) => {
 
       <Input
         label="What's your email?"
-        placeholder="Enter your email or username"
         value={email}
         onChangeText={text => setEmail(text)}
       />
@@ -44,15 +59,19 @@ const EmailSignUp = ({navigation}) => {
           title="Next"
           colorText="black"
           sizeText={16}
-          style={{
-            marginTop: 20,
-            alignItems: 'center',
-            backgroundColor: '#fff',
-            borderRadius: 20,
-            maxWidth: 100,
-            paddingVertical: 10,
-            paddingHorizontal: 30,
-          }}
+          isDisabled={validateEmail}
+          style={[
+            validateEmail ? {opacity: 0.5} : {opacity: 1, marginTop: 20},
+            {
+              marginTop: 20,
+              alignItems: 'center',
+              backgroundColor: '#fff',
+              borderRadius: 20,
+              maxWidth: 100,
+              paddingVertical: 10,
+              paddingHorizontal: 30,
+            },
+          ]}
           handlePress={() => navigation.navigate('PasswordSignUp')}
         />
       </View>

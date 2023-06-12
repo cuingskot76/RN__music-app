@@ -11,6 +11,7 @@ interface ButtonProps {
   sizeText?: 16 | 18 | 20;
   iconStyle?: ViewStyle | ViewStyle[];
   handlePress?: () => void;
+  isDisabled?: boolean;
 }
 
 const Button = ({
@@ -21,10 +22,12 @@ const Button = ({
   colorText,
   sizeText,
   iconStyle,
+  isDisabled,
 }: ButtonProps) => {
   return (
     <TouchableOpacity
       style={style}
+      disabled={isDisabled}
       onPress={() => {
         if (handlePress) {
           handlePress();

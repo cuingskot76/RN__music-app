@@ -7,8 +7,9 @@ interface ButtonProps {
   title?: string;
   style?: ViewStyle | ViewStyle[];
   icon?: React.ReactNode;
-  colorText?: 'black' | 'white';
-  sizeText?: 16 | 18 | 20;
+  colorText?: 'black' | 'white' | string;
+  sizeText?: 12 | 16 | 18 | 20;
+  textWeight?: 'bold' | 'normal';
   iconStyle?: ViewStyle | ViewStyle[];
   handlePress?: () => void;
   isDisabled?: boolean;
@@ -22,6 +23,7 @@ const Button = ({
   colorText,
   sizeText,
   iconStyle,
+  textWeight,
   isDisabled,
 }: ButtonProps) => {
   return (
@@ -35,7 +37,8 @@ const Button = ({
           return;
         }
       }}>
-      <Text style={{color: colorText, fontWeight: 'bold', fontSize: sizeText}}>
+      <Text
+        style={{color: colorText, fontWeight: textWeight, fontSize: sizeText}}>
         {title}
       </Text>
       {icon && <View style={iconStyle}>{icon}</View>}

@@ -4,6 +4,7 @@ import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+
 import Button from '../atom/Button';
 
 const Connect = ({navigation}) => {
@@ -27,7 +28,7 @@ const Connect = ({navigation}) => {
             title="Sign up free"
             style={styles.button}
             colorText="black"
-            handlePress={() => navigation.navigate('Signup')}
+            handlePress={() => navigation.navigate('EmailSignUp')}
           />
           <Button
             title="Continue with phone number"

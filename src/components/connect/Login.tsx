@@ -1,17 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
-import Input from '../atom/Input';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+import Input from '../atom/Input';
 import Button from '../atom/Button';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPass, setShowPass] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -29,18 +29,18 @@ const Login = ({navigation}) => {
       <Input
         label="Password"
         value={password}
-        secureTextEntry={showPass ? false : true}
+        secureTextEntry={showPassword ? false : true}
         onChangeText={text => setPassword(text)}
         icon={
           <Button
             icon={
-              showPass ? (
-                <Ionicons name="eye-outline" size={30} color="#fff" />
-              ) : (
+              showPassword ? (
                 <Ionicons name="eye-off-outline" size={30} color="#fff" />
+              ) : (
+                <Ionicons name="eye-outline" size={30} color="#fff" />
               )
             }
-            handlePress={() => setShowPass(!showPass)}
+            handlePress={() => setShowPassword(!showPassword)}
           />
         }
       />

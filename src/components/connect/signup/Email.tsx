@@ -23,8 +23,6 @@ const EmailSignUp = ({navigation}) => {
     checkValidateEmail(email);
   }, [email]);
 
-  console.log(validateEmail);
-
   return (
     <View
       style={{
@@ -35,7 +33,7 @@ const EmailSignUp = ({navigation}) => {
       <Button
         style={{paddingBottom: 50}}
         icon={<AntDesign name="arrowleft" size={30} color="#fff" />}
-        handlePress={() => navigation.navigate('Connect')}
+        handlePress={() => navigation.goBack()}
       />
 
       <Input

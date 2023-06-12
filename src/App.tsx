@@ -14,6 +14,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './components/connect/Login';
 import EmailSignUp from './components/connect/signup/Email';
 import PasswordSignUp from './components/connect/signup/Password';
+import DatepickerSignUp from './components/connect/signup/Datepicker';
+import GenderSignUp from './components/connect/signup/Gender';
+import FinishingSignUp from './components/connect/signup/Finishing';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -77,15 +80,36 @@ const App = () => {
           />
           {/* signup-screen__start */}
           <Stack.Screen
-            name="Signup"
+            name="EmailSignUp"
             component={EmailSignUp}
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="Password"
+            name="PasswordSignUp"
             component={PasswordSignUp}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="BirthSignUp"
+            component={DatepickerSignUp}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="GenderSignUp"
+            component={GenderSignUp}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="FinishingSignUp"
+            component={FinishingSignUp}
             options={{
               headerShown: false,
             }}

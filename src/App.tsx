@@ -62,7 +62,7 @@ const App = () => {
           </View>
         </View>
       ) : (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Connect">
           <Stack.Screen
             name="Connect"
             component={Connect}

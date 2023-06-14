@@ -28,7 +28,7 @@ const Login = ({navigation}) => {
     try {
       const authRes = await auth.signInWithEmailAndPassword(username, password);
       const user = authRes.user;
-      const userToken = await user.getIdToken();
+      // const userToken = await user.getIdToken();
 
       if (user) {
         const getToken = await axios.post(
@@ -46,14 +46,17 @@ const Login = ({navigation}) => {
         );
 
         // store access token in global state
+        // UseAccessTokenStore.setState({
+        //   accessToken: getToken.data.access_token,
+        // });
         UseAccessTokenStore.setState({
-          accessToken: getToken.data.access_token,
+          accessToken: getToken.data,
         });
 
         // await AsyncStorage.setItem('accessToken', getToken.data.access_token);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

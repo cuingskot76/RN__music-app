@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {HomeStack} from './router';
 import {StatusBar, View} from 'react-native';
@@ -28,13 +28,37 @@ const BottomTabBar = item => {
 
 const App = () => {
   const [token, setToken] = useState(null);
-  const getToken = UseAccessTokenStore(state => state.accessToken);
+  const getToken = UseAccessTokenStore(state => state?.accessToken);
 
-  AsyncStorage.setItem('accessToken', getToken);
+  // set access_token to asycn storage
+  AsyncStorage.setItem('accessToken', getToken?.access_token);
 
-  AsyncStorage.getItem('accessToken').then(value => {
-    console.log(value);
-  });
+  // get access_token from async storage
+  // AsyncStorage.getItem('accessToken').then(value => {
+  //   if (value) {
+  //     setToken(value);
+  //   }
+  // });
+
+  // check if access token is expired
+  const checkToken = (token, expiredIn) => {
+    const currentTime = Math.floor(Date.now() / 1000);
+    const expirationTime = currentTime + expiredIn;
+
+    console.log('currentTime', new Date(currentTime * 1000));
+    console.log('expirationTime', new Date(expirationTime * 1000));
+
+    if (currentTime >= expirationTime) {
+      setToken(null);
+    } else {
+      setToken(token);
+    }
+  };
+
+  useEffect(() => {
+    checkToken(getToken, getToken?.expires_in);
+  }, [getToken]);
+
   return (
     <NavigationContainer>
       <StatusBar translucent={true} />

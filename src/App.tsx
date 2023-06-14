@@ -28,14 +28,13 @@ const BottomTabBar = item => {
 
 const App = () => {
   const [token, setToken] = useState(null);
-  // AsyncStorage.getItem('accessToken').then(res => {
-  //   // setToken(res);
-  //   console.log(res);
-  // });
-  // console.log(token);
-
   const getToken = UseAccessTokenStore(state => state.accessToken);
-  console.log(getToken);
+
+  AsyncStorage.setItem('accessToken', getToken);
+
+  AsyncStorage.getItem('accessToken').then(value => {
+    console.log(value);
+  });
   return (
     <NavigationContainer>
       <StatusBar translucent={true} />

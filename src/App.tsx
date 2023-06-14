@@ -11,12 +11,13 @@ import ButtonTab from './components/ButtonTab';
 import PlayingMusic from './components/PlayingMusic';
 import Connect from './components/connect/Connect';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Login from './components/connect/Login';
+import Login, {UseAccessTokenStore} from './components/connect/Login';
 import EmailSignUp from './components/connect/signup/Email';
 import PasswordSignUp from './components/connect/signup/Password';
 import DatepickerSignUp from './components/connect/signup/Datepicker';
 import GenderSignUp from './components/connect/signup/Gender';
 import FinishingSignUp from './components/connect/signup/Finishing';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,14 @@ const BottomTabBar = item => {
 
 const App = () => {
   const [token, setToken] = useState(null);
+  // AsyncStorage.getItem('accessToken').then(res => {
+  //   // setToken(res);
+  //   console.log(res);
+  // });
+  // console.log(token);
+
+  const getToken = UseAccessTokenStore(state => state.accessToken);
+  console.log(getToken);
   return (
     <NavigationContainer>
       <StatusBar translucent={true} />

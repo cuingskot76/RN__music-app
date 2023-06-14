@@ -8,25 +8,53 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Input from '../atom/Input';
 import Button from '../atom/Button';
 import {auth} from '../../../firebase';
+import axios from 'axios';
+import {create} from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const UseAccessTokenStore = create(set => ({
+  accessToken: '',
+  setAccessToken: (accessToken: string) => set({accessToken}),
+}));
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(username, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        console.log('registered user: ', user);
-        navigation.navigate('EmailSignUp');
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+  const url = 'https://accounts.spotify.com/api/token';
+
+  const handleLogin = async () => {
+    try {
+      const authRes = await auth.signInWithEmailAndPassword(username, password);
+      const user = authRes.user;
+      const userToken = await user.getIdToken();
+
+      if (user) {
+        const getToken = await axios.post(
+          url,
+          {
+            grant_type: 'client_credentials',
+            client_id: 'e317e0a987b6488f9c235d5444c0355e',
+            client_secret: '4de6e0416f374ace9530187888aa831c',
+          },
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+          },
+        );
+
+        // store access token in global state
+        UseAccessTokenStore.setState({
+          accessToken: getToken.data.access_token,
+        });
+
+        // await AsyncStorage.setItem('accessToken', getToken.data.access_token);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

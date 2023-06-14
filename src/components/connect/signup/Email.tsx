@@ -1,10 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Button from '../../atom/Button';
+import {create} from 'zustand';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import Button from '../../atom/Button';
 import Input from '../../atom/Input';
+
+export const UseEmailStore = create(set => ({
+  email: '',
+  setEmail: (email: string) => set({email}),
+}));
 
 const EmailSignUp = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -22,6 +29,11 @@ const EmailSignUp = ({navigation}) => {
   useEffect(() => {
     checkValidateEmail(email);
   }, [email]);
+
+  const handleNext = () => {
+    UseEmailStore.setState({email});
+    navigation.navigate('PasswordSignUp');
+  };
 
   return (
     <View
@@ -70,7 +82,7 @@ const EmailSignUp = ({navigation}) => {
               paddingHorizontal: 30,
             },
           ]}
-          handlePress={() => navigation.navigate('PasswordSignUp')}
+          handlePress={handleNext}
         />
       </View>
     </View>

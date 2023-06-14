@@ -7,11 +7,27 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Input from '../atom/Input';
 import Button from '../atom/Button';
+import {auth} from '../../../firebase';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = () => {
+    auth
+      .signInWithEmailAndPassword(username, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        console.log('registered user: ', user);
+        navigation.navigate('EmailSignUp');
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -61,7 +77,7 @@ const Login = ({navigation}) => {
             paddingVertical: 10,
             paddingHorizontal: 30,
           }}
-          handlePress={() => navigation.navigate('PasswordSignUp')}
+          handlePress={handleLogin}
         />
       </View>
     </View>

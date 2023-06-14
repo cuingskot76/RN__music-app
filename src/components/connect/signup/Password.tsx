@@ -6,6 +6,13 @@ import Input from '../../atom/Input';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {UseEmailStore} from './Email';
+import {create} from 'zustand';
+
+export const UsePasswordStore = create(set => ({
+  password: '',
+  setPassword: (password: string) => set({password}),
+}));
 
 const PasswordSignUp = ({navigation}) => {
   const [password, setPassword] = useState('');
@@ -23,6 +30,11 @@ const PasswordSignUp = ({navigation}) => {
   useEffect(() => {
     checkValidatePassword(password);
   }, [password]);
+
+  const handleNext = () => {
+    navigation.navigate('BirthSignUp');
+    UsePasswordStore.setState({password});
+  };
 
   return (
     <View
@@ -84,7 +96,7 @@ const PasswordSignUp = ({navigation}) => {
               paddingHorizontal: 30,
             },
           ]}
-          handlePress={() => navigation.navigate('BirthSignUp')}
+          handlePress={handleNext}
         />
       </View>
     </View>

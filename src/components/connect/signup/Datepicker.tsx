@@ -36,6 +36,10 @@ const DatepickerSignUp = ({navigation}) => {
     checkYearsOld();
   }, [checkYearsOld, date]);
 
+  const handleNext = () => {
+    navigation.navigate('GenderSignUp');
+  };
+
   return (
     <View
       style={{
@@ -78,6 +82,7 @@ const DatepickerSignUp = ({navigation}) => {
           title="Next"
           colorText="black"
           sizeText={16}
+          // isDisabled={!checkYearsOld()}
           style={{
             marginTop: 20,
             alignItems: 'center',
@@ -87,7 +92,7 @@ const DatepickerSignUp = ({navigation}) => {
             paddingVertical: 10,
             paddingHorizontal: 30,
           }}
-          handlePress={() => navigation.navigate('GenderSignUp')}
+          handlePress={handleNext}
         />
       </View>
     </View>

@@ -1,11 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '../../atom/Button';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {create} from 'zustand';
+
+export const UseGenderStore = create(set => ({
+  gender: '',
+  setGender: (gender: string) => set({gender}),
+}));
 
 const GenderSignUp = ({navigation}) => {
+  const [checked, setChecked] = useState('Male');
+  const genders = ['Male', 'Female', 'Prefer not to say'];
+
+  const handleNext = (gender: string) => {
+    setChecked(gender);
+    navigation.navigate('FinishingSignUp');
+    UseGenderStore.setState({gender});
+  };
+
   return (
     <View
       style={{
@@ -26,7 +41,7 @@ const GenderSignUp = ({navigation}) => {
         What's your gender?
       </Text>
 
-      <View
+      {/* <View
         style={{
           flexDirection: 'row',
           gap: 20,
@@ -63,7 +78,23 @@ const GenderSignUp = ({navigation}) => {
           colorText="white"
           sizeText={16}
         />
-      </View>
+      </View> */}
+
+      {genders.map((item, index) => {
+        return (
+          <Button
+            key={index}
+            title={item}
+            style={[
+              styles.button,
+              checked === item && {backgroundColor: '#fff'},
+            ]}
+            colorText={checked === index ? 'black' : 'white'}
+            sizeText={16}
+            handlePress={() => handleNext(item)}
+          />
+        );
+      })}
     </View>
   );
 };

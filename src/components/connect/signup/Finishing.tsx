@@ -6,8 +6,32 @@ import Button from '../../atom/Button';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Input from '../../atom/Input';
 
+import {UseEmailStore} from './Email';
+import {UsePasswordStore} from './Password';
+import {UseGenderStore} from './Gender';
+import {auth} from '../../../../firebase';
+
 const FinishingSignUp = ({navigation}) => {
   const [userProfile, setUserProfile] = useState('');
+
+  const email = UseEmailStore(state => state.email);
+  const password = UsePasswordStore(state => state.password);
+  // const gender = UseGenderStore(state => state.gender);
+
+  const handleRegister = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   return (
     <View
       style={{
@@ -106,7 +130,7 @@ const FinishingSignUp = ({navigation}) => {
             paddingVertical: 10,
             paddingHorizontal: 20,
           }}
-          handlePress={() => navigation.navigate('Connect')}
+          handlePress={handleRegister}
         />
       </View>
     </View>

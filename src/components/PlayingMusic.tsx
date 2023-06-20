@@ -31,7 +31,7 @@ const PlayingMusic = () => {
 
   useEffect(() => {
     getData().then(res => {
-      console.log(res);
+      // console.log(res);
       UseMusic.setState({music: res});
     });
   }, []);

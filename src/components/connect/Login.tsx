@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import React, {useState} from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,6 +20,7 @@ export const UseAccessTokenStore = create(set => ({
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const url = 'https://accounts.spotify.com/api/token';
@@ -49,14 +50,28 @@ const Login = ({navigation}) => {
         // UseAccessTokenStore.setState({
         //   accessToken: getToken.data.access_token,
         // });
-        UseAccessTokenStore.setState({
-          accessToken: getToken.data,
-        });
+        // UseAccessTokenStore.setState({
+        //   accessToken: getToken.data,
+        // });
 
-        // await AsyncStorage.setItem('accessToken', getToken.data.access_token);
+        if (getToken.status === 200) {
+          await AsyncStorage.setItem(
+            'accessToken',
+            getToken?.data?.access_token,
+          );
+        }
+        // AsyncStorage.setItem('accessToken', getToken?.data?.access_token);
       }
     } catch (error) {
-      console.log(error.message);
+      if (error.code === 'auth/invalid-email') {
+        setErrorMessage('Email is not valid');
+      } else if (error.code === 'auth/user-not-found') {
+        setErrorMessage('User not found');
+      } else if (error.code === 'auth/wrong-password') {
+        setErrorMessage('Password is incorrect');
+      } else {
+        setErrorMessage('Something went wrong');
+      }
     }
   };
 
@@ -91,6 +106,18 @@ const Login = ({navigation}) => {
           />
         }
       />
+      {errorMessage && (
+        <View
+          style={{
+            backgroundColor: '#fff',
+            borderRadius: 20,
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            marginTop: 10,
+          }}>
+          <Text style={{color: 'red'}}>{errorMessage}</Text>
+        </View>
+      )}
       <View
         style={{
           alignItems: 'center',

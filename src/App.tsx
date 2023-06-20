@@ -27,11 +27,12 @@ const BottomTabBar = item => {
 };
 
 const App = () => {
-  const [token, setToken] = useState(null);
-  const getToken = UseAccessTokenStore(state => state?.accessToken);
+  const [token, setToken] = useState(null || String);
+  // get full token from global state (accessToken, expires_in, token_type)
+  // const getToken = UseAccessTokenStore(state => state?.accessToken);
 
-  // set access_token to asycn storage
-  AsyncStorage.setItem('accessToken', getToken?.access_token);
+  // set access token to asycn storage
+  // AsyncStorage.setItem('accessToken', getToken?.access_token);
 
   // get access_token from async storage
   // AsyncStorage.getItem('accessToken').then(value => {
@@ -41,23 +42,51 @@ const App = () => {
   // });
 
   // check if access token is expired
-  const checkToken = (token, expiredIn) => {
+  // const checkToken = (token, expiredIn) => {
+  //   const currentTime = Math.floor(Date.now() / 1000);
+  //   const expirationTime = currentTime + expiredIn;
+
+  //   console.log('currentTime', new Date(currentTime * 1000));
+  //   console.log('expirationTime', new Date(expirationTime * 1000));
+
+  //   if (currentTime >= expirationTime) {
+  //     setToken(null);
+  //   } else {
+  //     setToken(token);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   checkToken(getToken, getToken?.expires_in);
+  // }, [getToken]);
+
+  // check if access token is expired
+  const checkToken = (token: any, expiredIn: number) => {
     const currentTime = Math.floor(Date.now() / 1000);
     const expirationTime = currentTime + expiredIn;
 
     console.log('currentTime', new Date(currentTime * 1000));
     console.log('expirationTime', new Date(expirationTime * 1000));
 
+    console.log('token', token);
+
     if (currentTime >= expirationTime) {
       setToken(null);
+      // console.log('token expired');
     } else {
       setToken(token);
+      // console.log('token not expired');
     }
   };
 
   useEffect(() => {
-    checkToken(getToken, getToken?.expires_in);
-  }, [getToken]);
+    checkToken(
+      AsyncStorage.getItem('accessToken').then(value => {
+        return value;
+      }),
+      3600,
+    );
+  }, []);
 
   return (
     <NavigationContainer>
@@ -65,40 +94,37 @@ const App = () => {
 
       {/* check the token, if exist redirect to home. Otherwise to login page*/}
       {token ? (
-        <View>
-          <Tab.Navigator tabBar={props => BottomTabBar(props)}>
-            <Tab.Screen
-              name="Home"
-              component={HomeStack}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Tab.Screen
-              name="Discover"
-              component={Discover}
-              options={{headerShown: false}}
-            />
-            <Tab.Screen
-              name="Favorite"
-              component={Favorite}
-              options={{headerShown: false}}
-            />
-            <Tab.Screen
-              name="Profile"
-              component={Profile}
-              options={{headerShown: false}}
-            />
-          </Tab.Navigator>
-
-          <View
-            style={{
-              marginHorizontal: 10,
-            }}>
-            <PlayingMusic />
-          </View>
-        </View>
+        <Tab.Navigator tabBar={props => BottomTabBar(props)}>
+          <Tab.Screen
+            name="Home"
+            component={HomeStack}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Tab.Screen
+            name="Discover"
+            component={Discover}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name="Favorite"
+            component={Favorite}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={Profile}
+            options={{headerShown: false}}
+          />
+        </Tab.Navigator>
       ) : (
+        // <View
+        //   style={{
+        //     marginHorizontal: 10,
+        //   }}>
+        //   <PlayingMusic />
+        // </View>
         <Stack.Navigator initialRouteName="Connect">
           <Stack.Screen
             name="Connect"

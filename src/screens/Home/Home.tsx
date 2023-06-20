@@ -39,7 +39,7 @@ const Home = ({navigation}: any) => {
           flexDirection: 'row',
           marginTop: SIZES.lg,
         }}>
-        <Avatar style={{width: 60, height: 60}}>{ProfileImage}</Avatar>
+        {/* <Avatar style={{width: 60, height: 60}}>{ProfileImage}</Avatar> */}
         <View
           style={{
             flexDirection: 'row',

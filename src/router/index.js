@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Connect">
+    <Stack.Navigator initialRouteName="Main">
       <Stack.Screen
         name="Connect"
         component={Connect}

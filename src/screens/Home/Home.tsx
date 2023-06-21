@@ -1,11 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Heading from '../../components/atom/Heading';
-import styles from './Home.style';
-import Avatar from '../../components/atom/Avatar';
-// import {ProfileImage} from '../../../public/images';
-import {SIZES} from '../../constants/theme';
+import {COLORS, SIZES} from '../../constants/theme';
 
 import RecentlyPlayed from '../../components/RecentlyPlayed';
 import TrendingMusic from '../../components/TrendingMusic';
@@ -33,13 +36,31 @@ const Home = ({navigation}: any) => {
   }, [getTime]);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.dark,
+        paddingHorizontal: SIZES.lg,
+        paddingTop: SIZES.lg,
+        paddingBottom: SIZES.xxl,
+      }}>
+      <StatusBar
+        translucent={true}
+        backgroundColor={COLORS.dark}
+        barStyle={'light-content'}
+      />
+      {/* header */}
       <View
         style={{
           flexDirection: 'row',
-          marginTop: SIZES.lg,
+          marginTop: SIZES.xxl,
         }}>
-        {/* <Avatar style={{width: 60, height: 60}}>{ProfileImage}</Avatar> */}
+        <TouchableOpacity>
+          <Image
+            source={require('../../../public/images/profile-image/profile.jpg')}
+            style={{width: 60, height: 60, borderRadius: 50}}
+          />
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: 'row',

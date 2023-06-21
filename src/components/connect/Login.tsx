@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import React, {useState} from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,15 +9,8 @@ import Input from '../atom/Input';
 import Button from '../atom/Button';
 import {auth} from '../../../firebase';
 import axios from 'axios';
-import {create} from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export const UseAccessTokenStore = create(set => ({
-  accessToken: '',
-  expiresIn: '',
-  setAccessToken: (accessToken: string) => set({accessToken}),
-  setExpiresIn: (expiresIn: string) => set({expiresIn}),
-}));
+import {SIZES} from '../../constants/theme';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -51,12 +44,6 @@ const Login = ({navigation}) => {
         const expirationTime = Math.floor(Date.now() / 1000) + 3600;
 
         if (getToken.status === 200) {
-          // UseAccessTokenStore.setState({
-          //   accessToken: getToken?.data?.access_token,
-          //   // convert exp to string, because AsyncStorage only accept string
-          //   expiresIn: expirationTime.toString(),
-          // });
-
           AsyncStorage.setItem('accessToken', getToken?.data?.access_token);
           AsyncStorage.setItem('expires_in', expirationTime.toString());
         }
@@ -75,9 +62,14 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        padding: 20,
+        height: '100%',
+        backgroundColor: '#2a2a2a',
+      }}>
       <Button
-        style={{paddingBottom: 50}}
+        style={{paddingBottom: 50, marginTop: SIZES.base}}
         icon={<AntDesign name="arrowleft" size={30} color="#fff" />}
         handlePress={() => navigation.navigate('Connect')}
       />
@@ -140,13 +132,5 @@ const Login = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    height: '100%',
-    backgroundColor: '#2a2a2a',
-  },
-});
 
 export default Login;

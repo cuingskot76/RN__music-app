@@ -18,6 +18,7 @@ import DatepickerSignUp from './components/connect/signup/Datepicker';
 import GenderSignUp from './components/connect/signup/Gender';
 import FinishingSignUp from './components/connect/signup/Finishing';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {COLORS} from './constants/theme';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,12 +49,14 @@ const App = () => {
     const currentTime = Date.now();
     const expirationTime = parseInt(expiredIn, 10) * 1000;
 
-    console.log('currentTime', currentTime);
-    console.log('expirationTime', expirationTime);
+    // console.log('currentTime', currentTime);
+    // console.log('expirationTime', expirationTime);
 
     if (currentTime >= expirationTime) {
       AsyncStorage.removeItem('accessToken');
+      setAccessToken('');
       AsyncStorage.removeItem('expires_in');
+      setTokenExp('');
     } else {
       setAccessToken(token);
     }
@@ -65,7 +68,11 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <StatusBar translucent={true} />
+      <StatusBar
+        translucent={true}
+        backgroundColor={COLORS.dark}
+        barStyle={'light-content'}
+      />
 
       {/* check the token, if exist redirect to home. Otherwise to login page*/}
       {accessToken ? (

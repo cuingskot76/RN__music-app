@@ -1,5 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,7 +16,7 @@ import Button from '../atom/Button';
 
 const Connect = ({navigation}) => {
   return (
-    <View
+    <ScrollView
     // style={styles.container}
     >
       <LinearGradient colors={['#2a2a2a', '#0e0e0e']} style={styles.container}>
@@ -85,7 +92,7 @@ const Connect = ({navigation}) => {
           </View>
         </View>
       </LinearGradient>
-    </View>
+    </ScrollView>
   );
 };
 

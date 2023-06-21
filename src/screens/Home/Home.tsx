@@ -18,6 +18,7 @@ import Section from '../../components/atom/Section';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RecentlyPopular from '../../components/RecentlyPopular';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -34,6 +35,12 @@ const Home = ({navigation}: any) => {
       setGetTime('Good night 🌙');
     }
   }, [getTime]);
+
+  // AsyncStorage.getItem('accessToken').then(value => {
+  //   if (value) {
+  //     console.log('accessToken', value);
+  //   }
+  // });
 
   return (
     <ScrollView

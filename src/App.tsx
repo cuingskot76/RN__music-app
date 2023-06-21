@@ -11,7 +11,7 @@ import ButtonTab from './components/ButtonTab';
 import PlayingMusic from './components/PlayingMusic';
 import Connect from './components/connect/Connect';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Login, {UseAccessTokenStore} from './components/connect/Login';
+import Login from './components/connect/Login';
 import EmailSignUp from './components/connect/signup/Email';
 import PasswordSignUp from './components/connect/signup/Password';
 import DatepickerSignUp from './components/connect/signup/Datepicker';
@@ -19,6 +19,7 @@ import GenderSignUp from './components/connect/signup/Gender';
 import FinishingSignUp from './components/connect/signup/Finishing';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {COLORS} from './constants/theme';
+import {create} from 'zustand';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,44 +28,19 @@ const BottomTabBar = item => {
   return <ButtonTab {...item} />;
 };
 
+export const UseAccessTokenStore = create(set => ({
+  accessToken: '',
+  setAccessToken: (token: string) => set({accessToken: token}),
+}));
+
 const App = () => {
-  const [accessToken, setAccessToken] = useState(null || String);
-  const [token, setToken] = useState(null || String);
-  const [tokenExp, setTokenExp] = useState(String);
+  const accessToken = UseAccessTokenStore(state => state.accessToken);
 
   AsyncStorage.getItem('accessToken').then(value => {
-    if (value) {
-      setToken(value);
-    }
+    UseAccessTokenStore.setState({accessToken: value});
   });
 
-  AsyncStorage.getItem('expires_in').then(value => {
-    if (value) {
-      setTokenExp(value);
-    }
-  });
-
-  // check if access token is expired
-  const checkTokenIsExp = (token, expiredIn) => {
-    const currentTime = Date.now();
-    const expirationTime = parseInt(expiredIn, 10) * 1000;
-
-    // console.log('currentTime', currentTime);
-    // console.log('expirationTime', expirationTime);
-
-    if (currentTime >= expirationTime) {
-      AsyncStorage.removeItem('accessToken');
-      setAccessToken('');
-      AsyncStorage.removeItem('expires_in');
-      setTokenExp('');
-    } else {
-      setAccessToken(token);
-    }
-  };
-
-  useEffect(() => {
-    checkTokenIsExp(token, tokenExp);
-  }, [token, tokenExp]);
+  console.log('accessToken', accessToken);
 
   return (
     <NavigationContainer>

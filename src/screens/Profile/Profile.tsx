@@ -3,100 +3,47 @@ import React, {useEffect, useState} from 'react';
 import {
   Alert,
   BackHandler,
-  Button,
   ScrollView,
+  StatusBar,
   Switch,
   Text,
   View,
 } from 'react-native';
-import Modal from 'react-native-modal';
-import Datepicker from '../../components/Datepicker';
+import Button from '../../components/atom/Button';
+import {COLORS} from '../../constants/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import {UseAccessTokenStore} from '../../App';
 
 const Profile = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [isEnable, setIsEnable] = useState(false);
+  // const res = UseAccessTokenStore(state => state.accessToken);
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const handleLogOut = () => {
+    AsyncStorage.removeItem('accessToken');
+    UseAccessTokenStore.setState({accessToken: null});
   };
-
-  // const backAction = () => {
-  //   Alert.alert('Hold on!, are you sure you want to go back?'),
-  //     [
-  //       {
-  //         text: 'Cancel',
-  //         onPress: () => null,
-  //         style: 'cancel',
-  //       },
-  //       {
-  //         text: "Yes, I'm sure",
-  //         onPress: BackHandler.exitApp(),
-  //       },
-  //     ];
-  //   return true;
-  // };
-
-  // const backHandler = BackHandler.addEventListener(
-  //   'hardwareBackPress',
-  //   backAction,
-  // );
-
   return (
     <ScrollView
       contentContainerStyle={{
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+        backgroundColor: COLORS.dark,
       }}>
-      <Button title="Show modal" onPress={toggleModal} />
-
-      <View style={{marginBottom: 20}}>
-        <Modal isVisible={isModalVisible}>
-          <View style={{flex: 1}}>
-            <Text>Hello!</Text>
-
-            <Button title="Hide modal" onPress={toggleModal} />
-          </View>
-        </Modal>
-      </View>
-
-      <Datepicker />
-
-      <View
+      <Button
+        title="Log out"
+        colorText={COLORS.white}
         style={{
-          alignItems: 'center',
           marginTop: 20,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          gap: 20,
-        }}>
-        <Text
-          style={{
-            fontSize: 20,
-            color: isEnable ? 'green' : 'red',
-          }}>
-          Switch : {isEnable ? 'ON' : 'OFF'}
-        </Text>
-        <Switch
-          onValueChange={() => setIsEnable(prev => !prev)}
-          value={isEnable}
-          trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={isEnable ? '#f5dd4b' : '#f4f3f4'}
-        />
-      </View>
-
-      <View>
-        <Button
-          title="Show Alert"
-          onPress={() =>
-            Alert.alert('This is an alert', 'Hello World!', [
-              {
-                // onPress: () => console.log('OK Pressed'),
-              },
-            ])
-          }
-        />
-      </View>
+          alignItems: 'center',
+          backgroundColor: COLORS.danger,
+          borderRadius: 20,
+          maxWidth: 150,
+          paddingVertical: 10,
+          paddingHorizontal: 30,
+        }}
+        handlePress={handleLogOut}
+      />
     </ScrollView>
   );
 };

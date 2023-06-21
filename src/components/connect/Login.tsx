@@ -41,22 +41,11 @@ const Login = ({navigation}) => {
           },
         );
 
+        const expirationTime = Math.floor(Date.now() / 1000) + 3600;
+
         if (getToken.status === 200) {
-          const accessToken = getToken.data.access_token;
-          const expirationTime = Math.floor(Date.now() / 1000) + 3600;
-
-          const checkTokenIsExp = (token, expiredIn) => {
-            const currentTime = Date.now();
-            const exp = parseInt(expiredIn, 10) * 1000;
-
-            if (currentTime >= exp) {
-              AsyncStorage.removeItem('accessToken');
-            } else {
-              AsyncStorage.setItem('accessToken', token);
-            }
-          };
-
-          checkTokenIsExp(accessToken, expirationTime);
+          AsyncStorage.setItem('accessToken', getToken?.data?.access_token);
+          AsyncStorage.setItem('expires_in', expirationTime?.toString());
         }
       }
     } catch (error) {

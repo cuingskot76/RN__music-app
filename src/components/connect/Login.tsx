@@ -14,7 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UseAccessTokenStore = create(set => ({
   accessToken: '',
+  expiresIn: '',
   setAccessToken: (accessToken: string) => set({accessToken}),
+  setExpiresIn: (expiresIn: string) => set({expiresIn}),
 }));
 
 const Login = ({navigation}) => {
@@ -46,21 +48,18 @@ const Login = ({navigation}) => {
           },
         );
 
-        // store access token in global state
-        // UseAccessTokenStore.setState({
-        //   accessToken: getToken.data.access_token,
-        // });
-        // UseAccessTokenStore.setState({
-        //   accessToken: getToken.data,
-        // });
+        const expirationTime = Math.floor(Date.now() / 1000) + 3600;
 
         if (getToken.status === 200) {
-          await AsyncStorage.setItem(
-            'accessToken',
-            getToken?.data?.access_token,
-          );
+          // UseAccessTokenStore.setState({
+          //   accessToken: getToken?.data?.access_token,
+          //   // convert exp to string, because AsyncStorage only accept string
+          //   expiresIn: expirationTime.toString(),
+          // });
+
+          AsyncStorage.setItem('accessToken', getToken?.data?.access_token);
+          AsyncStorage.setItem('expires_in', expirationTime.toString());
         }
-        // AsyncStorage.setItem('accessToken', getToken?.data?.access_token);
       }
     } catch (error) {
       if (error.code === 'auth/invalid-email') {

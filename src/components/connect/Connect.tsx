@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 50,
-    marginTop: 100,
+    marginTop: 50,
     alignItems: 'center',
   },
   buttonTransparent: {

@@ -27,73 +27,48 @@ const BottomTabBar = item => {
 };
 
 const App = () => {
+  const [accessToken, setAccessToken] = useState(null || String);
   const [token, setToken] = useState(null || String);
-  // get full token from global state (accessToken, expires_in, token_type)
-  // const getToken = UseAccessTokenStore(state => state?.accessToken);
+  const [tokenExp, setTokenExp] = useState(String);
 
-  // set access token to asycn storage
-  // AsyncStorage.setItem('accessToken', getToken?.access_token);
+  AsyncStorage.getItem('accessToken').then(value => {
+    if (value) {
+      setToken(value);
+    }
+  });
 
-  // get access_token from async storage
-  // AsyncStorage.getItem('accessToken').then(value => {
-  //   if (value) {
-  //     setToken(value);
-  //   }
-  // });
-
-  // check if access token is expired
-  // const checkToken = (token, expiredIn) => {
-  //   const currentTime = Math.floor(Date.now() / 1000);
-  //   const expirationTime = currentTime + expiredIn;
-
-  //   console.log('currentTime', new Date(currentTime * 1000));
-  //   console.log('expirationTime', new Date(expirationTime * 1000));
-
-  //   if (currentTime >= expirationTime) {
-  //     setToken(null);
-  //   } else {
-  //     setToken(token);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   checkToken(getToken, getToken?.expires_in);
-  // }, [getToken]);
+  AsyncStorage.getItem('expires_in').then(value => {
+    if (value) {
+      setTokenExp(value);
+    }
+  });
 
   // check if access token is expired
-  const checkToken = (token: any, expiredIn: number) => {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const expirationTime = currentTime + expiredIn;
+  const checkTokenIsExp = (token, expiredIn) => {
+    const currentTime = Date.now();
+    const expirationTime = parseInt(expiredIn, 10) * 1000;
 
-    console.log('currentTime', new Date(currentTime * 1000));
-    console.log('expirationTime', new Date(expirationTime * 1000));
-
-    console.log('token', token);
+    console.log('currentTime', currentTime);
+    console.log('expirationTime', expirationTime);
 
     if (currentTime >= expirationTime) {
-      setToken(null);
-      // console.log('token expired');
+      AsyncStorage.removeItem('accessToken');
+      AsyncStorage.removeItem('expires_in');
     } else {
-      setToken(token);
-      // console.log('token not expired');
+      setAccessToken(token);
     }
   };
 
   useEffect(() => {
-    checkToken(
-      AsyncStorage.getItem('accessToken').then(value => {
-        return value;
-      }),
-      3600,
-    );
-  }, []);
+    checkTokenIsExp(token, tokenExp);
+  }, [token, tokenExp]);
 
   return (
     <NavigationContainer>
       <StatusBar translucent={true} />
 
       {/* check the token, if exist redirect to home. Otherwise to login page*/}
-      {token ? (
+      {accessToken ? (
         <Tab.Navigator tabBar={props => BottomTabBar(props)}>
           <Tab.Screen
             name="Home"

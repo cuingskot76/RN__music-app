@@ -21,6 +21,9 @@ const Profile = () => {
   const handleLogOut = () => {
     AsyncStorage.removeItem('accessToken');
     UseAccessTokenStore.setState({accessToken: null});
+
+    AsyncStorage.removeItem('tokenExp');
+    UseAccessTokenStore.setState({tokenExp: null});
   };
   return (
     <ScrollView

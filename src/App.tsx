@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {HomeStack} from './router';
 import {StatusBar, View} from 'react-native';
@@ -28,41 +28,43 @@ const BottomTabBar = item => {
 };
 
 const App = () => {
-  const [accessToken, setAccessToken] = useState(null || String);
-  const [token, setToken] = useState(null || String);
-  const [tokenExp, setTokenExp] = useState(String);
+  const accessToken = UseAccessTokenStore(state => state.accessToken);
+  const tokenExp = UseAccessTokenStore(state => state.tokenExp);
 
   AsyncStorage.getItem('accessToken').then(value => {
-    if (value) {
-      setToken(value);
-    }
+    // get the token from async storage and set it to the store
+    // so, when the app is reloaded, the token will be still there
+    UseAccessTokenStore.setState({accessToken: value});
   });
 
-  AsyncStorage.getItem('expires_in').then(value => {
-    if (value) {
-      setTokenExp(value);
-    }
+  AsyncStorage.getItem('tokenExp').then(value => {
+    UseAccessTokenStore.setState({tokenExp: value});
   });
 
-  // check if access token is expired
-  const checkTokenIsExp = (token, expiredIn) => {
-    const currentTime = Date.now();
-    const expirationTime = parseInt(expiredIn, 10) * 1000;
+  const checkIfTokenExpired = useCallback(() => {
+    // check if the token is expired
+    if (tokenExp) {
+      // change the string tokenExp to number
+      const tokenExpDate = Number(tokenExp);
+      const currentTime = Math.floor(Date.now() / 1000);
 
-    // console.log('currentTime', currentTime);
-    // console.log('expirationTime', expirationTime);
+      if (currentTime >= tokenExpDate) {
+        AsyncStorage.removeItem('accessToken');
+        UseAccessTokenStore.setState({accessToken: null});
 
-    if (currentTime >= expirationTime) {
-      AsyncStorage.removeItem('accessToken');
-      setAccessToken('');
-    } else {
-      setAccessToken(token);
+        AsyncStorage.removeItem('tokenExp');
+        UseAccessTokenStore.setState({tokenExp: null});
+      }
     }
-  };
+  }, [tokenExp]);
 
   useEffect(() => {
-    checkTokenIsExp(token, tokenExp);
-  }, [token, tokenExp, accessToken]);
+    // run the function above when with interval of every 1 second
+    const interval = setInterval(() => {
+      checkIfTokenExpired();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [checkIfTokenExpired]);
 
   return (
     <NavigationContainer>

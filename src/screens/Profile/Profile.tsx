@@ -13,7 +13,7 @@ import Button from '../../components/atom/Button';
 import {COLORS} from '../../constants/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
-import {UseAccessTokenStore} from '../../App';
+import {UseAccessTokenStore} from '../../components/connect/Login';
 
 const Profile = () => {
   // const res = UseAccessTokenStore(state => state.accessToken);

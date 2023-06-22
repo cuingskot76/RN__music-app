@@ -11,6 +11,14 @@ import {auth} from '../../../firebase';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SIZES} from '../../constants/theme';
+import {create} from 'zustand';
+
+export const UseAccessTokenStore = create(set => ({
+  accessToken: '',
+  tokenExp: '',
+  setAccessToken: (token: string) => set({accessToken: token}),
+  setTokenExp: (time: string) => set({tokenExp: time}),
+}));
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -47,12 +55,17 @@ const Login = ({navigation}) => {
 
           const checkTokenIsExp = (token, expiredIn) => {
             const currentTime = Date.now();
-            const exp = parseInt(expiredIn, 10) * 1000;
+            const exp = parseInt(expiredIn, 13) * 1000;
 
             if (currentTime >= exp) {
               AsyncStorage.removeItem('accessToken');
             } else {
               AsyncStorage.setItem('accessToken', token);
+              UseAccessTokenStore.setState({accessToken: token});
+
+              // because AsyncStorage only accept string, so we need to convert the expirationTime(by default is number) to string
+              AsyncStorage.setItem('tokenExp', expirationTime.toString());
+              UseAccessTokenStore.setState({tokenExp: expirationTime});
             }
           };
 

@@ -44,17 +44,16 @@ const PopularArtist = navigation => {
         }),
       ),
     );
-    console.log('artistData', typeof artistData);
     setArtist(artistData?.map(item => item.data));
   }, [accessToken, artistUrl]);
 
   useEffect(() => {
     fetchData();
     fetchArtists();
-  }, [fetchArtists, fetchData]);
-  // }, [fetchArtists]);
+    // }, [fetchArtists, fetchData]);
+  }, [fetchArtists]);
 
-  // console.log('artist', artist);
+  console.log('artist', typeof artist);
 
   return (
     <View>

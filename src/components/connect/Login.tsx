@@ -34,7 +34,6 @@ const Login = ({navigation}) => {
     try {
       const authRes = await auth.signInWithEmailAndPassword(username, password);
       const user = authRes.user;
-      // const userToken = await user.getIdToken();
 
       if (user) {
         const getToken = await axios.post(
@@ -50,8 +49,6 @@ const Login = ({navigation}) => {
             },
           },
         );
-
-        const expirationTime = Math.floor(Date.now() / 1000) + 3600;
 
         if (getToken.status === 200) {
           const accessToken = getToken.data.access_token;

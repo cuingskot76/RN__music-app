@@ -30,7 +30,6 @@ const TrendingMusic = navigation => {
   }, [fetchData]);
 
   const maxData = data?.slice(0, 7);
-  console.log(maxData);
 
   return (
     <View>

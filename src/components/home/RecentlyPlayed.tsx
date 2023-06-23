@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, TouchableOpacity, Text, FlatList} from 'react-native';
 import React from 'react';
-import styles from '../screens/Home/Home.style';
-import Heading from './atom/Heading';
-import {SIZES} from '../constants/theme';
-import Figure from './atom/Figure';
+import styles from '../../screens/Home/Home.style';
+import Heading from '../atom/Heading';
+import {SIZES} from '../../constants/theme';
+import Figure from '../atom/Figure';
 
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import UseFetch from '../hooks/UseFetch';
+import UseFetch from '../../hooks/UseFetch';
 
 const RecentlyPlayed = (navigation: any) => {
   const {data, error} = UseFetch('/charts/track');

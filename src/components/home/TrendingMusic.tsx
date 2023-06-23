@@ -1,20 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, FlatList, Text, TouchableOpacity, Image} from 'react-native';
+import {View, FlatList, TouchableOpacity, Image} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
-import styles from '../screens/Home/Home.style';
-import Heading from './atom/Heading';
+import Heading from '../atom/Heading';
 import axios from 'axios';
 
-import {SIZES} from '../constants/theme';
-import Figure from './atom/Figure';
-import UseFetch from '../hooks/UseFetch';
+import {SIZES} from '../../constants/theme';
 
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {UseAccessTokenStore} from './connect/Login';
+import {UseAccessTokenStore} from '../connect/Login';
 
 const TrendingMusic = navigation => {
-  // const {data, error} = UseFetch('/charts/track');
-  // const maxData = data?.tracks?.slice(0, 7);
   const [data, setData] = useState(null);
 
   const accessToken = UseAccessTokenStore(state => state.accessToken);
@@ -27,15 +22,15 @@ const TrendingMusic = navigation => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    setData(result.data);
+    setData(result.data?.items);
   }, [accessToken, url]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const name = data?.items?.map(item => item?.track?.name).slice(0, 7);
-  console.log(name);
+  const maxData = data?.slice(0, 7);
+
   return (
     <View>
       {data === null ? (
@@ -61,7 +56,7 @@ const TrendingMusic = navigation => {
         />
       ) : (
         <FlatList
-          data={data}
+          data={maxData}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{gap: SIZES.lg}}
@@ -69,10 +64,39 @@ const TrendingMusic = navigation => {
             <TouchableOpacity
               key={item?.id}
               onPress={() => navigation.navigate('DetailPlayer', {...item})}>
-              <View style={styles.trendingMusicImageContainer}>
-                <Figure alt="test">{item?.images?.coverart}</Figure>
+              <View
+                style={{
+                  height: 200,
+                  width: 250,
+                  borderRadius: 30,
+                  overflow: 'hidden',
+                  position: 'relative',
+                }}>
+                <Image
+                  source={{uri: item?.track?.album?.images[0]?.url}}
+                  alt="trending"
+                  style={{
+                    width: 250,
+                    height: 200,
+                    borderRadius: 30,
+                  }}
+                />
 
-                <View style={styles.trendingMusicDescriptionContainer}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    padding: SIZES.lg,
+                    borderBottomStartRadius: 30,
+                    borderBottomEndRadius: 30,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
                   <View style={{flex: 1}}>
                     <Heading
                       isMuted={false}
@@ -81,7 +105,7 @@ const TrendingMusic = navigation => {
                         fontWeight: 'bold',
                         marginBottom: 5,
                       }}>
-                      {item}
+                      {item?.track?.name}
                     </Heading>
                   </View>
                 </View>

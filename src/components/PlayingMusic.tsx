@@ -10,7 +10,7 @@ import Heading from './atom/Heading';
 import Figure from './atom/Figure';
 
 import {useNavigation} from '@react-navigation/native';
-import {UseMusic} from './AllMusic';
+import {UseMusic} from './home/AllMusic';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

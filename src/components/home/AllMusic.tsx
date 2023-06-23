@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import styles from '../screens/Home/Home.style';
-import Heading from './atom/Heading';
+import styles from '../../screens/Home/Home.style';
+import Heading from '../atom/Heading';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {COLORS, SIZES} from '../constants/theme';
-import Figure from './atom/Figure';
+import {COLORS, SIZES} from '../../constants/theme';
+import Figure from '../atom/Figure';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
 

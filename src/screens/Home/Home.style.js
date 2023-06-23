@@ -51,12 +51,7 @@ const styles = StyleSheet.create({
     marginTop: SIZES.xl,
     marginBottom: SIZES.lg,
   },
-  popularArtistImageContainer: {
-    height: 100,
-    width: 100,
-    borderRadius: 50,
-    overflow: 'hidden',
-  },
+  popularArtistImageContainer: {},
   recentlyPlayedHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',

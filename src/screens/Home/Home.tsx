@@ -10,10 +10,10 @@ import React, {useEffect, useState} from 'react';
 import Heading from '../../components/atom/Heading';
 import {COLORS, SIZES} from '../../constants/theme';
 
-import RecentlyPlayed from '../../components/RecentlyPlayed';
-import TrendingMusic from '../../components/TrendingMusic';
-import PopularArtist from '../../components/PopularArtist';
-import AllMusic from '../../components/AllMusic';
+import RecentlyPlayed from '../../components/home/RecentlyPlayed';
+import TrendingMusic from '../../components/home/TrendingMusic';
+import PopularArtist from '../../components/home/PopularArtist';
+import AllMusic from '../../components/home/AllMusic';
 import Section from '../../components/atom/Section';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';

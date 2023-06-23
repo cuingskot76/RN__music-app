@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import TabItem from './TabItem';
-import {COLORS} from '../constants/theme';
+import {COLORS} from '../../constants/theme';
 
 const ButtonTab = ({state, descriptors, navigation}: BottomTabBarProps) => {
   return (

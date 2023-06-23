@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Discover from './screens/Discover/Discover';
 import Favorite from './screens/Favorite/Favorite';
 import Profile from './screens/Profile/Profile';
-import ButtonTab from './components/ButtonTab';
+import ButtonTab from './components/navigation/ButtonTab';
 import PlayingMusic from './components/PlayingMusic';
 import Connect from './components/connect/Connect';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';

@@ -35,8 +35,6 @@ const RecentlyPlayed = (navigation: any) => {
     fetchData();
   }, [fetchData]);
 
-  console.log('max data', maxData);
-
   return (
     <View>
       {data === null ? (

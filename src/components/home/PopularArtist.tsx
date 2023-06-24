@@ -60,14 +60,10 @@ const PopularArtist = navigation => {
     fetchData();
   }, [fetchData]);
 
-  console.log('artist', artist);
-
   useEffect(() => {
     fetchArtists(artistUrl);
     // * i don't know when i implement "artistUrl" in dependency array, it's always re-rendering
   }, [artistUrl?.length, fetchArtists]);
-
-  console.log('artist', artist);
 
   return (
     <View>

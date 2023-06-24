@@ -1,5 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+  Image,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from '../../screens/Home/Home.style';
 import Heading from '../atom/Heading';
@@ -16,6 +22,7 @@ import {API_URL, API_KEY, API_HOST} from '@env';
 import {create} from 'zustand';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {UseAccessTokenStore} from '../connect/Login';
 
 export const UseMusic = create(set => ({
   music: [],
@@ -25,144 +32,32 @@ export const UseMusic = create(set => ({
 }));
 
 const AllMusic = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [currentMusic, setCurrentMusic] = useState(null);
 
+  const accessToken = UseAccessTokenStore(state => state.accessToken);
+
+  const url =
+    'https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF/tracks';
+
+  const maxData = data?.slice(0, 20);
+
+  const fetchData = async () => {
+    try {
+      const result = await axios(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setData(result.data?.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      url: `${API_URL}/charts/track`,
-      params: {
-        locale: 'ID',
-        listId: 'ip-country-chart-ID',
-        pageSize: '20',
-        startFrom: '0',
-      },
-      headers: {
-        'X-RapidAPI-Key': API_KEY,
-        'X-RapidAPI-Host': API_HOST,
-      },
-    };
-
-    const fetchAllMusic = async () => {
-      const res = await axios.request(options);
-      const datas = await res.data;
-
-      setData(datas);
-    };
-    fetchAllMusic();
+    fetchData();
   }, []);
-
-  const maxData = data?.tracks;
-
-  // if (data === undefined) {
-  //   return (
-  //     // <FlatList
-  //     //   data={[1, 2, 3, 4, 5, 6, 7]}
-  //     //   contentContainerStyle={{gap: SIZES.lg}}
-  //     //   renderItem={({item}) => (
-  //     //     <View>
-  //     //       <SkeletonPlaceholder
-  //     //         borderRadius={4}
-  //     //         backgroundColor="#41444B"
-  //     //         highlightColor="#52575D">
-  //     //         <View
-  //     //           style={{
-  //     //             flexDirection: 'row',
-  //     //             alignItems: 'center',
-  //     //             gap: SIZES.base,
-  //     //             justifyContent: 'space-between',
-  //     //           }}>
-  //     //           <View
-  //     //             style={{
-  //     //               flexDirection: 'row',
-  //     //               alignItems: 'center',
-  //     //               gap: SIZES.base,
-  //     //             }}>
-  //     //             <SkeletonPlaceholder.Item
-  //     //               width={100}
-  //     //               height={100}
-  //     //               borderRadius={10}
-  //     //             />
-  //     //             <View>
-  //     //               <SkeletonPlaceholder.Item
-  //     //                 width={150}
-  //     //                 height={20}
-  //     //                 borderRadius={4}
-  //     //                 marginTop={10}
-  //     //               />
-  //     //               <SkeletonPlaceholder.Item
-  //     //                 width={100}
-  //     //                 height={20}
-  //     //                 borderRadius={4}
-  //     //                 marginTop={10}
-  //     //               />
-  //     //             </View>
-  //     //           </View>
-  //     //           <SkeletonPlaceholder.Item
-  //     //             width={50}
-  //     //             height={50}
-  //     //             borderRadius={50}
-  //     //           />
-  //     //         </View>
-  //     //       </SkeletonPlaceholder>
-  //     //     </View>
-  //     //   )}
-  //     // />
-
-  //     // <ScrollView>
-  //     //   {Array.from(Array(7).keys()).map((item, index) => (
-  //     //     <View key={index}>
-  //     //       <SkeletonPlaceholder
-  //     //         borderRadius={4}
-  //     //         backgroundColor="#41444B"
-  //     //         highlightColor="#52575D">
-  //     //         <View
-  //     //           style={{
-  //     //             flexDirection: 'row',
-  //     //             alignItems: 'center',
-  //     //             gap: SIZES.base,
-  //     //             justifyContent: 'space-between',
-  //     //             marginBottom: SIZES.lg,
-  //     //           }}>
-  //     //           <View
-  //     //             style={{
-  //     //               flexDirection: 'row',
-  //     //               alignItems: 'center',
-  //     //               gap: SIZES.base,
-  //     //             }}>
-  //     //             <SkeletonPlaceholder.Item
-  //     //               width={100}
-  //     //               height={100}
-  //     //               borderRadius={10}
-  //     //             />
-  //     //             <View>
-  //     //               <SkeletonPlaceholder.Item
-  //     //                 width={150}
-  //     //                 height={20}
-  //     //                 borderRadius={4}
-  //     //                 marginTop={10}
-  //     //               />
-  //     //               <SkeletonPlaceholder.Item
-  //     //                 width={100}
-  //     //                 height={20}
-  //     //                 borderRadius={4}
-  //     //                 marginTop={10}
-  //     //               />
-  //     //             </View>
-  //     //           </View>
-  //     //           <SkeletonPlaceholder.Item
-  //     //             width={50}
-  //     //             height={50}
-  //     //             borderRadius={50}
-  //     //           />
-  //     //         </View>
-  //     //       </SkeletonPlaceholder>
-  //     //     </View>
-  //     //   ))}
-  //     // </ScrollView>
-  //   );
-  // }
 
   const onHandlePress = async item => {
     if (currentMusic === item) {
@@ -181,15 +76,24 @@ const AllMusic = () => {
   const isPlayingMusic = UseMusic(state => state.isPlaying);
 
   const onRenderItem = ({item}) => {
-    const adamId = item?.artists?.[0]?.adamid;
+    const trackId = item?.track?.id;
 
-    const isPlaying = currentMusic?.artists?.[0]?.adamid === adamId;
+    const isPlaying = currentMusic?.track?.id === trackId;
+    console.log('test', isPlaying);
 
     return (
       <TouchableOpacity key={item.id}>
         <View style={styles.allMusicContainer}>
           <View style={styles.allMusicImageContainer}>
-            <Figure alt={item.title}>{item?.images?.coverart}</Figure>
+            <Image
+              source={{uri: item?.track?.album?.images?.[0]?.url}}
+              alt="recently-played-image"
+              style={{
+                width: '100%',
+                height: '100%',
+                resizeMode: 'cover',
+              }}
+            />
           </View>
 
           <View style={styles.allMusicDescriptionContainer}>
@@ -198,17 +102,17 @@ const AllMusic = () => {
                 isMuted={false}
                 style={{
                   fontSize: SIZES.base,
-                  fontWeight: 'bold',
+                  fontWeight: '600',
                   marginBottom: 5,
                 }}>
-                {item?.title?.length > 15
-                  ? item?.title?.substring(0, 15) + '...'
-                  : item?.title}
+                {item?.track?.name?.length > 15
+                  ? item?.track?.name?.substring(0, 15) + '...'
+                  : item?.track?.name}
               </Heading>
               <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                {item?.subtitle?.length > 25
-                  ? item?.subtitle?.substring(0, 25) + '...'
-                  : item?.subtitle}
+                {item?.track?.artists?.[0]?.name?.length > 15
+                  ? item?.track?.artists?.[0]?.name?.substring(0, 15) + '...'
+                  : item?.track?.artists?.[0]?.name}
               </Heading>
             </View>
             <View>
@@ -244,7 +148,7 @@ const AllMusic = () => {
         />
       ) : (
         <ScrollView>
-          {Array.from(Array(7).keys()).map((item, index) => (
+          {Array.from(Array(20).keys()).map((item, index) => (
             <View key={index}>
               <SkeletonPlaceholder
                 borderRadius={4}

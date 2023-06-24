@@ -1,97 +1,118 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity, Text, FlatList} from 'react-native';
-import React from 'react';
+import {View, TouchableOpacity, Image, FlatList} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from '../../screens/Home/Home.style';
 import Heading from '../atom/Heading';
 import {SIZES} from '../../constants/theme';
-import Figure from '../atom/Figure';
 
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import UseFetch from '../../hooks/UseFetch';
+import {UseAccessTokenStore} from '../connect/Login';
+import axios from 'axios';
 
 const RecentlyPlayed = (navigation: any) => {
-  const {data, error} = UseFetch('/charts/track');
+  const [data, setData] = useState(null);
+  const accessToken = UseAccessTokenStore(state => state.accessToken);
 
-  const maxData = data?.tracks?.slice(6, 17);
+  const url =
+    'https://api.spotify.com/v1/playlists/37i9dQZF1E36r8XV5PiKRr/tracks';
 
-  if (data === undefined) {
-    return (
-      <FlatList
-        data={[1, 2, 3, 4, 5, 6, 7]}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{gap: SIZES.lg}}
-        renderItem={({item}) => (
-          <View>
-            <SkeletonPlaceholder
-              borderRadius={4}
-              backgroundColor="#41444B"
-              highlightColor="#52575D">
-              <View>
-                <SkeletonPlaceholder.Item
-                  width={200}
-                  height={200}
-                  borderRadius={10}
-                />
-                <SkeletonPlaceholder.Item
-                  width={100}
-                  height={20}
-                  borderRadius={4}
-                  marginTop={10}
-                />
-              </View>
-            </SkeletonPlaceholder>
-          </View>
-        )}
-      />
-    );
-  }
+  const maxData = data?.slice(0, 7);
 
-  if (error) {
-    return (
-      <View>
-        <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
-      </View>
-    );
-  }
+  const fetchData = useCallback(async () => {
+    try {
+      const result = await axios(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setData(result?.data?.items);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  console.log('max data', maxData);
 
   return (
     <View>
-      <FlatList
-        data={maxData}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{gap: SIZES.lg}}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => {
-              navigation.navigate('DetailPlayer', {...item});
-            }}>
-            <View style={styles.recentlyPlayedImageContainer}>
-              <Figure alt="test">{item?.images?.coverart}</Figure>
+      {data === null ? (
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6, 7]}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={({item}) => (
+            <View>
+              <SkeletonPlaceholder
+                borderRadius={4}
+                backgroundColor="#41444B"
+                highlightColor="#52575D">
+                <View>
+                  <SkeletonPlaceholder.Item
+                    width={200}
+                    height={200}
+                    borderRadius={10}
+                  />
+                  <SkeletonPlaceholder.Item
+                    width={100}
+                    height={20}
+                    borderRadius={4}
+                    marginTop={10}
+                  />
+                </View>
+              </SkeletonPlaceholder>
             </View>
-            <View style={styles.recentlyPlayedDescriptionContainer}>
-              <Heading
-                isMuted={false}
-                style={{
-                  fontSize: SIZES.base,
-                  fontWeight: 'bold',
-                  marginBottom: 5,
-                }}>
-                {item?.title?.length > 15
-                  ? item?.title?.substring(0, 15) + '...'
-                  : item?.title}
-              </Heading>
-              <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-                {item?.subtitle?.length > 20
-                  ? item?.subtitle?.substring(0, 20) + '...'
-                  : item?.subtitle}
-              </Heading>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+          )}
+        />
+      ) : (
+        <FlatList
+          data={maxData}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => {
+                navigation.navigate('DetailPlayer', {...item});
+              }}>
+              <View style={styles.recentlyPlayedImageContainer}>
+                <Image
+                  source={{uri: item?.track?.album?.images?.[0]?.url}}
+                  alt="recently-played-image"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    resizeMode: 'cover',
+                  }}
+                />
+              </View>
+              <View style={styles.recentlyPlayedDescriptionContainer}>
+                <Heading
+                  isMuted={false}
+                  style={{
+                    fontSize: SIZES.base,
+                    fontWeight: '600',
+                    marginBottom: 5,
+                  }}>
+                  {item?.track?.name?.length > 15
+                    ? item?.track?.name?.substring(0, 15) + '...'
+                    : item?.track?.name}
+                </Heading>
+                <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
+                  {item?.track?.artists?.[0]?.name?.length > 15
+                    ? item?.track?.artists?.[0]?.name?.substring(0, 15) + '...'
+                    : item?.track?.artists?.[0]?.name}
+                </Heading>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      )}
     </View>
   );
 };

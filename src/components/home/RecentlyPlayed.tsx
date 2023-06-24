@@ -37,36 +37,7 @@ const RecentlyPlayed = (navigation: any) => {
 
   return (
     <View>
-      {data === null ? (
-        <FlatList
-          data={[1, 2, 3, 4, 5, 6, 7]}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: SIZES.lg}}
-          renderItem={({item}) => (
-            <View>
-              <SkeletonPlaceholder
-                borderRadius={4}
-                backgroundColor="#41444B"
-                highlightColor="#52575D">
-                <View>
-                  <SkeletonPlaceholder.Item
-                    width={200}
-                    height={200}
-                    borderRadius={10}
-                  />
-                  <SkeletonPlaceholder.Item
-                    width={100}
-                    height={20}
-                    borderRadius={4}
-                    marginTop={10}
-                  />
-                </View>
-              </SkeletonPlaceholder>
-            </View>
-          )}
-        />
-      ) : (
+      {data ? (
         <FlatList
           data={maxData}
           horizontal={true}
@@ -108,6 +79,35 @@ const RecentlyPlayed = (navigation: any) => {
                 </Heading>
               </View>
             </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6, 7]}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={({item}) => (
+            <View>
+              <SkeletonPlaceholder
+                borderRadius={4}
+                backgroundColor="#41444B"
+                highlightColor="#52575D">
+                <View>
+                  <SkeletonPlaceholder.Item
+                    width={200}
+                    height={200}
+                    borderRadius={10}
+                  />
+                  <SkeletonPlaceholder.Item
+                    width={100}
+                    height={20}
+                    borderRadius={4}
+                    marginTop={10}
+                  />
+                </View>
+              </SkeletonPlaceholder>
+            </View>
           )}
         />
       )}

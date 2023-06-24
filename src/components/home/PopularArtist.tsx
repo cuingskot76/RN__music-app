@@ -67,28 +67,7 @@ const PopularArtist = navigation => {
 
   return (
     <View>
-      {data === null ? (
-        <FlatList
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: SIZES.lg}}
-          renderItem={({item}) => (
-            <View>
-              <SkeletonPlaceholder
-                borderRadius={4}
-                backgroundColor="#41444B"
-                highlightColor="#52575D">
-                <SkeletonPlaceholder.Item
-                  height={100}
-                  width={100}
-                  borderRadius={50}
-                />
-              </SkeletonPlaceholder>
-            </View>
-          )}
-        />
-      ) : (
+      {data ? (
         <FlatList
           data={artist}
           horizontal={true}
@@ -131,6 +110,27 @@ const PopularArtist = navigation => {
                   : item?.name}
               </Heading>
             </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: SIZES.lg}}
+          renderItem={({item}) => (
+            <View>
+              <SkeletonPlaceholder
+                borderRadius={4}
+                backgroundColor="#41444B"
+                highlightColor="#52575D">
+                <SkeletonPlaceholder.Item
+                  height={100}
+                  width={100}
+                  borderRadius={50}
+                />
+              </SkeletonPlaceholder>
+            </View>
           )}
         />
       )}

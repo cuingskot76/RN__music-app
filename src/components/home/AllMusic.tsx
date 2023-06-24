@@ -14,11 +14,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {COLORS, SIZES} from '../../constants/theme';
-import Figure from '../atom/Figure';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
 
-import {API_URL, API_KEY, API_HOST} from '@env';
 import {create} from 'zustand';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -78,8 +76,7 @@ const AllMusic = () => {
   const onRenderItem = ({item}) => {
     const trackId = item?.track?.id;
 
-    const isPlaying = currentMusic?.track?.id === trackId;
-    console.log('test', isPlaying);
+    const isPlayingId = currentMusic?.track?.id === trackId;
 
     return (
       <TouchableOpacity key={item.id}>
@@ -117,14 +114,14 @@ const AllMusic = () => {
             </View>
             <View>
               <TouchableOpacity onPress={() => onHandlePress(item)}>
-                {isPlaying && isPlayingMusic ? (
+                {isPlayingId && isPlayingMusic ? (
                   <Ionicons
                     name="pause-circle"
                     size={45}
                     color={COLORS.white}
                   />
                 ) : (
-                  <AntDesign name="play" size={45} color={COLORS.white} />
+                  <Ionicons name="play-circle" size={45} color={COLORS.white} />
                 )}
               </TouchableOpacity>
             </View>
@@ -137,7 +134,7 @@ const AllMusic = () => {
   return (
     <View
       style={{
-        marginBottom: 200,
+        marginBottom: 100,
       }}>
       {maxData ? (
         <FlatList

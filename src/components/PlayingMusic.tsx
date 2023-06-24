@@ -31,10 +31,12 @@ const PlayingMusic = () => {
 
   useEffect(() => {
     getData().then(res => {
-      // console.log(res);
-      UseMusic.setState({music: res});
+      console.log(res);
+      // UseMusic.setState({music: res});
     });
   }, []);
+
+  console.log('single music', singleMusic);
 
   return (
     <TouchableOpacity

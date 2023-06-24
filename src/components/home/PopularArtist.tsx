@@ -6,6 +6,7 @@ import {SIZES} from '../../constants/theme';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {UseAccessTokenStore} from '../connect/Login';
 import axios from 'axios';
+import Heading from '../atom/Heading';
 
 const PopularArtist = navigation => {
   const [data, setData] = useState(null);
@@ -22,28 +23,35 @@ const PopularArtist = navigation => {
   );
 
   const fetchData = useCallback(async () => {
-    const result = await axios(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    // get artist id
-    setData(result.data?.items?.map(item => item?.track?.artists?.[0]?.id));
+    try {
+      const result = await axios(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      // get artist id
+      setData(result.data?.items?.map(item => item?.track?.artists?.[0]?.id));
+    } catch (error) {
+      console.log(error);
+    }
   }, [accessToken]);
 
   const fetchArtists = useCallback(
-    async (urls, setArtist) => {
-      const res = await Promise.all(
-        urls?.map(url =>
-          axios(url, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }),
-        ),
-      );
-      const artists = res?.map(item => item.data);
-      setArtist(artists);
+    async urls => {
+      try {
+        const result = await Promise.all(
+          urls?.map(url =>
+            axios(url, {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }),
+          ),
+        );
+        setArtist(result?.map(item => item?.data));
+      } catch (error) {
+        console.log(error);
+      }
     },
     [accessToken],
   );
@@ -52,8 +60,10 @@ const PopularArtist = navigation => {
     fetchData();
   }, [fetchData]);
 
+  console.log('artist', artist);
+
   useEffect(() => {
-    fetchArtists(artistUrl, setArtist);
+    fetchArtists(artistUrl);
     // * i don't know when i implement "artistUrl" in dependency array, it's always re-rendering
   }, [artistUrl?.length, fetchArtists]);
 
@@ -113,18 +123,17 @@ const PopularArtist = navigation => {
                 />
               </View>
 
-              {/* <Heading
+              <Heading
                 isMuted={true}
                 style={{
-                  fontSize: SIZES.base,
+                  fontSize: SIZES.sm,
                   fontWeight: '600',
                   marginTop: 5,
                 }}>
-                {item?.artists?.[0]?.alias?.length > 10
-                  ? `${item?.artists?.[0]?.alias?.slice(0, 10) + '...'}`
-                  : item?.artists?.[0]?.alias}
+                {item?.name?.length > 15
+                  ? `${item?.name?.slice(0, 10)}...`
+                  : item?.name}
               </Heading>
-              <Text>Hello World</Text> */}
             </TouchableOpacity>
           )}
         />

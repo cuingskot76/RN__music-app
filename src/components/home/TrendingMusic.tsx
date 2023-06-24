@@ -17,12 +17,16 @@ const TrendingMusic = navigation => {
     'https://api.spotify.com/v1/playlists/37i9dQZF1DWWhB4HOWKFQc/tracks';
 
   const fetchData = useCallback(async () => {
-    const result = await axios(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    setData(result.data?.items);
+    try {
+      const result = await axios(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setData(result.data?.items);
+    } catch (error) {
+      console.log(error);
+    }
   }, [accessToken, url]);
 
   useEffect(() => {

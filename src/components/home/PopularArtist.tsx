@@ -31,18 +31,22 @@ const PopularArtist = navigation => {
     setData(result.data?.items?.map(item => item?.track?.artists?.[0]?.id));
   }, [accessToken]);
 
-  // ! still rerendering
-  // const fetchArtists = useCallback(async () => {
-  //   await Promise.all(artistUrl?.map(url => axios(url))).then(res =>
-  //     setArtist(res?.map(item => item.data?.images?.[0]?.url)),
-  //   );
-  // }, [artistUrl]);
-
-  const fetchArtists = useCallback(async (urls, setArtist) => {
-    const res = await Promise.all(urls?.map(url => axios(url)));
-    const artists = res?.map(item => item.data);
-    setArtist(artists);
-  }, []);
+  const fetchArtists = useCallback(
+    async (urls, setArtist) => {
+      const res = await Promise.all(
+        urls?.map(url =>
+          axios(url, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }),
+        ),
+      );
+      const artists = res?.map(item => item.data);
+      setArtist(artists);
+    },
+    [accessToken],
+  );
 
   useEffect(() => {
     fetchData();
@@ -50,13 +54,8 @@ const PopularArtist = navigation => {
 
   useEffect(() => {
     fetchArtists(artistUrl, setArtist);
+    // * i don't know when i implement "artistUrl" in dependency array, it's always re-rendering
   }, [artistUrl?.length, fetchArtists]);
-
-  console.log('artist', artist);
-
-  // useEffect(() => {
-  //   fetchArtists();
-  // }, [fetchArtists, artistUrl?.length]);
 
   console.log('artist', artist);
 

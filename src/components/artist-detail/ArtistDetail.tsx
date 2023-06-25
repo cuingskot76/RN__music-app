@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {View, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -61,12 +61,10 @@ const ArtistDetail = ({navigation, route}) => {
     item => item?.album?.album_type === 'single',
   );
 
-  console.log('alubm single', albumSingle);
-
   return (
-    <View
+    <ScrollView
       style={{
-        flex: 1,
+        // flex: 1,
         backgroundColor: COLORS.dark,
       }}>
       <Image
@@ -82,8 +80,9 @@ const ArtistDetail = ({navigation, route}) => {
       <View
         style={{
           position: 'absolute',
-          paddingTop: SIZES.lg,
+          // paddingTop: SIZES.lg,
           paddingHorizontal: SIZES.lg,
+          marginTop: 50,
         }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -104,7 +103,7 @@ const ArtistDetail = ({navigation, route}) => {
             fontSize: SIZES.xxl,
             marginTop: SIZES.lg,
             fontWeight: 'bold',
-            paddingTop: 150,
+            paddingTop: 130,
           }}>
           {artistDetail?.name}
         </Text>
@@ -182,9 +181,15 @@ const ArtistDetail = ({navigation, route}) => {
         </View>
 
         {/* popular single */}
-        <PopularSingle single={albumSingle} />
+        <View
+          style={{
+            // flex: 1,
+            height: 1000,
+          }}>
+          <PopularSingle single={albumSingle} />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

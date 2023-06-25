@@ -1,12 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES} from '../../constants/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Heading from '../atom/Heading';
 
 const PopularSingle = single => {
-  const artists = single?.map(item => item);
-  console.log('single', artists);
+  // const artists = single?.single?.map(item =>
+  //   item?.artists?.map(artist => artist?.name),
+  // );
+
+  // const singles = single?.single?.map(item => item?.name);
+
+  const img = single?.single?.map(item =>
+    item?.artists?.map(artist => artist?.name),
+  );
+
   return (
     <View>
       <Text
@@ -20,45 +29,80 @@ const PopularSingle = single => {
       </Text>
 
       <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: SIZES.xl,
-          }}>
-          <Text style={{color: COLORS.white}}>1</Text>
-          <View
+        style={
+          {
+            // flexDirection: 'row',
+            // alignItems: 'center',
+            // justifyContent: 'space-between',
+          }
+        }>
+        {single?.single?.map((item, i) => (
+          <TouchableOpacity
+            key={i}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              gap: SIZES.base,
+              gap: SIZES.xl,
+              marginBottom: SIZES.base,
             }}>
-            {/* <Image
-          source={require('../../public/images/artist-images/twice.jpg')}
-          style={{
-            width: 70,
-            height: 70,
-            resizeMode: 'cover',
-          }}
-        /> */}
+            <Text style={{color: COLORS.white}}>{i + 1}</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: SIZES.base,
+              }}>
+              <View
+                style={{
+                  width: 60,
+                  height: 60,
+                }}>
+                <Image
+                  source={{uri: item?.album?.images?.[0]?.url}}
+                  alt={item?.name}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    resizeMode: 'cover',
+                  }}
+                />
+              </View>
 
-            <View>
-              <Text style={{color: COLORS.white, fontWeight: '500'}}>
-                More & More
-              </Text>
-              <Text style={{color: COLORS.white}}>390,554,621</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '75%',
+                }}>
+                <View>
+                  <Heading
+                    isMuted={false}
+                    style={{
+                      fontSize: SIZES.sm,
+                      fontWeight: 'bold',
+                    }}>
+                    {item?.name?.length > 25
+                      ? item?.name?.substring(0, 25) + '...'
+                      : item?.name}
+                  </Heading>
+                  <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
+                    {item?.artists?.length > 3
+                      ? item?.artists
+                          ?.map(artist => artist?.name)
+                          .slice(0, 3)
+                          .join(' • ')
+                      : item?.artists?.map(artist => artist?.name).join(' • ')}
+                  </Heading>
+                </View>
+
+                <TouchableOpacity>
+                  <Ionicons name="ellipsis-vertical" size={30} color="white" />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </View>
-
-        <TouchableOpacity>
-          <Ionicons name="ellipsis-vertical" size={30} color="white" />
-        </TouchableOpacity>
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );

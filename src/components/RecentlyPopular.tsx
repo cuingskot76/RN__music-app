@@ -1,10 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES} from '../constants/theme';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
-import Figure from './atom/Figure';
 import {UseAccessTokenStore} from './connect/Login';
 
 const RecentlyPopular = () => {
@@ -31,8 +30,6 @@ const RecentlyPopular = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log('data', data);
 
   const maxData = data?.slice(0, 6);
 

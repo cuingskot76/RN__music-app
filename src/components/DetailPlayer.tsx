@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, ScrollView, Text, TouchableOpacity, Image} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Heading from './atom/Heading';
 import {COLORS, SIZES} from '../constants/theme';
 
@@ -9,7 +9,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Snackbar from 'react-native-snackbar';
-import Figure from './atom/Figure';
 import {useNavigation} from '@react-navigation/native';
 import {create} from 'zustand';
 

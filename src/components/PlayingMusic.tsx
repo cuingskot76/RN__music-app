@@ -7,13 +7,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {COLORS, SIZES} from '../constants/theme';
 import Heading from './atom/Heading';
-import Figure from './atom/Figure';
 
 import {useNavigation} from '@react-navigation/native';
 import {UseMusic} from './home/AllMusic';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UseDetailPlayerStore} from './DetailPlayer';
 
 const PlayingMusic = () => {
   const singleMusic = UseMusic(state => state.music);

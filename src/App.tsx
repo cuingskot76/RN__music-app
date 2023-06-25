@@ -76,37 +76,40 @@ const App = () => {
 
       {/* check the token, if exist redirect to home. Otherwise to login page*/}
       {accessToken ? (
-        <Tab.Navigator tabBar={props => BottomTabBar(props)}>
-          <Tab.Screen
-            name="Home"
-            component={HomeStack}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Tab.Screen
-            name="Discover"
-            component={Discover}
-            options={{headerShown: false}}
-          />
-          <Tab.Screen
-            name="Favorite"
-            component={Favorite}
-            options={{headerShown: false}}
-          />
-          <Tab.Screen
-            name="Profile"
-            component={Profile}
-            options={{headerShown: false}}
-          />
-        </Tab.Navigator>
+        <NavigationContainer independent={true}>
+          <Tab.Navigator tabBar={props => BottomTabBar(props)}>
+            <Tab.Screen
+              name="Home"
+              component={HomeStack}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Tab.Screen
+              name="Discover"
+              component={Discover}
+              options={{headerShown: false}}
+            />
+            <Tab.Screen
+              name="Favorite"
+              component={Favorite}
+              options={{headerShown: false}}
+            />
+            <Tab.Screen
+              name="Profile"
+              component={Profile}
+              options={{headerShown: false}}
+            />
+          </Tab.Navigator>
+          {/* is playing music */}
+          <View
+            style={{
+              marginHorizontal: 10,
+            }}>
+            <PlayingMusic />
+          </View>
+        </NavigationContainer>
       ) : (
-        // <View
-        //   style={{
-        //     marginHorizontal: 10,
-        //   }}>
-        //   <PlayingMusic />
-        // </View>
         <Stack.Navigator initialRouteName="Connect">
           <Stack.Screen
             name="Connect"

@@ -25,8 +25,8 @@ import {UseAccessTokenStore} from '../connect/Login';
 export const UseMusic = create(set => ({
   music: [],
   isPlaying: false,
-  setMusic: music => set(state => ({music})),
-  setIsPlaying: isPlaying => set(state => ({isPlaying})),
+  setMusic: music => set({music}),
+  setIsPlaying: isPlaying => set({isPlaying}),
 }));
 
 const AllMusic = () => {

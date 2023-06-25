@@ -5,131 +5,122 @@ import {COLORS, SIZES} from '../constants/theme';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import axios from 'axios';
 import Figure from './atom/Figure';
-
-import {API_URL, API_KEY, API_HOST} from '@env';
+import {UseAccessTokenStore} from './connect/Login';
 
 const RecentlyPopular = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
+
+  const url =
+    'https://api.spotify.com/v1/playlists/37i9dQZF1DWSqBruwoIXkA/tracks';
+
+  const accessToken = UseAccessTokenStore(state => state.accessToken);
+
+  const fetchData = async () => {
+    try {
+      const result = await axios(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setData(result.data?.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      url: `${API_URL}/charts/track`,
-      params: {
-        locale: 'ID',
-        listId: 'ip-country-chart-ID',
-        pageSize: '20',
-        startFrom: '0',
-      },
-      headers: {
-        'X-RapidAPI-Key': API_KEY,
-        'X-RapidAPI-Host': API_HOST,
-      },
-    };
-
-    const fetchAllMusic = async () => {
-      const res = await axios.request(options);
-      const datas = await res?.data;
-
-      setData(datas);
-    };
-    fetchAllMusic();
+    fetchData();
   }, []);
 
-  const maxData = data?.tracks?.slice(0, 6);
+  console.log('data', data);
 
-  if (data === undefined || data.length === 0) {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: SIZES.sm,
-          flex: 1,
-          justifyContent: 'space-between',
-          marginTop: SIZES.xxl,
-        }}>
-        {Array.from(Array(6).keys()).map((item, index) => (
-          <View key={index}>
-            <SkeletonPlaceholder
-              borderRadius={4}
-              backgroundColor="#41444B"
-              highlightColor="#52575D">
-              <View
-                style={{
-                  flexDirection: 'row',
-                  backgroundColor: COLORS.darkBlur,
-                  alignItems: 'center',
-                  width: 170,
-                  height: 60,
-                  minWidth: 50,
-                  maxHeight: 60,
-                  borderRadius: 5,
-                  overflow: 'hidden',
-                  gap: SIZES.base,
-                }}
-              />
-            </SkeletonPlaceholder>
-          </View>
-        ))}
-      </View>
-    );
-  }
-
-  // if (error) {
-  //   return (
-  //     <View>
-  //       <Text style={{color: 'red', fontSize: 35}}>Error...</Text>
-  //     </View>
-  //   );
-  // }
+  const maxData = data?.slice(0, 6);
 
   return (
     <View
       style={{
         marginTop: SIZES.xxl,
       }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: SIZES.sm,
-        }}>
-        {maxData?.map(item => (
-          <View
-            key={item?.tracks?.map(item => item?.key)}
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              backgroundColor: COLORS.darkBlur,
-              alignItems: 'center',
-              width: 200,
-              height: 60,
-              minWidth: 150,
-              maxHeight: 60,
-              borderRadius: 5,
-              gap: SIZES.base,
-            }}>
-            <Figure
-              alt="test"
+      {maxData ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: SIZES.sm,
+          }}>
+          {maxData?.map(item => (
+            <View
+              key={item?.tracks?.map(item => item?.key)}
               style={{
-                width: 60,
-                height: 60,
-              }}>
-              {item?.images?.coverart}
-            </Figure>
-            <Text
-              style={{
-                color: COLORS.white,
-                fontSize: SIZES.xs,
-                fontWeight: '500',
                 flex: 1,
+                flexDirection: 'row',
+                backgroundColor: COLORS.darkBlur,
+                alignItems: 'center',
+                width: 200,
+                height: 60,
+                minWidth: 150,
+                maxHeight: 60,
+                borderRadius: 5,
+                gap: SIZES.base,
               }}>
-              {item?.title}
-            </Text>
-          </View>
-        ))}
-      </View>
+              <Image
+                source={{uri: item?.track?.album?.images?.[0]?.url}}
+                alt="recently-played-image"
+                style={{
+                  width: 60,
+                  height: 60,
+                  resizeMode: 'cover',
+                }}
+              />
+              <Text
+                style={{
+                  color: COLORS.white,
+                  fontSize: SIZES.xs,
+                  fontWeight: '600',
+                  flex: 1,
+                }}>
+                {item?.track?.name?.length > 15
+                  ? item?.track?.name?.substring(0, 15) + '...'
+                  : item?.track?.name}
+              </Text>
+            </View>
+          ))}
+        </View>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: SIZES.sm,
+            flex: 1,
+            justifyContent: 'space-between',
+            marginTop: SIZES.xxl,
+          }}>
+          {Array.from(Array(6).keys()).map((item, index) => (
+            <View key={index}>
+              <SkeletonPlaceholder
+                borderRadius={4}
+                backgroundColor="#41444B"
+                highlightColor="#52575D">
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    backgroundColor: COLORS.darkBlur,
+                    alignItems: 'center',
+                    width: 170,
+                    height: 60,
+                    minWidth: 50,
+                    maxHeight: 60,
+                    borderRadius: 5,
+                    overflow: 'hidden',
+                    gap: SIZES.base,
+                  }}
+                />
+              </SkeletonPlaceholder>
+            </View>
+          ))}
+        </View>
+      )}
     </View>
   );
 };

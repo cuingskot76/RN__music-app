@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect} from 'react';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {UseMusic} from './home/AllMusic';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {UseDetailPlayerStore} from './DetailPlayer';
 
 const PlayingMusic = () => {
   const singleMusic = UseMusic(state => state.music);
@@ -24,34 +25,38 @@ const PlayingMusic = () => {
     try {
       const jsonValue = await AsyncStorage.getItem('currentMusic');
       return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      throw new Error(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
     getData().then(res => {
-      console.log(res);
-      // UseMusic.setState({music: res});
+      UseMusic.setState({music: res});
     });
   }, []);
-
-  console.log('single music', singleMusic);
 
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
         navigation.navigate('DetailPlayer', {
-          title: singleMusic?.title,
-          subtitle: singleMusic?.subtitle,
-          images: singleMusic?.images,
+          singleMusic: singleMusic,
         })
       }>
       <View style={styles.row}>
-        <Figure alt="test" style={styles.image}>
-          {singleMusic?.images?.coverart}
-        </Figure>
+        <Image
+          source={{uri: singleMusic?.track?.album?.images?.[0]?.url}}
+          alt="playing-music"
+          style={{
+            width: 50,
+            height: 50,
+            marginLeft: 10,
+            marginRight: 20,
+            backgroundColor: COLORS.dark,
+            borderRadius: 3,
+          }}
+        />
         <View style={styles.rightContainer}>
           <View>
             <Heading
@@ -59,17 +64,22 @@ const PlayingMusic = () => {
               style={{
                 fontWeight: '500',
               }}>
-              {singleMusic?.title?.length > 20
-                ? singleMusic?.title.slice(0, 20) + '...'
-                : singleMusic?.title}
+              {singleMusic?.track?.name?.length > 20
+                ? singleMusic?.track?.name?.substring(0, 20) + '...'
+                : singleMusic?.track?.name}
             </Heading>
             <Heading isMuted={true} style={{fontSize: SIZES.sm}}>
-              {singleMusic?.subtitle}
+              {singleMusic?.track?.artists?.[0]?.name?.length > 15
+                ? singleMusic?.track?.artists?.[0]?.name?.substring(0, 15) +
+                  '...'
+                : singleMusic?.track?.artists?.[0]?.name}
             </Heading>
           </View>
 
-          <TouchableOpacity style={styles.iconsContainer}>
-            <AntDesign name="hearto" size={30} color={'white'} />
+          <View style={styles.iconsContainer}>
+            <TouchableOpacity>
+              <AntDesign name="hearto" size={30} color={'white'} />
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => UseMusic.setState({isPlaying: !isPlaying})}>
               {isPlaying ? (
@@ -78,7 +88,7 @@ const PlayingMusic = () => {
                 <Ionicons name="play" size={30} color={COLORS.white} />
               )}
             </TouchableOpacity>
-          </TouchableOpacity>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -100,14 +110,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
-  image: {
-    width: 50,
-    height: 50,
-    marginLeft: 10,
-    marginRight: 20,
-    backgroundColor: COLORS.dark,
-    borderRadius: 3,
-  },
+  image: {},
   rightContainer: {
     flex: 1,
     flexDirection: 'row',

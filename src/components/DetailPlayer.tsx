@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, ScrollView, Text, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import {View, ScrollView, Text, TouchableOpacity, Image} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import Heading from './atom/Heading';
 import {COLORS, SIZES} from '../constants/theme';
 
@@ -10,11 +10,21 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Snackbar from 'react-native-snackbar';
 import Figure from './atom/Figure';
+import {useNavigation} from '@react-navigation/native';
+import {create} from 'zustand';
 
-const DetailPlayer = ({navigation, route}: any) => {
+export const UseDetailPlayerStore = create(set => ({
+  isTrue: false,
+  setIsTrue: isTrue => set({isTrue}),
+}));
+
+const DetailPlayer = ({route}: any) => {
   const [likeSong, setLikeSong] = useState(false);
 
-  const {title, subtitle, images} = route?.params;
+  const {singleMusic} = route?.params;
+  const navigation = useNavigation();
+  // const currentScreen =
+  //   navigation.getState().routes[navigation.getState().index].name;
 
   const handleLike = () => {
     setLikeSong(prev => !prev);
@@ -77,7 +87,13 @@ const DetailPlayer = ({navigation, route}: any) => {
               borderRadius: SIZES.lg,
               overflow: 'hidden',
             }}>
-            <Figure alt="test-1">{images?.coverart}</Figure>
+            <Image
+              source={{uri: singleMusic?.track?.album?.images?.[0]?.url}}
+              style={{
+                height: '100%',
+                width: '100%',
+              }}
+            />
           </View>
         </View>
         <View
@@ -88,10 +104,14 @@ const DetailPlayer = ({navigation, route}: any) => {
           <Heading
             isMuted={false}
             style={{fontSize: SIZES.lg, fontWeight: '600'}}>
-            {title}
+            {singleMusic?.track?.name?.length > 20
+              ? singleMusic?.track?.name?.substring(0, 20) + '...'
+              : singleMusic?.track?.name}
           </Heading>
           <Heading isMuted={true} style={{fontWeight: '600', marginTop: 5}}>
-            {subtitle}
+            {singleMusic?.track?.artists?.[0]?.name?.length > 15
+              ? singleMusic?.track?.artists?.[0]?.name?.substring(0, 15) + '...'
+              : singleMusic?.track?.artists?.[0]?.name}
           </Heading>
         </View>
       </View>

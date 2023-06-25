@@ -77,7 +77,11 @@ const PopularArtist = navigation => {
             <TouchableOpacity
               // key={item.id}
               style={{alignItems: 'center'}}
-              onPress={() => navigation.navigate('DetailArtist', {...item})}>
+              onPress={() =>
+                navigation.navigate('ArtistDetail', {
+                  singleArtist: item,
+                })
+              }>
               <View
                 style={{
                   height: 100,

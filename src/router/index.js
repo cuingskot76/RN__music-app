@@ -1,11 +1,11 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/Home/Home';
-import DetailPlayer from '../components/DetailPlayer';
-import ArtistDetail from '../components/ArtistDetail';
+import ArtistDetail from '../components/artist-detail/ArtistDetail';
 import Notification from '../components/Notification';
 import Connect from '../components/connect/Connect';
 import Login from '../components/connect/Login';
+import PlayerDetail from '../components/PlayerDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,14 +33,14 @@ export const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="DetailPlayer"
+        name="PlayerDetail"
         options={{
           headerShown: false,
         }}
-        component={DetailPlayer}
+        component={PlayerDetail}
       />
       <Stack.Screen
-        name="DetailArtist"
+        name="ArtistDetail"
         options={{
           headerShown: false,
         }}

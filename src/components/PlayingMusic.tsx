@@ -38,7 +38,7 @@ const PlayingMusic = () => {
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
-        navigation.navigate('DetailPlayer', {
+        navigation.navigate('PlayerDetail', {
           singleMusic: singleMusic,
         })
       }>

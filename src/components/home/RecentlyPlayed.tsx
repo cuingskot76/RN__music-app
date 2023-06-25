@@ -47,7 +47,7 @@ const RecentlyPlayed = (navigation: any) => {
             <TouchableOpacity
               key={item.id}
               onPress={() => {
-                navigation.navigate('DetailPlayer', {
+                navigation.navigate('PlayerDetail', {
                   singleMusic: item,
                 });
               }}>

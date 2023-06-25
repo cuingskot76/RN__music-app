@@ -47,7 +47,7 @@ const RecentlyPopular = () => {
           }}>
           {maxData?.map(item => (
             <View
-              key={item?.tracks?.map(item => item?.key)}
+              key={item?.track?.id}
               style={{
                 flex: 1,
                 flexDirection: 'row',

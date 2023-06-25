@@ -10,14 +10,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Snackbar from 'react-native-snackbar';
 import {useNavigation} from '@react-navigation/native';
-import {create} from 'zustand';
 
-export const UseDetailPlayerStore = create(set => ({
-  isTrue: false,
-  setIsTrue: isTrue => set({isTrue}),
-}));
-
-const DetailPlayer = ({route}: any) => {
+const PlayerDetail = ({route}: any) => {
   const [likeSong, setLikeSong] = useState(false);
 
   const {singleMusic} = route?.params;
@@ -185,4 +179,4 @@ const DetailPlayer = ({route}: any) => {
   );
 };
 
-export default DetailPlayer;
+export default PlayerDetail;

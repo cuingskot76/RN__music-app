@@ -68,7 +68,7 @@ const TrendingMusic = navigation => {
             <TouchableOpacity
               key={item?.id}
               onPress={() =>
-                navigation.navigate('DetailPlayer', {
+                navigation.navigate('PlayerDetail', {
                   singleMusic: item,
                 })
               }>
@@ -110,7 +110,7 @@ const TrendingMusic = navigation => {
                     <Heading
                       isMuted={false}
                       style={{
-                        fontSize: SIZES.lg,
+                        fontSize: SIZES.base,
                         fontWeight: 'bold',
                         marginBottom: 5,
                       }}>

@@ -1,13 +1,68 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Image, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {COLORS, SIZES} from '../constants/theme';
+import {COLORS, SIZES} from '../../constants/theme';
+import {UseAccessTokenStore} from '../connect/Login';
+import axios from 'axios';
+import PopularSingle from './PopularSingle';
 
-const ArtistDetail = ({navigation}) => {
+const ArtistDetail = ({navigation, route}) => {
+  const [data, setData] = useState(null);
+  const [artistDetail, setArtistDetail] = useState(null);
+  const {singleArtist} = route?.params;
+
+  const artistId = singleArtist?.id;
+
+  const accessToken = UseAccessTokenStore(state => state.accessToken);
+
+  // actually, the market based on user location
+  const url = `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=ID`;
+  const baseImgUrl = `https://api.spotify.com/v1/artists/${artistId}`;
+
+  const fetchArtistDetail = async () => {
+    try {
+      const result = await axios(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setData(result.data?.tracks);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchArtistImg = async () => {
+    try {
+      const result = await axios(baseImgUrl, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setArtistDetail(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchArtistDetail();
+    fetchArtistImg();
+  }, [url]);
+
+  const maxData = data?.slice(0, 5);
+
+  // get popular single
+  const albumSingle = data?.filter(
+    item => item?.album?.album_type === 'single',
+  );
+
+  console.log('alubm single', albumSingle);
+
   return (
     <View
       style={{
@@ -15,7 +70,7 @@ const ArtistDetail = ({navigation}) => {
         backgroundColor: COLORS.dark,
       }}>
       <Image
-        source={require('../../public/images/artist-images/twice.jpg')}
+        source={{uri: artistDetail?.images?.[0]?.url}}
         style={{
           width: '100%',
           height: 300,
@@ -51,7 +106,7 @@ const ArtistDetail = ({navigation}) => {
             fontWeight: 'bold',
             paddingTop: 150,
           }}>
-          Red Velvet
+          {artistDetail?.name}
         </Text>
       </View>
 
@@ -67,7 +122,7 @@ const ArtistDetail = ({navigation}) => {
               fontSize: SIZES.sm,
               marginTop: SIZES.base,
             }}>
-            7,731,948 monthly listeners
+            {artistDetail?.followers?.total?.toLocaleString()} Followers
           </Text>
           <View
             style={{
@@ -126,59 +181,8 @@ const ArtistDetail = ({navigation}) => {
           </View>
         </View>
 
-        {/* popular */}
-        <View>
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: SIZES.lg,
-              marginTop: SIZES.xl,
-              marginBottom: SIZES.base,
-            }}>
-            Popular
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: SIZES.xl,
-            }}>
-            <Text style={{color: COLORS.white}}>1</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: SIZES.base,
-              }}>
-              <Image
-                source={require('../../public/images/artist-images/twice.jpg')}
-                style={{
-                  width: 70,
-                  height: 70,
-                  resizeMode: 'cover',
-                }}
-              />
-
-              <View>
-                <Text style={{color: COLORS.white, fontWeight: '500'}}>
-                  More & More
-                </Text>
-                <Text style={{color: COLORS.white}}>390,554,621</Text>
-              </View>
-            </View>
-          </View>
-
-          <TouchableOpacity>
-            <Ionicons name="ellipsis-vertical" size={30} color="white" />
-          </TouchableOpacity>
-        </View>
+        {/* popular single */}
+        <PopularSingle single={albumSingle} />
       </View>
     </View>
   );

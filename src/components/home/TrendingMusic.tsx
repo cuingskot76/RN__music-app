@@ -67,7 +67,11 @@ const TrendingMusic = navigation => {
           renderItem={({item}) => (
             <TouchableOpacity
               key={item?.id}
-              onPress={() => navigation.navigate('DetailPlayer', {...item})}>
+              onPress={() =>
+                navigation.navigate('DetailPlayer', {
+                  singleMusic: item,
+                })
+              }>
               <View
                 style={{
                   height: 200,
@@ -83,6 +87,7 @@ const TrendingMusic = navigation => {
                     width: 250,
                     height: 200,
                     borderRadius: 30,
+                    resizeMode: 'cover',
                   }}
                 />
 

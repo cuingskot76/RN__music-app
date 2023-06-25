@@ -25,25 +25,25 @@ const DetailPlayer = ({route}: any) => {
   // const currentScreen =
   //   navigation.getState().routes[navigation.getState().index].name;
 
-  const handleLike = () => {
-    setLikeSong(prev => !prev);
+  // const handleLike = () => {
+  //   setLikeSong(prev => !prev);
 
-    Snackbar.show({
-      text: `added to your liked songs`,
-      duration: Snackbar.LENGTH_SHORT,
-      action: {
-        text: 'Undo',
-        textColor: COLORS.white,
-        onPress: () => {
-          setLikeSong(prev => !prev);
-        },
-      },
-    });
-  };
+  //   Snackbar.show({
+  //     text: `added to your liked songs`,
+  //     duration: Snackbar.LENGTH_SHORT,
+  //     action: {
+  //       text: 'Undo',
+  //       textColor: COLORS.white,
+  //       onPress: () => {
+  //         setLikeSong(prev => !prev);
+  //       },
+  //     },
+  //   });
+  // };
 
-  const handleRemoveLike = () => {
-    setLikeSong(!likeSong);
-  };
+  // const handleRemoveLike = () => {
+  //   setLikeSong(!likeSong);
+  // };
 
   return (
     <ScrollView
@@ -53,13 +53,18 @@ const DetailPlayer = ({route}: any) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          marginTop: SIZES.xxl,
         }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="arrowleft" size={30} color={COLORS.white} />
         </TouchableOpacity>
         <Heading
           isMuted={false}
-          style={{fontSize: SIZES.lg, fontWeight: '600'}}>
+          style={{
+            fontSize: SIZES.lg,
+            fontWeight: '600',
+            textAlign: 'center',
+          }}>
           Now Playing
         </Heading>
         {likeSong ? (
@@ -91,6 +96,7 @@ const DetailPlayer = ({route}: any) => {
               style={{
                 height: '100%',
                 width: '100%',
+                resizeMode: 'cover',
               }}
             />
           </View>
@@ -103,8 +109,8 @@ const DetailPlayer = ({route}: any) => {
           <Heading
             isMuted={false}
             style={{fontSize: SIZES.lg, fontWeight: '600'}}>
-            {singleMusic?.track?.name?.length > 20
-              ? singleMusic?.track?.name?.substring(0, 20) + '...'
+            {singleMusic?.track?.name?.length > 30
+              ? singleMusic?.track?.name?.substring(0, 30) + '...'
               : singleMusic?.track?.name}
           </Heading>
           <Heading isMuted={true} style={{fontWeight: '600', marginTop: 5}}>

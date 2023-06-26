@@ -26,7 +26,7 @@ const Favorite = () => {
         Favorites
       </Heading>
 
-      <View>
+      {/* <View>
         <FlatList
           data={favoriteMusic}
           scrollEnabled={false}
@@ -50,9 +50,7 @@ const Favorite = () => {
                       width: 150,
                       borderRadius: 10,
                       overflow: 'hidden',
-                    }}>
-                    {/* <Figure alt={item.title}>{item.image}</Figure> */}
-                  </View>
+                    }}></View>
                   <View
                     style={{
                       marginTop: SIZES.sm,
@@ -91,9 +89,7 @@ const Favorite = () => {
                       width: 150,
                       borderRadius: 10,
                       overflow: 'hidden',
-                    }}>
-                    {/* <Figure alt={item.title}>{item.image}</Figure> */}
-                  </View>
+                    }}></View>
                   <View
                     style={{
                       marginTop: SIZES.sm,
@@ -120,7 +116,7 @@ const Favorite = () => {
             }
           }}
         />
-      </View>
+      </View> */}
     </ScrollView>
   );
 };

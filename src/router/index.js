@@ -6,6 +6,8 @@ import Notification from '../components/Notification';
 import Connect from '../components/connect/Connect';
 import Login from '../components/connect/Login';
 import PlayerDetail from '../components/PlayerDetail';
+import Discover from '../screens/Discover/Discover';
+import Favorite from '../screens/Favorite/Favorite';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +27,16 @@ export const HomeStack = () => {
       <Stack.Screen
         name="Main"
         component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Discover"
+        component={Discover}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Favorite"
+        component={Favorite}
         options={{headerShown: false}}
       />
       <Stack.Screen

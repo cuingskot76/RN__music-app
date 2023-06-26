@@ -86,7 +86,7 @@ const Discover = () => {
           </View>
         </View>
 
-        <FlatList
+        {/* <FlatList
           data={recentlySearchMusic}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -103,7 +103,6 @@ const Discover = () => {
                   borderRadius: 10,
                   overflow: 'hidden',
                 }}>
-                {/* <Figure alt={item.title}>{item.image}</Figure> */}
               </View>
               <View
                 style={{
@@ -128,7 +127,7 @@ const Discover = () => {
               </View>
             </TouchableOpacity>
           )}
-        />
+        /> */}
       </View>
 
       {/* genres */}
@@ -179,7 +178,7 @@ const Discover = () => {
           </TouchableOpacity>
         </View>
 
-        <FlatList
+        {/* <FlatList
           data={genresMusic}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -203,7 +202,7 @@ const Discover = () => {
               </Text>
             </Button>
           )}
-        />
+        /> */}
       </View>
 
       {/* Vibes */}
@@ -254,7 +253,7 @@ const Discover = () => {
           </TouchableOpacity>
         </View>
 
-        <FlatList
+        {/* <FlatList
           data={vibesMusic}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -278,7 +277,7 @@ const Discover = () => {
               </Text>
             </Button>
           )}
-        />
+        /> */}
       </View>
     </ScrollView>
   );

@@ -9,7 +9,7 @@ interface ButtonProps {
   icon?: React.ReactNode;
   colorText?: 'black' | 'white' | string;
   sizeText?: 12 | 16 | 18 | 20;
-  textWeight?: 'bold' | 'normal';
+  textWeight?: 'bold' | 'normal' | '600' | '700';
   iconStyle?: ViewStyle | ViewStyle[];
   handlePress?: () => void;
   isDisabled?: boolean;

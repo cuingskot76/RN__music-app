@@ -1,49 +1,39 @@
 const COLORS = {
-  white: '#fcfcff',
-  darkWhite: '#c4c4c4',
-  dark: '#2d2e37',
-  darkGray: '#3b3c4f',
+  white: '#F6F6F6',
+  darkWhite: '#EEEEEE',
+  mutedWhite: '#C4C4C4',
+
+  darkGray: '#3B3C4F',
+
+  green: 'rgb(30,215,96)',
+  dark: 'rgb(25,20,20)',
+  dark2: '#52575D',
 
   darkBlur: 'rgba(53,54,76, 0.9)',
   danger: '#ff5252',
 };
 
 const SIZES = {
-  xs: 11,
+  xs: 10,
   sm: 12,
   base: 16,
   lg: 20,
   xl: 24,
-  xxl: 35,
+  xxl: 32,
+};
+
+const PADDING = {
+  sm: 12,
+  base: 15,
+  lg: 20,
+  xl: 25,
+  xxl: 30,
 };
 
 const FONT = {
   regular: 'DMRegular',
   medium: 'DMMedium',
   bold: 'DMBold',
-};
-
-const SHADOWS = {
-  small: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 2,
-  },
-  medium: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 5.84,
-    elevation: 5,
-  },
 };
 
 const SPACING = {
@@ -55,4 +45,4 @@ const SPACING = {
   xxl: 40,
 };
 
-export {COLORS, SIZES, FONT, SHADOWS, SPACING};
+export {COLORS, SIZES, FONT, SPACING, PADDING};

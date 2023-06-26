@@ -1,50 +1,71 @@
 /* eslint-disable react-native/no-inline-styles */
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
 import Button from '../atom/Button';
+import Heading from '../atom/Heading';
 
-const Connect = ({navigation}) => {
+import {COLORS, PADDING, SIZES} from '../../constants/theme';
+
+const Connect = ({navigation}: any) => {
   return (
-    <ScrollView
-    // style={styles.container}
-    >
-      <LinearGradient colors={['#2a2a2a', '#0e0e0e']} style={styles.container}>
+    <ScrollView style={{flex: 1}}>
+      <LinearGradient
+        colors={[COLORS.dark2, COLORS.dark, COLORS.dark]}
+        style={{
+          paddingHorizontal: PADDING.xxl,
+          height: '100%',
+        }}>
         <Ionicons
           name="musical-notes"
-          size={50}
-          color="#fff"
-          style={styles.icon}
+          size={60}
+          color={COLORS.white}
+          style={{textAlign: 'center', paddingVertical: 150}}
         />
-        <View>
-          <Text style={styles.title}>Millions of songs.</Text>
-          <Text style={styles.title}>Free on Cuing.</Text>
+        <View style={{alignItems: 'center', gap: -5, marginBottom: SIZES.base}}>
+          <Heading isMuted={false} isBold={true} style={{fontSize: SIZES.xxl}}>
+            Millions of songs.
+          </Heading>
+          <Heading isMuted={false} isBold={true} style={{fontSize: SIZES.xxl}}>
+            Free on Cuing.
+          </Heading>
         </View>
+
         <View>
           <Button
             title="Sign up free"
-            style={styles.button}
+            textWeight="600"
+            style={{
+              backgroundColor: COLORS.green,
+              paddingVertical: PADDING.sm,
+              borderRadius: 50,
+              marginTop: 50,
+              alignItems: 'center',
+            }}
             colorText="black"
             handlePress={() => navigation.navigate('EmailSignUp')}
           />
           <Button
             title="Continue with phone number"
-            style={styles.buttonTransparent}
-            colorText="white"
+            textWeight="600"
+            style={{
+              paddingVertical: PADDING.base,
+              borderRadius: 50,
+              marginTop: 10,
+              alignItems: 'center',
+              borderColor: COLORS.dark2,
+              borderWidth: 1,
+              flexDirection: 'row-reverse',
+              justifyContent: 'center',
+            }}
+            colorText={COLORS.white}
             icon={
               <Ionicons
                 name="md-phone-portrait-outline"
-                size={30}
+                size={SIZES.xl}
                 color="#fff"
               />
             }
@@ -52,8 +73,18 @@ const Connect = ({navigation}) => {
           />
           <Button
             title="Continue with Google"
-            style={styles.buttonTransparent}
-            colorText="white"
+            textWeight="600"
+            style={{
+              paddingVertical: PADDING.base,
+              borderRadius: 50,
+              marginTop: 10,
+              alignItems: 'center',
+              borderColor: COLORS.dark2,
+              borderWidth: 1,
+              flexDirection: 'row-reverse',
+              justifyContent: 'center',
+            }}
+            colorText={COLORS.white}
             icon={
               <Image
                 source={require('../../../public/images/googleLogo.png')}
@@ -63,8 +94,18 @@ const Connect = ({navigation}) => {
           />
           <Button
             title="Continue with Facebook"
-            style={styles.buttonTransparent}
-            colorText="white"
+            textWeight="600"
+            style={{
+              paddingVertical: PADDING.base,
+              borderRadius: 50,
+              marginTop: 10,
+              alignItems: 'center',
+              borderColor: COLORS.dark2,
+              borderWidth: 1,
+              flexDirection: 'row-reverse',
+              justifyContent: 'center',
+            }}
+            colorText={COLORS.white}
             icon={
               <Image
                 source={require('../../../public/images/facebookLogo.png')}
@@ -74,20 +115,25 @@ const Connect = ({navigation}) => {
           />
           <View
             style={{
-              marginTop: 20,
-              marginBottom: 20,
+              marginVertical: SIZES.xl,
               flexDirection: 'row',
               justifyContent: 'center',
               gap: 10,
             }}>
-            <Text
+            <Heading
+              isMuted={false}
               style={{
-                color: '#fff',
+                color: COLORS.white,
               }}>
               Already have an account?
-            </Text>
+            </Heading>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={{color: '#1db954', fontWeight: 'bold'}}>Log in</Text>
+              <Heading
+                isMuted={false}
+                isBold={true}
+                style={{color: COLORS.green}}>
+                Log in
+              </Heading>
             </TouchableOpacity>
           </View>
         </View>
@@ -95,41 +141,5 @@ const Connect = ({navigation}) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 20,
-    height: '100%',
-  },
-  icon: {
-    textAlign: 'center',
-    marginVertical: 150,
-  },
-  title: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  button: {
-    backgroundColor: '#1db954',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 50,
-    marginTop: 50,
-    alignItems: 'center',
-  },
-  buttonTransparent: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    borderRadius: 50,
-    marginTop: 10,
-    alignItems: 'center',
-    borderColor: '#fff',
-    borderWidth: 1,
-    flexDirection: 'row-reverse',
-    justifyContent: 'center',
-  },
-});
 
 export default Connect;

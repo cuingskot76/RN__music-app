@@ -1,15 +1,23 @@
 import {Text, TextStyle, StyleSheet} from 'react-native';
 import React from 'react';
 
+import {COLORS} from '../../constants/theme';
+
 interface HeadingProps {
   children: React.ReactNode;
   style?: TextStyle | TextStyle[];
   isMuted: boolean;
+  isBold?: boolean;
 }
 
-const Heading = ({children, style, isMuted}: HeadingProps) => {
+const Heading = ({children, style, isMuted, isBold}: HeadingProps) => {
   return (
-    <Text style={[isMuted ? styles.mutedColor : styles.defaultColor, style]}>
+    <Text
+      style={[
+        isMuted ? styles.mutedColor : styles.defaultColor,
+        isBold && styles.bold,
+        style,
+      ]}>
       {children}
     </Text>
   );
@@ -17,10 +25,13 @@ const Heading = ({children, style, isMuted}: HeadingProps) => {
 
 const styles = StyleSheet.create({
   defaultColor: {
-    color: '#fcfcff',
+    color: COLORS.white,
   },
   mutedColor: {
-    color: '#c4c4c4',
+    color: COLORS.mutedWhite,
+  },
+  bold: {
+    fontWeight: 'bold',
   },
 });
 

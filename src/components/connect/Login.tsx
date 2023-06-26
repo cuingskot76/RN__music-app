@@ -20,7 +20,7 @@ export const UseAccessTokenStore = create(set => ({
   setTokenExp: (time: string) => set({tokenExp: time}),
 }));
 
-import {CLIENT_ID_2, CLIENT_SECRET_2} from '@env';
+import {CLIENT_ID, CLIENT_SECRET} from '@env';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -40,8 +40,8 @@ const Login = ({navigation}) => {
           url,
           {
             grant_type: 'client_credentials',
-            client_id: CLIENT_ID_2,
-            client_secret: CLIENT_SECRET_2,
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
           },
           {
             headers: {

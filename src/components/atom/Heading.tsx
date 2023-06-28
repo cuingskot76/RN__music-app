@@ -8,14 +8,24 @@ interface HeadingProps {
   style?: TextStyle | TextStyle[];
   isMuted: boolean;
   isBold?: boolean;
+  fontFamily?: string;
 }
 
-const Heading = ({children, style, isMuted, isBold}: HeadingProps) => {
+const Heading = ({
+  children,
+  style,
+  isMuted,
+  isBold,
+  fontFamily,
+}: HeadingProps) => {
+  const defaultFontFamily = {fontFamily: fontFamily || 'GothamMedium'};
+
   return (
     <Text
       style={[
         isMuted ? styles.mutedColor : styles.defaultColor,
         isBold && styles.bold,
+        defaultFontFamily,
         style,
       ]}>
       {children}

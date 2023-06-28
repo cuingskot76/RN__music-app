@@ -5,6 +5,9 @@ import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
+import GoogleIcon from '../../../public/images/logo/google.svg';
+import FacebookIcon from '../../../public/images/logo/facebook.svg';
+
 import Button from '../atom/Button';
 import Heading from '../atom/Heading';
 
@@ -28,14 +31,14 @@ const Connect = ({navigation}: any) => {
         <View style={{alignItems: 'center', gap: -5, marginBottom: SIZES.base}}>
           <Heading
             isMuted={false}
-            isBold={true}
-            style={{fontSize: SIZES.xxl, fontFamily: 'GothamBold'}}>
+            fontFamily="GothamBold"
+            style={{fontSize: SIZES.xxl}}>
             Millions of songs.
           </Heading>
           <Heading
             isMuted={false}
-            isBold={true}
-            style={{fontSize: SIZES.xxl, fontFamily: 'GothamBook'}}>
+            fontFamily="GothamBold"
+            style={{fontSize: SIZES.xxl}}>
             Free on Cuing.
           </Heading>
         </View>
@@ -43,7 +46,6 @@ const Connect = ({navigation}: any) => {
         <View>
           <Button
             title="Sign up free"
-            textWeight="600"
             style={{
               backgroundColor: COLORS.green,
               paddingVertical: PADDING.sm,
@@ -56,7 +58,6 @@ const Connect = ({navigation}: any) => {
           />
           <Button
             title="Continue with phone number"
-            textWeight="600"
             style={{
               paddingVertical: PADDING.base,
               borderRadius: 50,
@@ -71,7 +72,7 @@ const Connect = ({navigation}: any) => {
             icon={
               <Ionicons
                 name="md-phone-portrait-outline"
-                size={SIZES.xl}
+                size={SIZES.lg}
                 color="#fff"
               />
             }
@@ -79,7 +80,6 @@ const Connect = ({navigation}: any) => {
           />
           <Button
             title="Continue with Google"
-            textWeight="600"
             style={{
               paddingVertical: PADDING.base,
               borderRadius: 50,
@@ -91,16 +91,11 @@ const Connect = ({navigation}: any) => {
               justifyContent: 'center',
             }}
             colorText={COLORS.white}
-            icon={
-              <Image
-                source={require('../../../public/images/googleLogo.png')}
-              />
-            }
+            icon={<GoogleIcon width={SIZES.lg} height={SIZES.lg} />}
             iconStyle={{position: 'absolute', right: 20}}
           />
           <Button
             title="Continue with Facebook"
-            textWeight="600"
             style={{
               paddingVertical: PADDING.base,
               borderRadius: 50,
@@ -112,11 +107,7 @@ const Connect = ({navigation}: any) => {
               justifyContent: 'center',
             }}
             colorText={COLORS.white}
-            icon={
-              <Image
-                source={require('../../../public/images/facebookLogo.png')}
-              />
-            }
+            icon={<FacebookIcon width={SIZES.xl} height={SIZES.xl} />}
             iconStyle={{position: 'absolute', right: 20}}
           />
           <View
@@ -125,6 +116,7 @@ const Connect = ({navigation}: any) => {
               flexDirection: 'row',
               justifyContent: 'center',
               gap: 10,
+              alignItems: 'center',
             }}>
             <Heading
               isMuted={false}
@@ -134,10 +126,7 @@ const Connect = ({navigation}: any) => {
               Already have an account?
             </Heading>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Heading
-                isMuted={false}
-                isBold={true}
-                style={{color: COLORS.green}}>
+              <Heading isMuted={false} style={{color: COLORS.green}}>
                 Log in
               </Heading>
             </TouchableOpacity>

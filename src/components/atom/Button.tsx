@@ -13,6 +13,7 @@ interface ButtonProps {
   iconStyle?: ViewStyle | ViewStyle[];
   handlePress?: () => void;
   isDisabled?: boolean;
+  fontFamily?: string;
 }
 
 const Button = ({
@@ -25,7 +26,10 @@ const Button = ({
   iconStyle,
   textWeight,
   isDisabled,
+  fontFamily,
 }: ButtonProps) => {
+  const defaultFontFamily = {fontFamily: fontFamily || 'GothamMedium'};
+
   return (
     <TouchableOpacity
       style={style}
@@ -38,7 +42,10 @@ const Button = ({
         }
       }}>
       <Text
-        style={{color: colorText, fontWeight: textWeight, fontSize: sizeText}}>
+        style={[
+          defaultFontFamily,
+          {color: colorText, fontWeight: textWeight, fontSize: sizeText},
+        ]}>
         {title}
       </Text>
       {icon && <View style={iconStyle}>{icon}</View>}

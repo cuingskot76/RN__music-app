@@ -12,12 +12,12 @@ import {COLORS, PADDING, SIZES} from '../../constants/theme';
 
 const Connect = ({navigation}: any) => {
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <LinearGradient
         colors={[COLORS.dark2, COLORS.dark, COLORS.dark]}
         style={{
           paddingHorizontal: PADDING.xxl,
-          height: '100%',
+          flex: 1,
         }}>
         <Ionicons
           name="musical-notes"
@@ -26,10 +26,16 @@ const Connect = ({navigation}: any) => {
           style={{textAlign: 'center', paddingVertical: 150}}
         />
         <View style={{alignItems: 'center', gap: -5, marginBottom: SIZES.base}}>
-          <Heading isMuted={false} isBold={true} style={{fontSize: SIZES.xxl}}>
+          <Heading
+            isMuted={false}
+            isBold={true}
+            style={{fontSize: SIZES.xxl, fontFamily: 'GothamBold'}}>
             Millions of songs.
           </Heading>
-          <Heading isMuted={false} isBold={true} style={{fontSize: SIZES.xxl}}>
+          <Heading
+            isMuted={false}
+            isBold={true}
+            style={{fontSize: SIZES.xxl, fontFamily: 'GothamBook'}}>
             Free on Cuing.
           </Heading>
         </View>

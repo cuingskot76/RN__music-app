@@ -26,9 +26,9 @@ const Connect = ({navigation}: any) => {
           name="musical-notes"
           size={60}
           color={COLORS.white}
-          style={{textAlign: 'center', paddingVertical: 150}}
+          style={{textAlign: 'center', marginTop: 150}}
         />
-        <View style={{alignItems: 'center', gap: -5, marginBottom: SIZES.base}}>
+        <View style={{alignItems: 'center', gap: -5, marginVertical: 150}}>
           <Heading
             isMuted={false}
             fontFamily="GothamBold"
@@ -50,7 +50,6 @@ const Connect = ({navigation}: any) => {
               backgroundColor: COLORS.green,
               paddingVertical: PADDING.sm,
               borderRadius: 50,
-              marginTop: 50,
               alignItems: 'center',
             }}
             colorText="black"

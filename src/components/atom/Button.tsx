@@ -28,7 +28,7 @@ const Button = ({
   isDisabled,
   fontFamily,
 }: ButtonProps) => {
-  const defaultFontFamily = {fontFamily: fontFamily || 'GothamMedium'};
+  const defaultFontFamily = {fontFamily: fontFamily || 'GothamBold'};
 
   return (
     <TouchableOpacity

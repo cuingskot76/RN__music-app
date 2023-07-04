@@ -7,13 +7,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Button from '../../atom/Button';
 import Input from '../../atom/Input';
+import {COLORS, PADDING, SIZES} from '../../../constants/theme';
 
 export const UseEmailStore = create(set => ({
   email: '',
   setEmail: (email: string) => set({email}),
 }));
 
-const EmailSignUp = ({navigation}) => {
+const EmailSignUp = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [validateEmail, setValidateEmail] = useState(false);
 
@@ -38,13 +39,16 @@ const EmailSignUp = ({navigation}) => {
   return (
     <View
       style={{
-        padding: 20,
+        padding: PADDING.lg,
+        marginTop: SIZES.xl,
         height: '100%',
         backgroundColor: '#2a2a2a',
       }}>
       <Button
-        style={{paddingBottom: 50}}
-        icon={<AntDesign name="arrowleft" size={30} color="#fff" />}
+        style={{paddingBottom: PADDING.xl}}
+        icon={
+          <AntDesign name="arrowleft" size={SIZES.xl} color={COLORS.white} />
+        }
         handlePress={() => navigation.goBack()}
       />
 
@@ -56,7 +60,7 @@ const EmailSignUp = ({navigation}) => {
 
       <Text
         style={{
-          color: '#fff',
+          color: COLORS.white,
         }}>
         You'll need to confirm this email later.
       </Text>

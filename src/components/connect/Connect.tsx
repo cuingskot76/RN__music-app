@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {View, TouchableOpacity, ScrollView} from 'react-native';
 import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -52,7 +52,7 @@ const Connect = ({navigation}: any) => {
               borderRadius: 50,
               alignItems: 'center',
             }}
-            colorText="black"
+            colorText={COLORS.dark}
             handlePress={() => navigation.navigate('EmailSignUp')}
           />
           <Button

@@ -8,7 +8,7 @@ interface ButtonProps {
   style?: ViewStyle | ViewStyle[];
   icon?: React.ReactNode;
   colorText?: 'black' | 'white' | string;
-  sizeText?: 12 | 16 | 18 | 20;
+  sizeText?: number;
   textWeight?: 'bold' | 'normal' | '600' | '700';
   iconStyle?: ViewStyle | ViewStyle[];
   handlePress?: () => void;

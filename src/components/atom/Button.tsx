@@ -5,7 +5,8 @@ import {Text} from 'react-native';
 
 interface ButtonProps {
   title?: string;
-  style?: ViewStyle | ViewStyle[];
+  style?: ViewStyle | ViewStyle[] | object;
+  textStyle?: ViewStyle | ViewStyle[];
   icon?: React.ReactNode;
   colorText?: 'black' | 'white' | string;
   sizeText?: number;
@@ -18,6 +19,7 @@ interface ButtonProps {
 
 const Button = ({
   style,
+  textStyle,
   handlePress,
   icon,
   title,
@@ -44,6 +46,7 @@ const Button = ({
       <Text
         style={[
           defaultFontFamily,
+          textStyle,
           {color: colorText, fontWeight: textWeight, fontSize: sizeText},
         ]}>
         {title}

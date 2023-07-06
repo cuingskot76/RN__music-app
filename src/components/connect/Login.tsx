@@ -7,10 +7,15 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Input from '../atom/Input';
 import Button from '../atom/Button';
+
 import {auth} from '../../../firebase';
+
 import axios from 'axios';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {COLORS, PADDING, SIZES} from '../../constants/theme';
+
 import {create} from 'zustand';
 
 export const UseAccessTokenStore = create(set => ({
@@ -22,7 +27,7 @@ export const UseAccessTokenStore = create(set => ({
 
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
 
-const Login = ({navigation}) => {
+const Login = ({navigation}: any) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -58,7 +63,7 @@ const Login = ({navigation}) => {
           const accessToken = getToken.data.access_token;
           const expirationTime = Math.floor(Date.now() / 1000) + 3600;
 
-          const checkTokenIsExp = (token, expiredIn) => {
+          const checkTokenIsExp = (token: string, expiredIn: any) => {
             const currentTime = Date.now();
             const exp = parseInt(expiredIn, 13) * 1000;
 
@@ -77,13 +82,13 @@ const Login = ({navigation}) => {
           checkTokenIsExp(accessToken, expirationTime);
         }
       }
-    } catch (error) {
+    } catch (error: Error | any) {
       setIsLogin('Log in');
-      if (error.code === 'auth/invalid-email') {
+      if (error?.code === 'auth/invalid-email') {
         setErrorMessage('This email and password combination is incorrect.');
-      } else if (error.code === 'auth/wrong-password') {
+      } else if (error?.code === 'auth/wrong-password') {
         setErrorMessage('This email and password combination is incorrect.');
-      } else if (error.code === 'auth/user-not-found') {
+      } else if (error?.code === 'auth/user-not-found') {
         setErrorMessage('User not found');
       } else {
         setErrorMessage('Something went wrong');

@@ -1,15 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
+
 import Button from '../../atom/Button';
+import Paragraf from '../../atom/Paragraf';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import DatePicker from 'react-native-date-picker';
 
-const DatepickerSignUp = ({navigation}) => {
-  const [date, setDate] = useState(new Date());
+import {COLORS, PADDING, SIZES} from '../../../constants/theme';
 
-  // check if the user is 18 years old
+const DatepickerSignUp = ({navigation}: any) => {
+  const [date, setDate] = useState(new Date());
+  const [isAdult, setIsAdult] = useState(false);
+
+  // check if the user is 13 years old
   const checkYearsOld = useCallback(() => {
     const dateNow = new Date();
     const dateUser = new Date(date);
@@ -17,48 +23,53 @@ const DatepickerSignUp = ({navigation}) => {
     const monthsOld = dateNow.getMonth() - dateUser.getMonth();
     const daysOld = dateNow.getDate() - dateUser.getDate();
 
-    if (yearsOld < 18) {
-      return false;
-    } else if (yearsOld === 18) {
+    if (yearsOld < 13) {
+      return setIsAdult(false);
+    } else if (yearsOld === 13) {
       if (monthsOld < 0) {
-        return false;
+        return setIsAdult(false);
       } else if (monthsOld === 0) {
         if (daysOld < 0) {
-          return false;
+          return setIsAdult(false);
         }
       }
     }
 
-    return true;
+    setIsAdult(true);
   }, [date]);
 
   useEffect(() => {
     checkYearsOld();
-  }, [checkYearsOld, date]);
+  }, [checkYearsOld]);
 
   const handleNext = () => {
-    navigation.navigate('GenderSignUp');
+    if (isAdult === true) {
+      navigation.navigate('GenderSignUp');
+    }
   };
 
   return (
     <View
       style={{
-        padding: 20,
+        padding: PADDING.lg,
+        marginTop: SIZES.xl,
         height: '100%',
-        backgroundColor: '#2a2a2a',
+        backgroundColor: COLORS.dark,
       }}>
       <Button
-        style={{paddingBottom: 50}}
-        icon={<AntDesign name="arrowleft" size={30} color="#fff" />}
+        style={{paddingBottom: PADDING.xl}}
+        icon={<AntDesign name="arrowleft" size={30} color={COLORS.white} />}
         handlePress={() => navigation.goBack()}
       />
 
-      <Text
+      <Paragraf
         style={{
-          color: '#fff',
+          color: COLORS.white,
+          fontSize: SIZES.lg,
+          fontFamily: 'GothamBold',
         }}>
         What's your date of birth?
-      </Text>
+      </Paragraf>
 
       <DatePicker
         style={{
@@ -73,6 +84,12 @@ const DatepickerSignUp = ({navigation}) => {
         theme="dark"
         maximumDate={new Date()}
       />
+
+      {!isAdult && (
+        <Paragraf style={{color: COLORS.danger, fontSize: SIZES.sm}}>
+          Sorry, you don't meet Cuing's age requirements
+        </Paragraf>
+      )}
 
       <View
         style={{

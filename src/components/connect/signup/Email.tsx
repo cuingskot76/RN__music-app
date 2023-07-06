@@ -1,12 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import React, {useEffect, useState} from 'react';
+
 import {create} from 'zustand';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Button from '../../atom/Button';
 import Input from '../../atom/Input';
+import Paragraf from '../../atom/Paragraf';
+
 import {COLORS, PADDING, SIZES} from '../../../constants/theme';
 
 export const UseEmailStore = create(set => ({
@@ -19,11 +22,13 @@ const EmailSignUp = ({navigation}: any) => {
   const [validateEmail, setValidateEmail] = useState(false);
 
   const checkValidateEmail = (input: string) => {
-    const re = /\S+@\S+\.\S+/;
-    if (re.test(input)) {
-      setValidateEmail(false);
-    } else {
+    // only one @ and .
+    const check = /^[\w.%+-]+@[\w.-]+(?:\.[\w-]+)+$/;
+
+    if (check.test(input)) {
       setValidateEmail(true);
+    } else {
+      setValidateEmail(false);
     }
   };
 
@@ -36,13 +41,15 @@ const EmailSignUp = ({navigation}: any) => {
     navigation.navigate('PasswordSignUp');
   };
 
+  console.log('email', validateEmail);
+
   return (
     <View
       style={{
         padding: PADDING.lg,
         marginTop: SIZES.xl,
         height: '100%',
-        backgroundColor: '#2a2a2a',
+        backgroundColor: COLORS.dark,
       }}>
       <Button
         style={{paddingBottom: PADDING.xl}}
@@ -58,12 +65,9 @@ const EmailSignUp = ({navigation}: any) => {
         onChangeText={text => setEmail(text)}
       />
 
-      <Text
-        style={{
-          color: COLORS.white,
-        }}>
+      <Paragraf style={{color: COLORS.white, fontSize: SIZES.sm}}>
         You'll need to confirm this email later.
-      </Text>
+      </Paragraf>
 
       <View
         style={{
@@ -73,13 +77,13 @@ const EmailSignUp = ({navigation}: any) => {
           title="Next"
           colorText="black"
           sizeText={16}
-          isDisabled={validateEmail}
+          isDisabled={!validateEmail}
           style={[
-            validateEmail ? {opacity: 0.5} : {opacity: 1, marginTop: 20},
+            !validateEmail ? {opacity: 0.5} : {opacity: 1},
             {
-              marginTop: 20,
+              marginTop: SIZES.lg,
               alignItems: 'center',
-              backgroundColor: '#fff',
+              backgroundColor: COLORS.white,
               borderRadius: 20,
               maxWidth: 100,
               paddingVertical: 10,

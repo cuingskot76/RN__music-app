@@ -1,12 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
+
 import Button from '../../atom/Button';
 import Input from '../../atom/Input';
+import Paragraf from '../../atom/Paragraf';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {UseEmailStore} from './Email';
+
+import {COLORS, PADDING, SIZES} from '../../../constants/theme';
+
 import {create} from 'zustand';
 
 export const UsePasswordStore = create(set => ({
@@ -14,7 +18,7 @@ export const UsePasswordStore = create(set => ({
   setPassword: (password: string) => set({password}),
 }));
 
-const PasswordSignUp = ({navigation}) => {
+const PasswordSignUp = ({navigation}: any) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [validatePassword, setValidatePassword] = useState(false);
@@ -39,13 +43,16 @@ const PasswordSignUp = ({navigation}) => {
   return (
     <View
       style={{
-        padding: 20,
+        padding: PADDING.lg,
+        marginTop: SIZES.xl,
         height: '100%',
-        backgroundColor: '#2a2a2a',
+        backgroundColor: COLORS.dark,
       }}>
       <Button
-        style={{paddingBottom: 50}}
-        icon={<AntDesign name="arrowleft" size={30} color="#fff" />}
+        style={{paddingBottom: PADDING.xl}}
+        icon={
+          <AntDesign name="arrowleft" size={SIZES.xl} color={COLORS.white} />
+        }
         handlePress={() => navigation.goBack()}
       />
 
@@ -68,12 +75,9 @@ const PasswordSignUp = ({navigation}) => {
         }
       />
 
-      <Text
-        style={{
-          color: '#fff',
-        }}>
+      <Paragraf style={{color: COLORS.white, fontSize: SIZES.sm}}>
         Use at least 8 characters.
-      </Text>
+      </Paragraf>
 
       <View
         style={{

@@ -1,22 +1,33 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text} from 'react-native';
 import React, {useState} from 'react';
+
 import Button from '../../atom/Button';
+import Paragraf from '../../atom/Paragraf';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import Input from '../../atom/Input';
 
 import {UseEmailStore} from './Email';
 import {UsePasswordStore} from './Password';
-import {UseGenderStore} from './Gender';
+
 import {auth} from '../../../../firebase';
 
-const FinishingSignUp = ({navigation}) => {
-  const [userProfile, setUserProfile] = useState('');
+import {COLORS, PADDING, SIZES} from '../../../constants/theme';
 
-  const email = UseEmailStore(state => state.email);
-  const password = UsePasswordStore(state => state.password);
-  // const gender = UseGenderStore(state => state.gender);
+const FinishingSignUp = ({navigation}: any) => {
+  const email = UseEmailStore(state => state?.email);
+  const password = UsePasswordStore(state => state?.password);
+
+  // extract first name from email
+  const initialUsername = email?.split('@')[0];
+
+  const [userProfile, setUserProfile] = useState(initialUsername);
+  const [isChecked, setIsChecked] = useState({
+    data: false,
+    marketing: false,
+  });
 
   const handleRegister = () => {
     auth
@@ -32,16 +43,19 @@ const FinishingSignUp = ({navigation}) => {
       });
   };
 
+  console.log('check', isChecked);
+
   return (
     <View
       style={{
-        padding: 20,
+        padding: PADDING.lg,
+        marginTop: SIZES.xl,
         height: '100%',
-        backgroundColor: '#2a2a2a',
+        backgroundColor: COLORS.dark,
       }}>
       <Button
-        style={{paddingBottom: 50}}
-        icon={<AntDesign name="arrowleft" size={30} color="#fff" />}
+        style={{paddingBottom: PADDING.xl}}
+        icon={<AntDesign name="arrowleft" size={30} color={COLORS.white} />}
         handlePress={() => navigation.goBack()}
       />
 
@@ -50,85 +64,124 @@ const FinishingSignUp = ({navigation}) => {
         value={userProfile}
         onChangeText={text => setUserProfile(text)}
       />
-      <Text style={{color: 'white'}}>This appers on your Cuing profile.</Text>
+
+      <Paragraf style={{fontSize: SIZES.sm, color: COLORS.white}}>
+        This appers on your Cuing profile.
+      </Paragraf>
+
       <View
         style={{
-          borderColor: 'gray',
-          marginTop: 15,
+          borderColor: COLORS.gray,
+          marginTop: SIZES.xl,
           borderTopWidth: 1,
-          paddingTop: 20,
+          paddingTop: PADDING.lg,
         }}>
-        <View style={{gap: 20}}>
-          <Text style={{color: 'white'}}>
+        <View style={{gap: SIZES.lg}}>
+          <Paragraf style={{fontSize: SIZES.sm, color: COLORS.white}}>
             By tapping "Create account", you agree to Cuing's Terms of Use.
-          </Text>
-          <Button title="Terms of Use" colorText="#1db954" />
+          </Paragraf>
+          <Button
+            title="Terms of Use"
+            colorText={COLORS.green}
+            sizeText={SIZES.sm}
+          />
         </View>
-        <View style={{gap: 20, marginTop: 20}}>
-          <Text style={{color: 'white'}}>
+        <View style={{gap: SIZES.lg, marginTop: SIZES.lg}}>
+          <Paragraf style={{fontSize: SIZES.sm, color: COLORS.white}}>
             By tapping "Create account", you agree to Cuing's Privacy Policy.
-          </Text>
-          <Button title="Privacy Police" colorText="#1db954" />
+          </Paragraf>
+          <Button
+            title="Privacy Police"
+            colorText={COLORS.green}
+            sizeText={SIZES.sm}
+          />
         </View>
       </View>
 
-      <View>
-        <Button
-          title="I would prefer not to receive marketing messages from Cuing."
-          colorText="white"
-          textWeight="normal"
-          sizeText={12}
-          style={{
-            marginTop: 20,
-          }}
-          icon={
+      <Button
+        title="I would prefer not to receive marketing messages from Cuing."
+        colorText={COLORS.white}
+        sizeText={SIZES.sm}
+        style={{
+          marginTop: SIZES.xxl,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+        textStyle={{
+          width: '80%',
+        }}
+        handlePress={() => setIsChecked(prev => ({...prev, data: !prev.data}))}
+        icon={
+          isChecked.data ? (
             <AntDesign
               name="checkcircle"
-              size={25}
-              color="#1db954"
-              style={{}}
+              size={SIZES.xl}
+              color={COLORS.green}
             />
-          }
-          iconStyle={{
-            position: 'absolute',
-            right: 0,
-          }}
-        />
-        <Button
-          title="Share my registration data with Cuing's content providers for marketing purposes."
-          colorText="white"
-          textWeight="normal"
-          sizeText={12}
-          style={{
-            marginTop: 20,
-          }}
-          icon={
+          ) : (
+            <View
+              style={{
+                borderRadius: 50,
+                borderColor: COLORS.lightGray,
+                borderWidth: 1,
+                width: SIZES.xl,
+                height: SIZES.xl,
+              }}
+            />
+          )
+        }
+      />
+      <Button
+        title="Share my registration data with Cuing's content providers for marketing purposes."
+        colorText={COLORS.white}
+        sizeText={SIZES.sm}
+        style={{
+          marginTop: SIZES.lg,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+        textStyle={{
+          width: '80%',
+        }}
+        handlePress={() =>
+          setIsChecked(prev => ({...prev, marketing: !prev.marketing}))
+        }
+        icon={
+          isChecked.marketing ? (
             <AntDesign
               name="checkcircle"
-              size={25}
-              color="#1db954"
-              style={{}}
+              size={SIZES.xl}
+              color={COLORS.green}
             />
-          }
-          iconStyle={{
-            position: 'absolute',
-            right: 0,
-          }}
-        />
-      </View>
+          ) : (
+            <View
+              style={{
+                borderRadius: 50,
+                borderColor: COLORS.lightGray,
+                borderWidth: 1,
+                width: SIZES.xl,
+                height: SIZES.xl,
+              }}
+            />
+          )
+        }
+      />
 
       <View style={{alignItems: 'center'}}>
         <Button
           title="Create account"
-          colorText="black"
-          sizeText={16}
+          colorText={COLORS.dark2}
           style={{
             marginTop: 100,
-            backgroundColor: '#fff',
-            borderRadius: 20,
+            backgroundColor: COLORS.white,
+            borderRadius: SIZES.lg,
             maxWidth: 150,
-            paddingVertical: 10,
-            paddingHorizontal: 20,
+            paddingVertical: SIZES.xs,
+            paddingHorizontal: SIZES.lg,
           }}
           handlePress={handleRegister}
         />

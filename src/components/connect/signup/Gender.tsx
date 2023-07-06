@@ -1,22 +1,28 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import React, {useState} from 'react';
+
 import Button from '../../atom/Button';
+import Paragraf from '../../atom/Paragraf';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import {create} from 'zustand';
+
+import {COLORS, PADDING, SIZES} from '../../../constants/theme';
 
 export const UseGenderStore = create(set => ({
   gender: '',
   setGender: (gender: string) => set({gender}),
 }));
 
-const GenderSignUp = ({navigation}) => {
-  const [checked, setChecked] = useState('Male');
+const GenderSignUp = ({navigation}: any) => {
+  const [checked, setChecked] = useState('');
   const genders = ['Male', 'Female', 'Prefer not to say'];
 
   const handleNext = (gender: string) => {
     setChecked(gender);
+
     navigation.navigate('FinishingSignUp');
     UseGenderStore.setState({gender});
   };
@@ -24,93 +30,59 @@ const GenderSignUp = ({navigation}) => {
   return (
     <View
       style={{
-        padding: 20,
+        padding: PADDING.lg,
+        marginTop: SIZES.xl,
         height: '100%',
-        backgroundColor: '#2a2a2a',
+        backgroundColor: COLORS.dark,
       }}>
       <Button
-        style={{paddingBottom: 50}}
-        icon={<AntDesign name="arrowleft" size={30} color="#fff" />}
+        style={{paddingBottom: PADDING.xl}}
+        icon={<AntDesign name="arrowleft" size={30} color={COLORS.white} />}
         handlePress={() => navigation.goBack()}
       />
 
-      <Text
+      <Paragraf
         style={{
-          color: '#fff',
+          color: COLORS.white,
+          fontSize: SIZES.lg,
+          fontFamily: 'GothamBold',
         }}>
         What's your gender?
-      </Text>
+      </Paragraf>
 
-      {/* <View
+      <View
         style={{
+          display: 'flex',
           flexDirection: 'row',
-          gap: 20,
+          gap: SIZES.base,
           flexWrap: 'wrap',
-          marginTop: 20,
-          padding: 20,
+          marginTop: SIZES.xl,
         }}>
-        <Button
-          title="Male"
-          style={styles.button}
-          colorText="white"
-          sizeText={16}
-          handlePress={() => navigation.navigate('FinishingSignUp')}
-        />
-        <Button
-          title="Female"
-          style={styles.button}
-          colorText="white"
-          sizeText={16}
-        />
-        <Button
-          title="Prefer not to say"
-          style={{
-            maxWidth: 200,
-            paddingVertical: 10,
-            paddingHorizontal: 15,
-            borderRadius: 50,
-            alignItems: 'center',
-            borderColor: 'gray',
-            borderWidth: 2,
-            justifyContent: 'center',
-            width: '100%',
-          }}
-          colorText="white"
-          sizeText={16}
-        />
-      </View> */}
-
-      {genders.map((item, index) => {
-        return (
-          <Button
-            key={index}
-            title={item}
-            style={[
-              styles.button,
-              checked === item && {backgroundColor: '#fff'},
-            ]}
-            colorText={checked === index ? 'black' : 'white'}
-            sizeText={16}
-            handlePress={() => handleNext(item)}
-          />
-        );
-      })}
+        {genders.map(item => {
+          return (
+            <Button
+              key={item}
+              title={item}
+              colorText={checked === item ? COLORS.white : COLORS.mutedWhite}
+              fontFamily="GothamBook"
+              style={[
+                {
+                  paddingVertical: SIZES.sm,
+                  paddingHorizontal: SIZES.xxl,
+                  borderRadius: 50,
+                  borderColor:
+                    checked === item ? COLORS.lightGray : COLORS.darkGray,
+                  borderWidth: 2,
+                },
+              ]}
+              sizeText={16}
+              handlePress={() => handleNext(item)}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 50,
-    marginTop: 20,
-    alignItems: 'center',
-    borderColor: 'gray',
-    borderWidth: 2,
-    justifyContent: 'center',
-    maxWidth: 100,
-    width: '100%',
-  },
-});
 export default GenderSignUp;

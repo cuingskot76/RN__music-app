@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useState} from 'react';
 
 import Button from '../../atom/Button';
@@ -24,26 +24,20 @@ const FinishingSignUp = ({navigation}: any) => {
   const initialUsername = email?.split('@')[0];
 
   const [userProfile, setUserProfile] = useState(initialUsername);
+  const [error, setError] = useState('');
   const [isChecked, setIsChecked] = useState({
     data: false,
     marketing: false,
   });
 
-  const handleRegister = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        // console.log(user);
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // console.log(errorCode, errorMessage);
-      });
+  const handleRegister = async () => {
+    try {
+      const res = await auth.createUserWithEmailAndPassword(email, password);
+      console.log('res', res);
+    } catch (err) {
+      setError(err?.message);
+    }
   };
-
-  console.log('check', isChecked);
 
   return (
     <View
@@ -170,6 +164,17 @@ const FinishingSignUp = ({navigation}: any) => {
           )
         }
       />
+
+      {error && (
+        <Paragraf
+          style={{
+            color: COLORS.danger,
+            fontSize: SIZES.sm,
+            paddingTop: SIZES.xxl,
+          }}>
+          {error?.split('Firebase: ')[1]?.split('.')[0]?.replace('.', ' ')}
+        </Paragraf>
+      )}
 
       <View style={{alignItems: 'center'}}>
         <Button

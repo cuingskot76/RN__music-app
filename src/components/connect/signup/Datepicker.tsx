@@ -97,13 +97,13 @@ const DatepickerSignUp = ({navigation}: any) => {
         }}>
         <Button
           title="Next"
-          colorText="black"
-          sizeText={16}
-          // isDisabled={!checkYearsOld()}
+          colorText={isAdult ? COLORS.darkGray : COLORS.dark}
+          sizeText={SIZES.base}
+          isDisabled={!isAdult}
           style={{
             marginTop: 20,
             alignItems: 'center',
-            backgroundColor: '#fff',
+            backgroundColor: isAdult ? COLORS.white : COLORS.dark2,
             borderRadius: 20,
             maxWidth: 100,
             paddingVertical: 10,

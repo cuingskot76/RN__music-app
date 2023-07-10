@@ -14,6 +14,8 @@ import {UsePasswordStore} from './Password';
 
 import {auth} from '../../../../firebase';
 
+import Modal from 'react-native-modal';
+
 import {COLORS, PADDING, SIZES} from '../../../constants/theme';
 
 const FinishingSignUp = ({navigation}: any) => {
@@ -29,11 +31,17 @@ const FinishingSignUp = ({navigation}: any) => {
     data: false,
     marketing: false,
   });
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(prev => !prev);
+  };
 
   const handleRegister = async () => {
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      navigation.navigate('Login');
+      // await auth.createUserWithEmailAndPassword(email, password);
+      // navigation.navigate('Login');
+      showModal();
     } catch (err) {
       setError(err?.message);
     }
@@ -47,6 +55,47 @@ const FinishingSignUp = ({navigation}: any) => {
         height: '100%',
         backgroundColor: COLORS.dark,
       }}>
+      <Modal
+        isVisible={isModalVisible}
+        animationIn={'zoomIn'}
+        animationOut={'fadeOut'}
+        animationInTiming={300}
+        animationOutTiming={300}
+        backdropTransitionInTiming={300}
+        backdropTransitionOutTiming={300}
+        // auto navigate to login
+        // onModalHide={() => navigation.navigate('Login')}
+      >
+        <View
+          style={{
+            backgroundColor: COLORS.dark,
+            paddingHorizontal: PADDING.xl,
+            paddingVertical: 50,
+            borderRadius: 10,
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <AntDesign
+              name="checkcircle"
+              size={50}
+              color={COLORS.green}
+              style={{marginBottom: SIZES.lg}}
+            />
+            <Paragraf
+              style={{
+                fontSize: SIZES.lg,
+                color: COLORS.white,
+                marginBottom: SIZES.base,
+                fontFamily: 'GothamBold',
+              }}>
+              You're all set!
+            </Paragraf>
+            <Paragraf style={{fontSize: SIZES.sm, color: COLORS.white}}>
+              Your account has been created.
+            </Paragraf>
+          </View>
+        </View>
+      </Modal>
+
       <Input
         label="What's your name?"
         value={userProfile}

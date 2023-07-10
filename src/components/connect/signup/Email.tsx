@@ -37,7 +37,7 @@ const EmailSignUp = ({navigation}: any) => {
   };
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+    setModalVisible(prev => !prev);
   };
 
   useEffect(() => {

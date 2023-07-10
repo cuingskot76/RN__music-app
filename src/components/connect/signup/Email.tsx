@@ -80,6 +80,7 @@ const EmailSignUp = ({navigation}: any) => {
         label="What's your email?"
         value={email}
         onChangeText={text => setEmail(text)}
+        autoFocus={true}
       />
 
       {/* the modal */}
@@ -128,6 +129,7 @@ const EmailSignUp = ({navigation}: any) => {
             <Button
               title="GO TO LOGIN"
               colorText={COLORS.dark}
+              sizeText={SIZES.base}
               style={{
                 backgroundColor: COLORS.green,
                 borderRadius: SIZES.lg,

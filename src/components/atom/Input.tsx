@@ -9,8 +9,7 @@ interface InputProps {
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean;
   icon?: React.ReactNode;
-  // isFocus?: boolean;
-  // onChangeFocus?: (focus: boolean) => void;
+  autoFocus?: boolean;
 }
 
 const Input = ({
@@ -19,9 +18,8 @@ const Input = ({
   onChangeText,
   value,
   icon,
-}: // isFocus,
-// onChangeFocus,
-InputProps) => {
+  autoFocus,
+}: InputProps) => {
   const [isFocus, setIsFocus] = useState(false);
   return (
     <View>
@@ -42,13 +40,15 @@ InputProps) => {
           secureTextEntry={secureTextEntry}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
+          autoFocus={autoFocus}
           style={{
             backgroundColor: isFocus ? COLORS.lightGray : COLORS.gray,
-            paddingVertical: 10,
-            paddingHorizontal: 15,
+            paddingVertical: SIZES.xs,
+            paddingHorizontal: SIZES.xs,
             borderRadius: 5,
-            marginBottom: 10,
-            color: '#fff',
+            marginBottom: SIZES.xs,
+            color: COLORS.white,
+            fontFamily: 'GothamBook',
           }}
         />
         {icon && (

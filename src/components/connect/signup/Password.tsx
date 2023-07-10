@@ -61,6 +61,7 @@ const PasswordSignUp = ({navigation}: any) => {
         value={password}
         secureTextEntry={showPassword ? false : true}
         onChangeText={text => setPassword(text)}
+        autoFocus={true}
         icon={
           <Button
             icon={

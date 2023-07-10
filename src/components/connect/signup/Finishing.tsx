@@ -179,7 +179,7 @@ const FinishingSignUp = ({navigation}: any) => {
       <View style={{alignItems: 'center'}}>
         <Button
           title="Create account"
-          colorText={COLORS.dark2}
+          colorText={COLORS.dark}
           style={{
             marginTop: 100,
             backgroundColor: COLORS.white,

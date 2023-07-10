@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import {create} from 'zustand';
@@ -11,6 +11,7 @@ import Input from '../../atom/Input';
 import Paragraf from '../../atom/Paragraf';
 
 import {COLORS, PADDING, SIZES} from '../../../constants/theme';
+import {auth} from '../../../../firebase';
 
 export const UseEmailStore = create(set => ({
   email: '',
@@ -36,12 +37,33 @@ const EmailSignUp = ({navigation}: any) => {
     checkValidateEmail(email);
   }, [email]);
 
-  const handleNext = () => {
-    UseEmailStore.setState({email});
-    navigation.navigate('PasswordSignUp');
+  const handleNext = async () => {
+    try {
+      // check if the email is alredy in the Firebase auth
+      const userCredential = await auth?.fetchSignInMethodsForEmail(email);
+      if (userCredential?.length > 0) {
+        return Alert.alert(
+          'This email is alredy connected to an account.',
+          'Do you want to log in instead?',
+          [
+            {
+              text: 'Go to login',
+              onPress: () => navigation.navigate('Login'),
+            },
+            {
+              text: 'Close',
+              onPress: () => navigation.navigate('EmailSignUp'),
+            },
+          ],
+        );
+      } else {
+        UseEmailStore.setState({email});
+        navigation.navigate('PasswordSignUp');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  console.log('email', validateEmail);
 
   return (
     <View

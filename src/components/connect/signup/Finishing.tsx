@@ -32,8 +32,8 @@ const FinishingSignUp = ({navigation}: any) => {
 
   const handleRegister = async () => {
     try {
-      const res = await auth.createUserWithEmailAndPassword(email, password);
-      console.log('res', res);
+      await auth.createUserWithEmailAndPassword(email, password);
+      navigation.navigate('Login');
     } catch (err) {
       setError(err?.message);
     }

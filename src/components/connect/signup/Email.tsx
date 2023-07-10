@@ -6,6 +6,8 @@ import {create} from 'zustand';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+import Modal from 'react-native-modal';
+
 import Button from '../../atom/Button';
 import Input from '../../atom/Input';
 import Paragraf from '../../atom/Paragraf';
@@ -21,6 +23,7 @@ export const UseEmailStore = create(set => ({
 const EmailSignUp = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [validateEmail, setValidateEmail] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const checkValidateEmail = (input: string) => {
     // only one @ and .
@@ -33,6 +36,10 @@ const EmailSignUp = ({navigation}: any) => {
     }
   };
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   useEffect(() => {
     checkValidateEmail(email);
   }, [email]);
@@ -42,20 +49,8 @@ const EmailSignUp = ({navigation}: any) => {
       // check if the email is alredy in the Firebase auth
       const userCredential = await auth?.fetchSignInMethodsForEmail(email);
       if (userCredential?.length > 0) {
-        return Alert.alert(
-          'This email is alredy connected to an account.',
-          'Do you want to log in instead?',
-          [
-            {
-              text: 'Go to login',
-              onPress: () => navigation.navigate('Login'),
-            },
-            {
-              text: 'Close',
-              onPress: () => navigation.navigate('EmailSignUp'),
-            },
-          ],
-        );
+        // show the modal
+        toggleModal();
       } else {
         UseEmailStore.setState({email});
         navigation.navigate('PasswordSignUp');
@@ -86,6 +81,77 @@ const EmailSignUp = ({navigation}: any) => {
         value={email}
         onChangeText={text => setEmail(text)}
       />
+
+      {/* the modal */}
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={toggleModal}
+        onBackButtonPress={toggleModal}
+        backdropOpacity={0.5}
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <View
+          style={{
+            backgroundColor: COLORS.white,
+            borderRadius: SIZES.xs,
+            padding: PADDING.xxl,
+            width: '100%',
+            alignItems: 'center',
+          }}>
+          <View style={{gap: SIZES.xxl}}>
+            <Paragraf
+              style={{
+                color: COLORS.dark,
+                fontSize: SIZES.base,
+                fontFamily: 'GothamBold',
+                textAlign: 'center',
+              }}>
+              This email is already connected to an account.
+            </Paragraf>
+            <Paragraf
+              style={{
+                color: COLORS.darkGray,
+                fontSize: SIZES.sm,
+                textAlign: 'center',
+              }}>
+              Do you want to log in instead?
+            </Paragraf>
+          </View>
+          <View
+            style={{
+              marginTop: SIZES.xxl,
+              alignItems: 'center',
+              gap: SIZES.sm,
+            }}>
+            <Button
+              title="GO TO LOGIN"
+              colorText={COLORS.dark}
+              style={{
+                backgroundColor: COLORS.green,
+                borderRadius: SIZES.lg,
+                paddingVertical: SIZES.xs,
+                paddingHorizontal: SIZES.lg,
+              }}
+              handlePress={() => {
+                navigation.navigate('Login');
+              }}
+            />
+            <Button
+              title="CLOSE"
+              colorText={COLORS.dark}
+              style={{
+                backgroundColor: COLORS.white,
+                borderRadius: SIZES.lg,
+                paddingVertical: SIZES.xs,
+                paddingHorizontal: SIZES.lg,
+              }}
+              handlePress={toggleModal}
+            />
+          </View>
+        </View>
+      </Modal>
 
       <Paragraf style={{color: COLORS.white, fontSize: SIZES.sm}}>
         You'll need to confirm this email later.

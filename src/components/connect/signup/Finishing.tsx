@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Button from '../../atom/Button';
 import Paragraf from '../../atom/Paragraf';
@@ -15,6 +15,8 @@ import {UsePasswordStore} from './Password';
 import {auth} from '../../../../firebase';
 
 import Modal from 'react-native-modal';
+
+import LottieView from 'lottie-react-native';
 
 import {COLORS, PADDING, SIZES} from '../../../constants/theme';
 
@@ -37,10 +39,20 @@ const FinishingSignUp = ({navigation}: any) => {
     setModalVisible(prev => !prev);
   };
 
+  useEffect(() => {
+    if (isModalVisible) {
+      const timer = setTimeout(() => {
+        setModalVisible(false);
+        navigation.navigate('Login');
+      }, 2500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isModalVisible, navigation]);
+
   const handleRegister = async () => {
     try {
-      // await auth.createUserWithEmailAndPassword(email, password);
-      // navigation.navigate('Login');
+      await auth.createUserWithEmailAndPassword(email, password);
       showModal();
     } catch (err) {
       setError(err?.message);
@@ -62,24 +74,20 @@ const FinishingSignUp = ({navigation}: any) => {
         animationInTiming={300}
         animationOutTiming={300}
         backdropTransitionInTiming={300}
-        backdropTransitionOutTiming={300}
-        // auto navigate to login
-        // onModalHide={() => navigation.navigate('Login')}
-      >
+        backdropTransitionOutTiming={300}>
         <View
           style={{
             backgroundColor: COLORS.dark,
-            paddingHorizontal: PADDING.xl,
-            paddingVertical: 50,
+            padding: PADDING.xl,
             borderRadius: 10,
           }}>
           <View style={{alignItems: 'center'}}>
-            <AntDesign
-              name="checkcircle"
-              size={50}
-              color={COLORS.green}
-              style={{marginBottom: SIZES.lg}}
+            <LottieView
+              source={require('../../../../public/assets/success.json')}
+              autoPlay
+              style={{width: 250, height: 250}}
             />
+
             <Paragraf
               style={{
                 fontSize: SIZES.lg,

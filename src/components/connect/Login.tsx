@@ -18,6 +18,8 @@ import {COLORS, PADDING, SIZES} from '../../constants/theme';
 
 import {create} from 'zustand';
 
+import LottieView from 'lottie-react-native';
+
 export const UseAccessTokenStore = create(set => ({
   accessToken: '',
   tokenExp: '',
@@ -32,12 +34,14 @@ const Login = ({navigation}: any) => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [isLogin, setIsLogin] = useState('Log in');
+  const [isLogin, setIsLogin] = useState(false);
 
   const url = 'https://accounts.spotify.com/api/token';
 
   const handleLogin = async () => {
-    setIsLogin('Logging in...');
+    // setIsLogin('Logging in...');
+    setIsLogin(true);
+
     try {
       const authRes = await auth.signInWithEmailAndPassword(username, password);
       const user = authRes.user;
@@ -57,7 +61,8 @@ const Login = ({navigation}: any) => {
           },
         );
 
-        setIsLogin('Log in');
+        // setIsLogin('Log in');
+        setIsLogin(false);
 
         if (getToken.status === 200) {
           const accessToken = getToken.data.access_token;
@@ -83,7 +88,8 @@ const Login = ({navigation}: any) => {
         }
       }
     } catch (error: Error | any) {
-      setIsLogin('Log in');
+      // setIsLogin('Log in');
+      setIsLogin(false);
       if (error?.code === 'auth/invalid-email') {
         setErrorMessage('This email and password combination is incorrect.');
       } else if (error?.code === 'auth/wrong-password') {
@@ -156,27 +162,46 @@ const Login = ({navigation}: any) => {
           gap: SIZES.xxl,
         }}>
         <Button
-          title={isLogin}
+          title={isLogin ? 'Logging in...' : 'Log in'}
           isDisabled={
-            username === '' || password === '' || isLogin === 'Logging in...'
+            username === '' || password === '' || isLogin === true
               ? true
               : false
           }
           colorText={
             username === '' || password === '' ? COLORS.darkGray : COLORS.dark
           }
+          textStyle={{
+            marginLeft: 10,
+          }}
           style={{
             marginTop: SIZES.lg,
-            alignItems: 'center',
             backgroundColor:
-              username === '' || password === '' || isLogin === 'Logging in...'
+              username === '' || password === '' || isLogin === true
                 ? COLORS.dark2
                 : COLORS.white,
             borderRadius: 50,
-            paddingVertical: SIZES.sm,
-            paddingHorizontal: SIZES.xxl,
+            // paddingVertical: SIZES.sm,
+            // paddingHorizontal: SIZES.xxl,
+            paddingVertical: SIZES.base,
+            paddingHorizontal: 50,
+            position: 'relative',
           }}
           handlePress={handleLogin}
+          icon={
+            isLogin && (
+              <LottieView
+                source={require('../../../public/assets/loading.json')}
+                autoPlay
+                loop
+                style={{
+                  width: 50,
+                  height: 50,
+                }}
+              />
+            )
+          }
+          iconStyle={{position: 'absolute', left: 10, top: -3}}
         />
         <Button
           title="Log in without password"

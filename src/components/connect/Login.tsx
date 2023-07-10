@@ -100,9 +100,9 @@ const Login = ({navigation}: any) => {
     <View
       style={{
         padding: PADDING.lg,
+        paddingTop: 50,
         height: '100%',
         backgroundColor: COLORS.dark,
-        marginTop: SIZES.lg,
       }}>
       <Button
         style={{paddingBottom: PADDING.xl}}

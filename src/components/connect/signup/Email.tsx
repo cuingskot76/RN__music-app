@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Alert, View} from 'react-native';
+import {View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import {create} from 'zustand';
@@ -64,17 +64,17 @@ const EmailSignUp = ({navigation}: any) => {
     <View
       style={{
         padding: PADDING.lg,
-        marginTop: SIZES.xl,
+        paddingTop: 150,
         height: '100%',
         backgroundColor: COLORS.dark,
       }}>
-      <Button
+      {/* <Button
         style={{paddingBottom: PADDING.xl}}
         icon={
           <AntDesign name="arrowleft" size={SIZES.xl} color={COLORS.white} />
         }
         handlePress={() => navigation.goBack()}
-      />
+      /> */}
 
       <Input
         label="What's your email?"

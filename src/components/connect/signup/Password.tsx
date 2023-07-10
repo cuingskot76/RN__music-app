@@ -44,18 +44,10 @@ const PasswordSignUp = ({navigation}: any) => {
     <View
       style={{
         padding: PADDING.lg,
-        marginTop: SIZES.xl,
+        paddingTop: 150,
         height: '100%',
         backgroundColor: COLORS.dark,
       }}>
-      <Button
-        style={{paddingBottom: PADDING.xl}}
-        icon={
-          <AntDesign name="arrowleft" size={SIZES.xl} color={COLORS.white} />
-        }
-        handlePress={() => navigation.goBack()}
-      />
-
       <Input
         label="Password"
         value={password}

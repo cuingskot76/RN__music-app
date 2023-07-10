@@ -18,7 +18,7 @@ import DatepickerSignUp from './components/connect/signup/Datepicker';
 import GenderSignUp from './components/connect/signup/Gender';
 import FinishingSignUp from './components/connect/signup/Finishing';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {COLORS} from './constants/theme';
+import {COLORS, SIZES} from './constants/theme';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,8 +70,8 @@ const App = () => {
     <NavigationContainer>
       <StatusBar
         translucent={true}
-        backgroundColor={COLORS.dark}
         barStyle={'light-content'}
+        backgroundColor={'transparent'}
       />
 
       {/* check the token, if exist redirect to home. Otherwise to login page*/}
@@ -119,42 +119,94 @@ const App = () => {
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{headerShown: false}}
+            options={{
+              headerShown: false,
+            }}
           />
           {/* signup-screen__start */}
           <Stack.Screen
             name="EmailSignUp"
             component={EmailSignUp}
             options={{
-              headerShown: false,
+              title: 'Create account',
+              headerTintColor: COLORS.white,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontSize: SIZES.base,
+                fontFamily: 'GothamBold',
+              },
+              headerStyle: {
+                backgroundColor: COLORS.dark,
+              },
+              headerTransparent: true,
             }}
           />
           <Stack.Screen
             name="PasswordSignUp"
             component={PasswordSignUp}
             options={{
-              headerShown: false,
+              title: 'Create account',
+              headerTintColor: COLORS.white,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontSize: SIZES.base,
+                fontFamily: 'GothamBold',
+              },
+              headerStyle: {
+                backgroundColor: COLORS.dark,
+              },
+              headerTransparent: true,
             }}
           />
           <Stack.Screen
             name="BirthSignUp"
             component={DatepickerSignUp}
             options={{
-              headerShown: false,
+              title: 'Create account',
+              headerTintColor: COLORS.white,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontSize: SIZES.base,
+                fontFamily: 'GothamBold',
+              },
+              headerStyle: {
+                backgroundColor: COLORS.dark,
+              },
+              headerTransparent: true,
             }}
           />
           <Stack.Screen
             name="GenderSignUp"
             component={GenderSignUp}
             options={{
-              headerShown: false,
+              title: 'Create account',
+              headerTintColor: COLORS.white,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontSize: SIZES.base,
+                fontFamily: 'GothamBold',
+              },
+              headerStyle: {
+                backgroundColor: COLORS.dark,
+              },
+              headerTransparent: true,
             }}
           />
           <Stack.Screen
             name="FinishingSignUp"
             component={FinishingSignUp}
             options={{
-              headerShown: false,
+              title: 'Create account',
+              headerTintColor: COLORS.white,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontSize: SIZES.base,
+                fontFamily: 'GothamBold',
+              },
+              headerStyle: {
+                backgroundColor: COLORS.dark,
+              },
+              headerTransparent: true,
             }}
           />
           {/* signup-screen__end */}

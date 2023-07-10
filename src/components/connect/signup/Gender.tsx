@@ -31,16 +31,10 @@ const GenderSignUp = ({navigation}: any) => {
     <View
       style={{
         padding: PADDING.lg,
-        marginTop: SIZES.xl,
+        paddingTop: 150,
         height: '100%',
         backgroundColor: COLORS.dark,
       }}>
-      <Button
-        style={{paddingBottom: PADDING.xl}}
-        icon={<AntDesign name="arrowleft" size={30} color={COLORS.white} />}
-        handlePress={() => navigation.goBack()}
-      />
-
       <Paragraf
         style={{
           color: COLORS.white,

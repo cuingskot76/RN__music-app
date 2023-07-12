@@ -31,13 +31,13 @@ const Connect = ({navigation}: any) => {
         <View style={{alignItems: 'center', gap: -5, marginVertical: 150}}>
           <Heading
             isMuted={false}
-            fontFamily="GothamBold"
+            fontFamily="CircularSpotifyTxT-Bold"
             style={{fontSize: SIZES.xxl}}>
             Millions of songs.
           </Heading>
           <Heading
             isMuted={false}
-            fontFamily="GothamBold"
+            fontFamily="CircularSpotifyTxT-Bold"
             style={{fontSize: SIZES.xxl}}>
             Free on Cuing.
           </Heading>

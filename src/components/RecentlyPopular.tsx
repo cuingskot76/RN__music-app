@@ -51,7 +51,8 @@ const RecentlyPopular = () => {
               style={{
                 flex: 1,
                 flexDirection: 'row',
-                backgroundColor: COLORS.darkBlur,
+                // backgroundColor: COLORS.darkBlur,
+                backgroundColor: COLORS.white,
                 alignItems: 'center',
                 width: 200,
                 height: 60,
@@ -102,7 +103,8 @@ const RecentlyPopular = () => {
                 <View
                   style={{
                     flexDirection: 'row',
-                    backgroundColor: COLORS.darkBlur,
+                    // backgroundColor: COLORS.darkBlur,
+                    backgroundColor: COLORS.white,
                     alignItems: 'center',
                     width: 170,
                     height: 60,

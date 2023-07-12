@@ -8,7 +8,9 @@ interface ParagrafProps {
 }
 
 const Paragraf = ({children, fontFamily, style}: ParagrafProps) => {
-  const defaultFontFamily = {fontFamily: fontFamily || 'GothamBook'};
+  const defaultFontFamily = {
+    fontFamily: fontFamily || 'CircularSpotifyTxT-Book',
+  };
 
   return <Text style={[defaultFontFamily, style]}>{children}</Text>;
 };

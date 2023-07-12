@@ -3,15 +3,14 @@ const COLORS = {
   darkWhite: '#EEEEEE',
   mutedWhite: '#C4C4C4',
 
-  lightGray: '#B3B3B3',
-  gray: '#535353',
+  lightGray: '#535353',
+  gray: '#393E46',
   darkGray: '#3B3C4F',
 
-  green: 'rgb(30,215,96)',
-  dark: 'rgb(25,20,20)',
+  green: '#1DB954',
+  dark: '#191414',
   dark2: '#52575D',
 
-  darkBlur: 'rgba(53,54,76, 0.9)',
   danger: '#ff5252',
 };
 
@@ -32,12 +31,6 @@ const PADDING = {
   xxl: 30,
 };
 
-const FONT = {
-  regular: 'DMRegular',
-  medium: 'DMMedium',
-  bold: 'DMBold',
-};
-
 const SPACING = {
   xs: 4,
   sm: 8,
@@ -47,4 +40,4 @@ const SPACING = {
   xxl: 40,
 };
 
-export {COLORS, SIZES, FONT, SPACING, PADDING};
+export {COLORS, SIZES, SPACING, PADDING};

@@ -28,7 +28,7 @@ const Input = ({
           color: COLORS.white,
           marginBottom: 5,
           fontSize: SIZES.xl,
-          fontFamily: 'GothamBold',
+          fontFamily: 'CircularSpotifyTxT-Bold',
         }}>
         {label}
       </Text>
@@ -48,7 +48,7 @@ const Input = ({
             borderRadius: 5,
             marginBottom: SIZES.xs,
             color: COLORS.white,
-            fontFamily: 'GothamBook',
+            fontFamily: 'CircularSpotifyTxT-Medium',
           }}
         />
         {icon && (

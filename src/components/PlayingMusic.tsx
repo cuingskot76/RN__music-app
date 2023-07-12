@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 75,
-    backgroundColor: COLORS.darkBlur,
+    // backgroundColor: COLORS.darkBlur,
+    backgroundColor: COLORS.white,
     width: '100%',
     height: 70,
     borderRadius: 8,

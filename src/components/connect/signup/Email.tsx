@@ -24,6 +24,8 @@ const EmailSignUp = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [validateEmail, setValidateEmail] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [error, setError] = useState('');
 
   const checkValidateEmail = (input: string) => {
     // only one @ and .
@@ -45,9 +47,11 @@ const EmailSignUp = ({navigation}: any) => {
   }, [email]);
 
   const handleNext = async () => {
+    setIsLogin(true);
     try {
       // check if the email is alredy in the Firebase auth
       const userCredential = await auth?.fetchSignInMethodsForEmail(email);
+      setIsLogin(false);
       if (userCredential?.length > 0) {
         // show the modal
         toggleModal();
@@ -55,8 +59,9 @@ const EmailSignUp = ({navigation}: any) => {
         UseEmailStore.setState({email});
         navigation.navigate('PasswordSignUp');
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err: Error | any) {
+      setIsLogin(false);
+      setError(err?.message);
     }
   };
 
@@ -106,14 +111,14 @@ const EmailSignUp = ({navigation}: any) => {
               style={{
                 color: COLORS.dark,
                 fontSize: SIZES.base,
-                fontFamily: 'GothamBold',
                 textAlign: 'center',
+                fontFamily: 'CircularSpotifyTxT-Bold',
               }}>
               This email is already connected to an account.
             </Paragraf>
             <Paragraf
               style={{
-                color: COLORS.darkGray,
+                color: COLORS.gray,
                 fontSize: SIZES.sm,
                 textAlign: 'center',
               }}>
@@ -129,7 +134,7 @@ const EmailSignUp = ({navigation}: any) => {
             <Button
               title="GO TO LOGIN"
               colorText={COLORS.dark}
-              sizeText={SIZES.base}
+              sizeText={SIZES.sm}
               style={{
                 backgroundColor: COLORS.green,
                 borderRadius: SIZES.lg,
@@ -159,23 +164,35 @@ const EmailSignUp = ({navigation}: any) => {
         You'll need to confirm this email later.
       </Paragraf>
 
+      {error && (
+        <Paragraf
+          style={{
+            color: COLORS.danger,
+            fontSize: SIZES.sm,
+            marginTop: 10,
+            fontFamily: 'CircularSpotifyTxT-Bold',
+          }}>
+          {error}
+        </Paragraf>
+      )}
+
       <View
         style={{
           alignItems: 'center',
         }}>
         <Button
-          title="Next"
+          title={isLogin ? 'Loading...' : 'Next'}
           colorText="black"
           sizeText={16}
-          isDisabled={!validateEmail}
+          isDisabled={!validateEmail || isLogin}
           style={[
             !validateEmail ? {opacity: 0.5} : {opacity: 1},
             {
               marginTop: SIZES.lg,
               alignItems: 'center',
-              backgroundColor: COLORS.white,
+              backgroundColor: isLogin ? COLORS.dark2 : COLORS.white,
               borderRadius: 20,
-              maxWidth: 100,
+              // maxWidth: 100,
               paddingVertical: 10,
               paddingHorizontal: 30,
             },

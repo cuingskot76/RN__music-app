@@ -39,7 +39,7 @@ const GenderSignUp = ({navigation}: any) => {
         style={{
           color: COLORS.white,
           fontSize: SIZES.lg,
-          fontFamily: 'GothamBold',
+          fontFamily: 'CircularSpotifyTxT-Bold',
         }}>
         What's your gender?
       </Paragraf>
@@ -58,7 +58,7 @@ const GenderSignUp = ({navigation}: any) => {
               key={item}
               title={item}
               colorText={checked === item ? COLORS.white : COLORS.mutedWhite}
-              fontFamily="GothamBook"
+              fontFamily="CircularSpotifyTxT-Book"
               style={[
                 {
                   paddingVertical: SIZES.sm,

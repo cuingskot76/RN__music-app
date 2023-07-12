@@ -60,7 +60,7 @@ const DatepickerSignUp = ({navigation}: any) => {
         style={{
           color: COLORS.white,
           fontSize: SIZES.lg,
-          fontFamily: 'GothamBold',
+          fontFamily: 'CircularSpotifyTxT-Bold',
         }}>
         What's your date of birth?
       </Paragraf>

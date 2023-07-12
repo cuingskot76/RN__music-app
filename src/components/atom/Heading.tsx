@@ -18,7 +18,9 @@ const Heading = ({
   isBold,
   fontFamily,
 }: HeadingProps) => {
-  const defaultFontFamily = {fontFamily: fontFamily || 'GothamMedium'};
+  const defaultFontFamily = {
+    fontFamily: fontFamily || 'CircularSpotifyTxT-Book',
+  };
 
   return (
     <Text

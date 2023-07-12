@@ -41,7 +41,8 @@ const PlayerDetail = ({route}: any) => {
 
   return (
     <ScrollView
-      style={{backgroundColor: COLORS.darkBlur, flex: 1, padding: SIZES.base}}>
+      // style={{backgroundColor: COLORS.darkBlur, flex: 1, padding: SIZES.base}}
+      style={{backgroundColor: COLORS.white, flex: 1, padding: SIZES.base}}>
       <View
         style={{
           flexDirection: 'row',

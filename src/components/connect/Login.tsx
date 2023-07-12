@@ -28,6 +28,7 @@ export const UseAccessTokenStore = create(set => ({
 }));
 
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
+import Paragraf from '../atom/Paragraf';
 
 const Login = ({navigation}: any) => {
   const [username, setUsername] = useState('');
@@ -145,15 +146,15 @@ const Login = ({navigation}: any) => {
       </View>
 
       {errorMessage && (
-        <Text
+        <Paragraf
           style={{
             color: COLORS.danger,
             fontSize: SIZES.sm,
             marginTop: 10,
-            fontFamily: 'GothamBook',
+            fontFamily: 'CircularSpotifyTxT-Bold',
           }}>
           {errorMessage}
-        </Text>
+        </Paragraf>
       )}
 
       <View
@@ -171,9 +172,11 @@ const Login = ({navigation}: any) => {
           colorText={
             username === '' || password === '' ? COLORS.darkGray : COLORS.dark
           }
-          textStyle={{
-            marginLeft: 10,
-          }}
+          textStyle={
+            isLogin && {
+              paddingLeft: SIZES.base,
+            }
+          }
           style={{
             marginTop: SIZES.lg,
             backgroundColor:
@@ -181,10 +184,8 @@ const Login = ({navigation}: any) => {
                 ? COLORS.dark2
                 : COLORS.white,
             borderRadius: 50,
-            // paddingVertical: SIZES.sm,
-            // paddingHorizontal: SIZES.xxl,
-            paddingVertical: SIZES.base,
-            paddingHorizontal: 50,
+            paddingVertical: SIZES.sm,
+            paddingHorizontal: SIZES.xxl,
             position: 'relative',
           }}
           handlePress={handleLogin}
@@ -201,7 +202,7 @@ const Login = ({navigation}: any) => {
               />
             )
           }
-          iconStyle={{position: 'absolute', left: 10, top: -3}}
+          iconStyle={{position: 'absolute', left: -3, top: -5}}
         />
         <Button
           title="Log in without password"
@@ -209,11 +210,10 @@ const Login = ({navigation}: any) => {
           style={{
             borderColor: COLORS.dark2,
             borderWidth: 1,
-            paddingVertical: SIZES.xs,
-            paddingHorizontal: SIZES.base,
+            paddingVertical: 7,
+            paddingHorizontal: SIZES.sm,
             borderRadius: 50,
           }}
-          textWeight="700"
           sizeText={SIZES.xs}
         />
       </View>

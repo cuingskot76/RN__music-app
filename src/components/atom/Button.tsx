@@ -6,7 +6,7 @@ import {Text} from 'react-native';
 interface ButtonProps {
   title?: string;
   style?: ViewStyle | ViewStyle[] | object;
-  textStyle?: ViewStyle | ViewStyle[];
+  textStyle?: ViewStyle | ViewStyle[] | undefined | false;
   icon?: React.ReactNode;
   colorText?: 'black' | 'white' | string;
   sizeText?: number;
@@ -30,7 +30,9 @@ const Button = ({
   isDisabled,
   fontFamily,
 }: ButtonProps) => {
-  const defaultFontFamily = {fontFamily: fontFamily || 'GothamBold'};
+  const defaultFontFamily = {
+    fontFamily: fontFamily || 'CircularSpotifyTxT-Bold',
+  };
 
   return (
     <TouchableOpacity

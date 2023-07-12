@@ -93,7 +93,7 @@ const FinishingSignUp = ({navigation}: any) => {
                 fontSize: SIZES.lg,
                 color: COLORS.white,
                 marginBottom: SIZES.base,
-                fontFamily: 'GothamBold',
+                fontFamily: 'CircularSpotifyTxT-Bold',
               }}>
               You're all set!
             </Paragraf>

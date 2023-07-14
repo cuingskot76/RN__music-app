@@ -182,7 +182,7 @@ const EmailSignUp = ({navigation}: any) => {
         }}>
         <Button
           title={isLogin ? 'Loading...' : 'Next'}
-          colorText="black"
+          colorText={COLORS.dark}
           sizeText={16}
           isDisabled={!validateEmail || isLogin}
           style={[

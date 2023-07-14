@@ -91,7 +91,7 @@ const DatepickerSignUp = ({navigation}: any) => {
         }}>
         <Button
           title="Next"
-          colorText={isAdult ? COLORS.darkGray : COLORS.dark}
+          colorText={COLORS.dark}
           sizeText={SIZES.base}
           isDisabled={!isAdult}
           style={{

@@ -169,9 +169,7 @@ const Login = ({navigation}: any) => {
               ? true
               : false
           }
-          colorText={
-            username === '' || password === '' ? COLORS.darkGray : COLORS.dark
-          }
+          colorText={COLORS.dark}
           textStyle={
             isLogin && {
               paddingLeft: SIZES.base,

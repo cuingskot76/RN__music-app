@@ -78,7 +78,7 @@ const PasswordSignUp = ({navigation}: any) => {
         }}>
         <Button
           title="Next"
-          colorText="black"
+          colorText={COLORS.dark}
           sizeText={16}
           isDisabled={validatePassword}
           style={[
@@ -86,7 +86,7 @@ const PasswordSignUp = ({navigation}: any) => {
             {
               marginTop: 20,
               alignItems: 'center',
-              backgroundColor: '#fff',
+              backgroundColor: COLORS.white,
               borderRadius: 20,
               maxWidth: 100,
               paddingVertical: 10,

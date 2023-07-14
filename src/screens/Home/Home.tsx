@@ -7,17 +7,20 @@ import {
   StatusBar,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
+
 import Heading from '../../components/atom/Heading';
+
 import {COLORS, SIZES} from '../../constants/theme';
 
 import RecentlyPlayed from '../../components/home/RecentlyPlayed';
 import TrendingMusic from '../../components/home/TrendingMusic';
 import PopularArtist from '../../components/home/PopularArtist';
 import AllMusic from '../../components/home/AllMusic';
+import RecentlyPopular from '../../components/RecentlyPopular';
+
 import Section from '../../components/atom/Section';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import RecentlyPopular from '../../components/RecentlyPopular';
 
 const Home = ({navigation}: any) => {
   const [getTime, setGetTime] = useState('');
@@ -49,6 +52,7 @@ const Home = ({navigation}: any) => {
         backgroundColor={COLORS.dark}
         barStyle={'light-content'}
       />
+
       {/* header */}
       <View
         style={{
@@ -72,7 +76,10 @@ const Home = ({navigation}: any) => {
           <View>
             <Heading
               isMuted={false}
-              style={{fontSize: SIZES.lg, fontWeight: '600'}}>
+              style={{
+                fontSize: SIZES.lg,
+                fontFamily: 'CircularSpotifyTxT-Bold',
+              }}>
               Hi, Afrizal Setya
             </Heading>
             <Heading
@@ -87,6 +94,7 @@ const Home = ({navigation}: any) => {
           </TouchableOpacity>
         </View>
       </View>
+      {/* end__header */}
 
       <View>
         <RecentlyPopular />

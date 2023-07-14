@@ -8,8 +8,13 @@ const COLORS = {
   darkGray: '#3B3C4F',
 
   green: '#1DB954',
-  dark: '#191414',
+  // dark: '#191414',
+  dark: '#121212',
   dark2: '#52575D',
+  dark3: '#2A2A2A',
+
+  placeholder: '#41444B',
+  placeholder2: '#52575D',
 
   danger: '#ff5252',
 };

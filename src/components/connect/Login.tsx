@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useState} from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,6 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Input from '../atom/Input';
 import Button from '../atom/Button';
+import Paragraf from '../atom/Paragraf';
 
 import {auth} from '../../../firebase';
 
@@ -20,7 +21,7 @@ import {create} from 'zustand';
 
 import LottieView from 'lottie-react-native';
 
-export const UseAccessTokenStore = create(set => ({
+export const UseAccessTokenStore = create<AccessTokenStore>(set => ({
   accessToken: '',
   tokenExp: '',
   setAccessToken: (token: string) => set({accessToken: token}),
@@ -28,7 +29,8 @@ export const UseAccessTokenStore = create(set => ({
 }));
 
 import {CLIENT_ID, CLIENT_SECRET} from '@env';
-import Paragraf from '../atom/Paragraf';
+
+import {AccessTokenStore} from '../../types';
 
 const Login = ({navigation}: any) => {
   const [username, setUsername] = useState('');
@@ -40,7 +42,6 @@ const Login = ({navigation}: any) => {
   const url = 'https://accounts.spotify.com/api/token';
 
   const handleLogin = async () => {
-    // setIsLogin('Logging in...');
     setIsLogin(true);
 
     try {
@@ -62,7 +63,6 @@ const Login = ({navigation}: any) => {
           },
         );
 
-        // setIsLogin('Log in');
         setIsLogin(false);
 
         if (getToken.status === 200) {
@@ -89,7 +89,6 @@ const Login = ({navigation}: any) => {
         }
       }
     } catch (error: Error | any) {
-      // setIsLogin('Log in');
       setIsLogin(false);
       if (error?.code === 'auth/invalid-email') {
         setErrorMessage('This email and password combination is incorrect.');
@@ -134,9 +133,13 @@ const Login = ({navigation}: any) => {
             <Button
               icon={
                 showPassword ? (
-                  <Ionicons name="eye-off-outline" size={30} color="#fff" />
+                  <Ionicons
+                    name="eye-off-outline"
+                    size={30}
+                    color={COLORS.white}
+                  />
                 ) : (
-                  <Ionicons name="eye-outline" size={30} color="#fff" />
+                  <Ionicons name="eye-outline" size={30} color={COLORS.white} />
                 )
               }
               handlePress={() => setShowPassword(!showPassword)}

@@ -3,20 +3,20 @@ import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {COLORS, SIZES} from '../constants/theme';
+import {COLORS, PADDING, SIZES} from '../constants/theme';
 import Heading from './atom/Heading';
 
 const Notification = ({navigation}) => {
   return (
     <View
       style={{
-        flex: 1,
+        padding: PADDING.lg,
+        paddingTop: 60,
+        height: '100%',
         backgroundColor: COLORS.dark,
-        paddingTop: SIZES.lg,
-        paddingHorizontal: SIZES.lg,
       }}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <AntDesign name="arrowleft" size={30} color={COLORS.white} />
+        <AntDesign name="arrowleft" size={SIZES.xl} color={COLORS.white} />
       </TouchableOpacity>
 
       <View
@@ -25,7 +25,7 @@ const Notification = ({navigation}) => {
         }}>
         <Heading
           isMuted={false}
-          style={{fontSize: SIZES.xxl, fontWeight: 'bold'}}>
+          style={{fontSize: SIZES.xxl, fontFamily: 'CircularSpotifyTxT-Bold'}}>
           What's New
         </Heading>
         <Heading isMuted={true}>
@@ -44,9 +44,9 @@ const Notification = ({navigation}) => {
           isMuted={false}
           style={{
             fontSize: SIZES.lg,
-            fontWeight: '500',
             textAlign: 'center',
             marginBottom: SIZES.sm,
+            fontFamily: 'CircularSpotifyTxT-Medium',
           }}>
           We don't have any updates for you yet
         </Heading>

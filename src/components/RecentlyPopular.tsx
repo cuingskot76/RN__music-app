@@ -1,10 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
+
 import {COLORS, SIZES} from '../constants/theme';
+
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
 import axios from 'axios';
+
 import {UseAccessTokenStore} from './connect/Login';
+
+import Paragraf from './atom/Paragraf';
 
 const RecentlyPopular = () => {
   const [data, setData] = useState(null);
@@ -12,7 +18,7 @@ const RecentlyPopular = () => {
   const url =
     'https://api.spotify.com/v1/playlists/37i9dQZF1DWSqBruwoIXkA/tracks';
 
-  const accessToken = UseAccessTokenStore(state => state.accessToken);
+  const accessToken = UseAccessTokenStore(state => state?.accessToken);
 
   const fetchData = async () => {
     try {
@@ -51,8 +57,7 @@ const RecentlyPopular = () => {
               style={{
                 flex: 1,
                 flexDirection: 'row',
-                // backgroundColor: COLORS.darkBlur,
-                backgroundColor: COLORS.white,
+                backgroundColor: COLORS.dark3,
                 alignItems: 'center',
                 width: 200,
                 height: 60,
@@ -70,17 +75,16 @@ const RecentlyPopular = () => {
                   resizeMode: 'cover',
                 }}
               />
-              <Text
+              <Paragraf
                 style={{
                   color: COLORS.white,
-                  fontSize: SIZES.xs,
-                  fontWeight: '600',
+                  fontSize: SIZES.sm,
                   flex: 1,
                 }}>
-                {item?.track?.name?.length > 15
-                  ? item?.track?.name?.substring(0, 15) + '...'
+                {item?.track?.name?.length > 25
+                  ? item?.track?.name?.substring(0, 25) + '...'
                   : item?.track?.name}
-              </Text>
+              </Paragraf>
             </View>
           ))}
         </View>
@@ -94,16 +98,15 @@ const RecentlyPopular = () => {
             justifyContent: 'space-between',
             marginTop: SIZES.xxl,
           }}>
-          {Array.from(Array(6).keys()).map((item, index) => (
+          {Array.from(Array(6).keys()).map((_, index) => (
             <View key={index}>
               <SkeletonPlaceholder
                 borderRadius={4}
-                backgroundColor="#41444B"
-                highlightColor="#52575D">
+                backgroundColor={COLORS.placeholder}
+                highlightColor={COLORS.placeholder2}>
                 <View
                   style={{
                     flexDirection: 'row',
-                    // backgroundColor: COLORS.darkBlur,
                     backgroundColor: COLORS.white,
                     alignItems: 'center',
                     width: 170,
